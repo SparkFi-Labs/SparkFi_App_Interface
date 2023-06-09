@@ -1,0 +1,1 @@
+prettier --write **/**/*{Dockerfile,yml,ts,tsx,js,json,css}
