@@ -33,7 +33,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 py-9">
+        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 py-12">
           <span className="capitalize text-[#fff] font-[600] text-[1em] lg:text-[30px] leading-9">
             our hub&apos;s benefits
           </span>
@@ -132,7 +132,7 @@ export default function Home() {
             </BenefitCard>
           </div>
         </section>
-        <section className="w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 py-9 bg-transparent">
+        <section className="w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 py-12 bg-transparent">
           <div className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full lg:px-10 px-2">
             <div className="flex flex-col justify-start items-start w-full lg:w-1/2 gap-5 lg:gap-7 lg:px-8">
               <span className="text-[#fff] font-[700] text-[1.4em] lg:text-[30px] capitalize leading-9">
@@ -163,11 +163,11 @@ export default function Home() {
             <Image src="/images/sparkfi_logo.svg" width={400} height={400} alt="logo" />
           </div>
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-start lg:items-center gap-9 lg:gap-12 px-3 lg:px-9 py-9 flex-1">
+        <section className="bg-[#101221] w-full flex flex-col justify-start items-start lg:items-center gap-9 lg:gap-12 px-3 lg:px-9 py-12 flex-1">
           <span className="capitalize text-[#fff] font-[600] text-[1.4em] lg:text-[30px] leading-9">
             how sparkFi works
           </span>
-          <div className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full lg:px-10">
+          <div className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full lg:px-10 relative">
             <div className="flex flex-col gap-8 lg:gap-14 w-full lg:w-1/3">
               <div className="flex flex-col justify-start items-start w-full gap-5 lg:px-8">
                 <span className="text-[#c1c9ff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
@@ -193,6 +193,8 @@ export default function Home() {
                 </p>
               </div>
             </div>
+
+            <div className="hidden lg:block absolute h-80 w-80 rounded-[50%] bg-[radial-gradient(50%_50%_at_50%_50%,_rgba(97,_0,_255,_0.7)_0%,_rgba(7,_13,_55,_0)_100%)] lg:left-[calc(50%_-_353.23px/2_-_0.39px)]"></div>
 
             <div className="flex flex-col gap-8 lg:gap-14 w-full lg:w-1/3">
               <div className="flex flex-col justify-start items-start w-full gap-5 lg:px-8">
@@ -220,6 +222,11 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </section>
+        <section className="w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 py-12 bg-transparent">
+          <span className="capitalize text-[#fff] font-[600] text-[1.4em] lg:text-[30px] leading-9">
+            frequently asked questions
+          </span>
         </section>
       </div>
     </>
