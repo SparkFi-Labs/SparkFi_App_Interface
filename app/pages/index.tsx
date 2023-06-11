@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
+import { Accordion, AccordionItem } from "@/components/Accordion";
+import { CTAMainBG, CTAPurple, CTAPurpleOutline } from "@/components/Button";
 import Head from "next/head";
 import Image from "next/image";
 
 const BenefitCard = ({ children }: any) => (
-  <div className="rounded-[7px] py-14 px-2 bg-[radial-gradient(100%_134.13%_at_0%_0%,_#000000_0%,_#000000_100%)] w-full lg:w-1/3 lg:min-h-[35rem]">
+  <div className="rounded-[7px] py-14 px-2 bg-[radial-gradient(100%_134.13%_at_0%_0%,_#000000_0%,_#000000_100%)] w-full lg:w-1/4 lg:min-h-[35rem]">
     {children}
   </div>
 );
@@ -223,10 +224,87 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 py-12 bg-transparent">
+        <section className="w-full flex flex-col justify-start items-center gap-4 lg:gap-16 px-3 lg:px-10 py-3 lg:py-12 bg-transparent">
           <span className="capitalize text-[#fff] font-[600] text-[1.4em] lg:text-[30px] leading-9">
             frequently asked questions
           </span>
+          <div className="flex flex-col lg:flex-row justify-start lg:justify-center items-center lg:items-start w-full gap-7">
+            <div className="w-full lg:w-1/2 lg:px-12">
+              <Accordion>
+                <AccordionItem title="What is SparkFi?">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                    SparkFi is a pioneering GameFi-designed launchpad that serves as the ultimate incubator for
+                    high-quality projects on the Base chain and beyond.
+                  </span>
+                </AccordionItem>
+                <AccordionItem title="What kind of projects should we expect on SparkFi?">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                    We only select the best projects. Projects to look out for are focused on blockchain games, NFTs,
+                    the Metaverse, DeFi, and other recent developments in the blockchain space.
+                  </span>
+                </AccordionItem>
+                <AccordionItem title="How do I participate in the IDO?">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                    Buy and stake SPAK or SPAK-LP tokens to gain a spot in IDOs while you wait for the IDO pools to
+                    open. When the pool is open, participate by depositing a minimum amount of desired token allocation
+                    you want to purchase in ETH.
+                  </span>
+                </AccordionItem>
+                <AccordionItem title="Is SparkFi multi-chain?">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                    Currently, it is only on BASE. We&apos;ll gradually integrate other chains to make SparkFi a
+                    multichain launchpad.
+                  </span>
+                </AccordionItem>
+              </Accordion>
+            </div>
+            <div className="w-full lg:w-1/2 lg:px-12">
+              <Accordion>
+                <AccordionItem title="When can we claim the IDO tokens?">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                    Token unlock/claim will be in accordance with the vesting schedule of the project.
+                  </span>
+                </AccordionItem>
+                <AccordionItem title="Why Base?">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                    Base offers a secure, low-cost, flexible and developer-friendly Ethereum L2 blockchain platform that
+                    support a wide range of use cases, from gaming and entertainment to finance and commerce.
+                  </span>
+                </AccordionItem>
+                <AccordionItem title="Will there be a token? Where can I learn about it?">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                    The token is expected to launch in Q2-Q3 of 2023.
+                  </span>
+                </AccordionItem>
+                <AccordionItem title="How can I contact the team?">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                    You can get in touch with the team via our social handles.
+                  </span>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+        </section>
+        <section className="w-full flex justify-center items-center gap-4 lg:gap-16 px-3 lg:px-10 py-3 lg:py-36 bg-transparent">
+          <div className="w-full bg-[linear-gradient(98.34deg,_#000000_-2.54%,_#6100FF_70.68%,_#000000_105.77%)] rounded-[20px] flex justify-center items-start px-3 py-5 lg:py-12 overflow-clip">
+            <div className="flex flex-col w-full lg:w-1/3 justify-start items-center gap-2 lg:gap-5">
+              <img src="/images/polygon1.svg" className="w-1/3 h-32 lg:h-56 -mt-[4rem]" alt="triangle" />
+              <div className="flex flex-col gap-2 justify-start items-center w-full">
+                <span className="text-[#fff] font-[600] text-[1.4em] lg:text-[35px] leading-9 text-center">
+                  Is your project ready to take off on SparkFi?
+                </span>
+                <span className="text-[#aaa] font-[400] text-[0.89em] lg:text-[18px] text-center leading-5">
+                  Apply to launch your project on SparkFi, or submit an early expression of interest to join our
+                  innovative platform and get set for an incredible launch experience!
+                </span>
+              </div>
+              <div className="w-full flex justify-start items-center gap-3">
+                <img src="/images/polygon2.svg" className="w-1/3 h-32 lg:h-56" alt="triangle" />
+                <CTAMainBG label="Apply for launch" width="33.3%" height={50} />
+                <img src="/images/polygon3.svg" className="w-1/3 h-32 lg:h-56" alt="triangle" />
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </>
