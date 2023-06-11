@@ -43,3 +43,21 @@ export const CTAPurpleOutline = ({
     <span className="capitalize">{label}</span>
   </button>
 );
+
+export const CTAMainBG = ({
+  label,
+  onPress,
+  width,
+  height,
+  isLoading,
+  ...props
+}: IButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) => (
+  <button
+    className="flex justify-center items-center gap-2 outline-0 w-full h-full px-2 py-2 text-[#fff] bg-[#0c0e1e] rounded-[7px] text-[0.8em]"
+    onClick={onPress}
+    style={{ width, height }}
+    {...props}
+  >
+    <span>{label}</span>
+  </button>
+);
