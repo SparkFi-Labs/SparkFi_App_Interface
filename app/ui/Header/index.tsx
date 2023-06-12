@@ -1,5 +1,5 @@
 import { CTAPurple } from "@/components/Button";
-import { FiMenu, FiUser } from "react-icons/fi";
+import { FiMenu } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,12 +22,17 @@ export default function Header() {
         <Link href="/">roadmap</Link>
         <Link href="/">contact us</Link>
       </div>
-      <div className="flex justify-center items-start gap-5">
-        <CTAPurple label="connect wallet" />
-
-        <button className="flex justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-[1.2em]">
-          <FiUser />
-        </button>
+      <div className="flex justify-center items-start">
+        <CTAPurple
+          label="apply for launch"
+          height={45}
+          onPress={() =>
+            window.open(
+              "https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0",
+              "_blank"
+            )
+          }
+        />
       </div>
     </div>
   );
