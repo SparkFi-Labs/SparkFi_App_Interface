@@ -300,7 +300,17 @@ export default function Home() {
               </div>
               <div className="w-full flex justify-start items-center gap-3">
                 <img src="/images/polygon2.svg" className="w-1/3 h-32 lg:h-56" alt="triangle" />
-                <CTAMainBG label="Apply for launch" width="33.3%" height={50} />
+                <CTAMainBG
+                  label="Apply for launch"
+                  width="33.3%"
+                  height={50}
+                  onPress={() =>
+                    window.open(
+                      "https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0",
+                      "_blank"
+                    )
+                  }
+                />
                 <img src="/images/polygon3.svg" className="w-1/3 h-32 lg:h-56" alt="triangle" />
               </div>
             </div>

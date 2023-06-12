@@ -23,7 +23,16 @@ export default function Header() {
         <Link href="/">contact us</Link>
       </div>
       <div className="flex justify-center items-start">
-        <CTAPurple label="apply for launch" height={45} />
+        <CTAPurple
+          label="apply for launch"
+          height={45}
+          onPress={() =>
+            window.open(
+              "https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0",
+              "_blank"
+            )
+          }
+        />
       </div>
     </div>
   );
