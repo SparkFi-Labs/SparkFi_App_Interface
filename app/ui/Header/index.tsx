@@ -30,9 +30,9 @@ export default function Header() {
         <Link href="/">contact us</Link>
       </div>
       <input ref={checkRef} id="sidebar" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-side lg:hidden">
+      <div className="drawer-side lg:hidden z-20 min-h-screen">
         <label htmlFor="sidebar" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content capitalize font-[500] text-[0.95em]">
+        <ul className="menu p-4 w-80 min-h-screen bg-base-200 text-base-content capitalize font-[500] text-[0.95em]">
           <li>
             <Link href="/">home</Link>
           </li>
