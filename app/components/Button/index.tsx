@@ -1,6 +1,6 @@
-import { ButtonHTMLAttributes, MouseEventHandler } from "react";
+import { HTMLAttributes, MouseEventHandler } from "react";
 
-interface IButtonProps {
+interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
   label: string;
   onPress?: MouseEventHandler<HTMLButtonElement>;
   width?: string | number;
@@ -8,14 +8,7 @@ interface IButtonProps {
   isLoading?: boolean;
 }
 
-export const CTAPurple = ({
-  label,
-  onPress,
-  width,
-  height,
-  isLoading,
-  ...props
-}: IButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) => (
+export const CTAPurple = ({ label, onPress, width, height, isLoading, ...props }: IButtonProps) => (
   <button
     className="flex justify-center items-center gap-2 border-0 outline-0 w-full h-full px-2 py-2 text-[#fff] bg-[#0029ff] rounded-[7px] text-[0.8em]"
     onClick={onPress}
@@ -26,14 +19,7 @@ export const CTAPurple = ({
   </button>
 );
 
-export const CTAPurpleOutline = ({
-  label,
-  onPress,
-  width,
-  height,
-  isLoading,
-  ...props
-}: IButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) => (
+export const CTAPurpleOutline = ({ label, onPress, width, height, isLoading, ...props }: IButtonProps) => (
   <button
     className="flex justify-center items-center gap-2 outline-0 w-full h-full px-2 py-2 text-[#fff] bg-[#0c0e1e] border border-[#0029ff] rounded-[7px] text-[0.8em]"
     onClick={onPress}
@@ -44,14 +30,7 @@ export const CTAPurpleOutline = ({
   </button>
 );
 
-export const CTAMainBG = ({
-  label,
-  onPress,
-  width,
-  height,
-  isLoading,
-  ...props
-}: IButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) => (
+export const CTAMainBG = ({ label, onPress, width, height, isLoading, ...props }: IButtonProps) => (
   <button
     className="flex justify-center items-center gap-2 outline-0 w-full h-full px-2 py-2 text-[#fff] bg-[#0c0e1e] rounded-[7px] text-[0.8em]"
     onClick={onPress}

@@ -3,6 +3,7 @@ import { Accordion, AccordionItem } from "@/components/Accordion";
 import { CTAMainBG, CTAPurple, CTAPurpleOutline } from "@/components/Button";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const BenefitCard = ({ children }: any) => (
   <div className="rounded-[7px] py-14 px-2 bg-[radial-gradient(100%_134.13%_at_0%_0%,_#000000_0%,_#000000_100%)] w-full lg:w-1/4 lg:min-h-[35rem]">
@@ -11,6 +12,7 @@ const BenefitCard = ({ children }: any) => (
 );
 
 export default function Home() {
+  const { push } = useRouter();
   return (
     <>
       <Head>
@@ -29,7 +31,7 @@ export default function Home() {
               the Base chain and beyond.
             </span>
             <div className="w-full lg:w-1/2 flex justify-center items-center gap-3 lg:gap-7 px-3">
-              <CTAPurple label="enter app" width="50%" height={50} />
+              <CTAPurple label="enter app" width="50%" height={50} onClick={() => push("/launchpad")} />
               <CTAPurpleOutline label="buy SPAK" width="50%" height={50} />
             </div>
           </div>
