@@ -1,9 +1,50 @@
 /* eslint-disable react/display-name */
 import Image from "next/image";
-import { forwardRef } from "react";
+import { forwardRef, useCallback } from "react";
 import { FiEye, FiHelpCircle, FiX } from "react-icons/fi";
+import { metamask, walletconnect, coinbase, trustwallet } from "@/web3/connectors";
 
-const WalletConnectModal = forwardRef<HTMLInputElement>((props, ref) => {
+interface ModalProps {
+  close?: () => any;
+}
+
+const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, ref) => {
+  const connectMetamask = useCallback(async () => {
+    try {
+      await metamask.activate();
+      if (close) close();
+    } catch (error: any) {
+      console.debug(error.message);
+    }
+  }, [close]);
+
+  const connectCoinbase = useCallback(async () => {
+    try {
+      await coinbase.activate();
+      if (close) close();
+    } catch (error: any) {
+      console.debug(error.message);
+    }
+  }, [close]);
+
+  const connectWalletConnect = useCallback(async () => {
+    try {
+      await walletconnect.activate();
+      if (close) close();
+    } catch (error: any) {
+      console.debug(error.message);
+    }
+  }, [close]);
+
+  const connectTrustWallet = useCallback(async () => {
+    try {
+      await trustwallet.activate();
+      if (close) close();
+    } catch (error: any) {
+      console.debug(error.message);
+    }
+  }, [close]);
+
   return (
     <>
       <input type="checkbox" className="modal-toggle" id="connect-wallet-modal" ref={ref} />
@@ -24,14 +65,20 @@ const WalletConnectModal = forwardRef<HTMLInputElement>((props, ref) => {
             </label>
           </div>
           <div className="flex flex-col justify-start items-center px-3 py-2 w-full gap-3 lg:gap-5">
-            <div className="flex justify-center gap-3 w-full items-center">
-              <button className="bg-[#040511] w-1/2 rounded-[5px] px-3 py-2 flex items-center justify-between">
+            <div className="flex flex-col lg:flex-row justify-start lg:justify-center gap-3 w-full items-center">
+              <button
+                onClick={connectMetamask}
+                className="bg-[#040511] w-full lg:w-1/2 rounded-[5px] px-3 py-2 flex items-center justify-between"
+              >
                 <div className="bg-[#0c0e1e] rounded-[5px] flex justify-center items-center p-2">
                   <Image src="/images/metamask.svg" alt="metamask" width={40} height={40} />
                 </div>
                 <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500]">metamask</span>
               </button>
-              <button className="bg-[#040511] w-1/2 rounded-[5px] px-3 py-2 flex items-center justify-between">
+              <button
+                onClick={connectCoinbase}
+                className="bg-[#040511] w-full lg:w-1/2 rounded-[5px] px-3 py-2 flex items-center justify-between"
+              >
                 <div className="bg-[#0c0e1e] rounded-[5px] flex justify-center items-center p-2">
                   <Image src="/images/coinbase.svg" alt="coinbase" width={40} height={40} />
                 </div>
@@ -39,14 +86,20 @@ const WalletConnectModal = forwardRef<HTMLInputElement>((props, ref) => {
               </button>
             </div>
 
-            <div className="flex justify-center gap-3 w-full items-center">
-              <button className="bg-[#040511] w-1/2 rounded-[5px] px-3 py-2 flex items-center justify-between">
+            <div className="flex flex-col lg:flex-row justify-start lg:justify-center gap-3 w-full items-center">
+              <button
+                onClick={connectTrustWallet}
+                className="bg-[#040511] w-full lg:w-1/2 rounded-[5px] px-3 py-2 flex items-center justify-between"
+              >
                 <div className="bg-[#0c0e1e] rounded-[5px] flex justify-center items-center p-2">
-                  <Image src="/images/rainbow.svg" alt="rainbow" width={40} height={40} />
+                  <Image src="/images/trust_wallet.svg" alt="trust" width={40} height={40} />
                 </div>
-                <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500]">rainbow</span>
+                <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500]">trust wallet</span>
               </button>
-              <button className="bg-[#040511] w-1/2 rounded-[5px] px-3 py-2 flex items-center justify-between">
+              <button
+                onClick={connectWalletConnect}
+                className="bg-[#040511] w-full lg:w-1/2 rounded-[5px] px-3 py-2 flex items-center justify-between"
+              >
                 <div className="bg-[#0c0e1e] rounded-[5px] flex justify-center items-center p-2">
                   <Image src="/images/wallet_connect.svg" alt="wallet_connect" width={40} height={40} />
                 </div>

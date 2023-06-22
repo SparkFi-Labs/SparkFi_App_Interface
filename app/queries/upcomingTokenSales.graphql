@@ -1,0 +1,20 @@
+query IndexUpcomingTokenSales($first: Int = 3, $skip: Int = 0, $startTime: BigInt) {
+  tokenSales(first: $first, skip: $skip, where: { startTime_gt: $startTime }) {
+    id
+    metadataURI
+    presaleId
+    startTime
+    endTime
+    maxTotalPayment
+    totalPaymentMade
+    salePrice
+    paymentToken {
+      symbol
+      id
+    }
+    saleToken {
+      symbol
+      id
+    }
+  }
+}
