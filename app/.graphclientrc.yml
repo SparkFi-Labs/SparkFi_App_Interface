@@ -1,0 +1,7 @@
+sources:
+  - name: PresaleFactory
+    handler:
+      graphql:
+        endpoint: ${NEXT_PUBLIC_GRAPH_ENDPOINT}
+documents:
+  - queries/*.graphql
