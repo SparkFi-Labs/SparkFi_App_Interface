@@ -13,7 +13,7 @@ export default function Header() {
   const sidebarRef = useRef<HTMLInputElement>(null);
   const walletConnectModalRef = useRef<HTMLInputElement>(null);
 
-  const { isActive, connector, provider } = useWeb3React();
+  const { isActive, connector } = useWeb3React();
   const etherBalance = useMyEtherBalance();
   return (
     <div className="flex justify-between items-center w-full px-5 py-4 bg-[linear-gradient(90.67deg,_rgba(12,_14,_30,_0.5)_6.48%,_rgba(20,_23,_46,_0.5)_58.12%,_rgba(217,_217,_217,_0)_99.86%)]">
