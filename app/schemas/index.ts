@@ -1,7 +1,9 @@
 import Joi from "joi";
 
-export const binarySchema = Joi.binary().encoding("base64");
+// export const binarySchema = Joi.binary().encoding("base64");
+export const dateIsoSchema = Joi.date().iso();
 export const saleIPFSMetadataSchema = Joi.object({
+  name: Joi.string().required(),
   tokenImageURI: Joi.string()
     .uri({ scheme: ["https", "http", "git", /git\+https?/] })
     .required(),

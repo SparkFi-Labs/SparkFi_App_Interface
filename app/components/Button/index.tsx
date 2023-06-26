@@ -1,7 +1,7 @@
-import { HTMLAttributes, MouseEventHandler } from "react";
+import { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
 
-interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  label: string;
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  label: string | ReactNode;
   onPress?: MouseEventHandler<HTMLButtonElement>;
   width?: string | number;
   height?: string | number;
@@ -15,7 +15,7 @@ export const CTAPurple = ({ label, onPress, width, height, isLoading, ...props }
     style={{ width, height }}
     {...props}
   >
-    <span className="capitalize">{label}</span>
+    {label}
   </button>
 );
 
@@ -26,7 +26,7 @@ export const CTAPurpleOutline = ({ label, onPress, width, height, isLoading, ...
     style={{ width, height }}
     {...props}
   >
-    <span className="capitalize">{label}</span>
+    {label}
   </button>
 );
 
@@ -37,6 +37,6 @@ export const CTAMainBG = ({ label, onPress, width, height, isLoading, ...props }
     style={{ width, height }}
     {...props}
   >
-    <span>{label}</span>
+    {label}
   </button>
 );

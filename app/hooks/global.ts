@@ -33,6 +33,7 @@ export const useContracts = (
 ) => {
   const { chainId, provider } = useWeb3React();
   return useMemo(() => {
+    if (!addressesOrAddressMaps) return null;
     if (addressesOrAddressMaps.length !== ABI.length) return null;
     return addressesOrAddressMaps.map((addressOrAddressMap, index) => {
       if (!addressOrAddressMap) return null;
