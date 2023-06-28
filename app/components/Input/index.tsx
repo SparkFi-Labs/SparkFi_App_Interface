@@ -9,9 +9,10 @@ import {
   useCallback,
   ChangeEvent,
   useEffect,
-  DragEvent
+  DragEvent,
+  TextareaHTMLAttributes
 } from "react";
-import { FiCalendar, FiX } from "react-icons/fi";
+import { FiCalendar, FiCheck, FiX } from "react-icons/fi";
 import Calendar from "../Calendar";
 import { isNull, startsWith } from "lodash";
 import { FaImage, FaPlay } from "react-icons/fa";
@@ -31,14 +32,22 @@ interface DateFieldProps extends HTMLAttributes<HTMLDivElement> {
   onDateChanged?: (date: Date) => any;
   width?: number | string;
   height?: number | string;
+  date?: Date | number | string;
 }
 
 interface FilePickerProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "accept"> {
-  onFilesSelected?: (files: FileList) => any;
+  onFilesSelected?: (files: FileList | null) => any;
   width?: number | string;
   height?: number | string;
   isfullyRounded?: boolean;
   isMotionPicture?: boolean;
+  onConfirmation?: MouseEventHandler<HTMLButtonElement>;
+}
+
+interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  onTextChange?: ChangeEventHandler<HTMLTextAreaElement>;
+  width?: number | string;
+  height?: number | string;
 }
 
 export const InputField = ({ onTextChange, width, height, type, ...props }: InputFieldProps) => (
@@ -55,6 +64,19 @@ export const InputField = ({ onTextChange, width, height, type, ...props }: Inpu
   </div>
 );
 
+export const TextArea = ({ onTextChange, width, height, ...props }: TextAreaProps) => (
+  <div
+    className="bg-[#0c0e1e] border border-[#131735] rounded-[8px] flex justify-start items-center gap-1 px-2 py-2"
+    style={{ width, height }}
+  >
+    <textarea
+      onChange={onTextChange}
+      className="w-full border-0 outline-0 bg-transparent text-left px-1 py-1 text-[#4d4f5c] text-[0.82em] h-full"
+      {...props}
+    ></textarea>
+  </div>
+);
+
 export const CheckButton = ({ checked, onCheckPressed }: CheckButtonProps) => (
   <button
     onClick={onCheckPressed}
@@ -64,9 +86,19 @@ export const CheckButton = ({ checked, onCheckPressed }: CheckButtonProps) => (
   </button>
 );
 
-export const DateField = ({ onDateChanged, width, height, ...props }: DateFieldProps) => {
+export const DateField = ({ onDateChanged, width, height, date: dateExternal, ...props }: DateFieldProps) => {
   const [dateValue, setDateValue] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
+
+  useEffect(() => {
+    if (dateExternal) {
+      let d: Date;
+      if (typeof dateExternal === "string" || typeof dateExternal === "number") d = new Date(dateExternal);
+      else d = dateExternal;
+
+      setDateValue(d);
+    }
+  }, [dateExternal]);
 
   return (
     <div
@@ -79,7 +111,9 @@ export const DateField = ({ onDateChanged, width, height, ...props }: DateFieldP
         className="w-full border-0 outline-0 bg-transparent text-left px-1 py-1 text-[#4d4f5c] text-[0.82em]"
         placeholder="YYYY-MM-DD HH:MM:SS"
         disabled
-        value={`${dateValue.getFullYear()}-${dateValue.getMonth()}-${dateValue.getDate()} ${dateValue.getHours()}:${dateValue.getMinutes()}:${dateValue.getSeconds()}`}
+        value={`${dateValue.getFullYear()}-${
+          dateValue.getMonth() + 1
+        }-${dateValue.getDate()} ${dateValue.getHours()}:${dateValue.getMinutes()}:${dateValue.getSeconds()}`}
       />
       <button
         onClick={() => setShowCalendar(show => !show)}
@@ -91,8 +125,9 @@ export const DateField = ({ onDateChanged, width, height, ...props }: DateFieldP
         <Calendar
           date={dateValue}
           onDateChange={date => {
-            setDateValue(date);
+            if (onDateChanged) onDateChanged(date);
             setShowCalendar(false);
+            setDateValue(date);
           }}
         />
       )}
@@ -106,21 +141,24 @@ export const FileChooser = ({
   height,
   isfullyRounded,
   isMotionPicture,
+  onConfirmation,
   ...props
 }: FilePickerProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [fileDataURL, setFileDataURL] = useState<string | ArrayBuffer | null>(null);
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   const handleFileInputChange = useCallback(
     (ev: ChangeEvent<HTMLInputElement>) => {
       try {
         if (!isNull(ev.target.files)) {
           const file = ev.target.files[0];
-          if (!file.type.match(/((image\/(jpeg|gif|jpg|png))|(video\/(wav|webm|mkv|flv|gif|wmv|mp4|mpg|mpeg)))/))
+          if (!file.type.match(/((image\/(jpeg|gif|jpg|png|svg))|(video\/(wav|webm|mkv|flv|gif|wmv|mp4|mpg|mpeg)))/))
             return;
 
           setSelectedFile(file);
+          setIsConfirmed(false);
           if (onFilesSelected) onFilesSelected(ev.target.files);
         }
       } catch (error: any) {
@@ -148,10 +186,11 @@ export const FileChooser = ({
 
         if (!isNull(ev.dataTransfer)) {
           const file = ev.dataTransfer.files[0];
-          if (!file.type.match(/((image\/(jpeg|gif|jpg|png))|(video\/(wav|webm|mkv|flv|gif|wmv|mp4|mpg|mpeg)))/))
+          if (!file.type.match(/((image\/(jpeg|gif|jpg|png|svg))|(video\/(wav|webm|mkv|flv|gif|wmv|mp4|mpg|mpeg)))/))
             return;
 
           setSelectedFile(file);
+          setIsConfirmed(false);
           if (onFilesSelected) onFilesSelected(ev.dataTransfer.files);
         }
       } catch (error: any) {}
@@ -205,10 +244,25 @@ export const FileChooser = ({
             ) : (
               <img src={fileDataURL as string} className="w-full h-full rounded-[inherit]" alt={selectedFile.name} />
             )}
+            {!isConfirmed && (
+              <button
+                onClick={ev => {
+                  if (onConfirmation) onConfirmation(ev);
+
+                  setIsConfirmed(true);
+                }}
+                className="absolute -top-2 -left-2 btn btn-circle btn-success text-[#fff] text-[1em] btn-sm flex justify-center items-center"
+              >
+                <FiCheck />
+              </button>
+            )}
             <button
               onClick={() => {
                 setSelectedFile(undefined);
                 setFileDataURL(null);
+
+                if (fileInputRef.current) fileInputRef.current.value = "";
+                if (onFilesSelected) onFilesSelected(null);
               }}
               className="absolute -top-2 -right-2 btn btn-circle btn-neutral text-[#fff] text-[1em] btn-sm flex justify-center items-center"
             >

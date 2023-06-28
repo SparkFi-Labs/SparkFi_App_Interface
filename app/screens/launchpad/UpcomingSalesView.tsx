@@ -28,7 +28,11 @@ export default function UpcomingSalesView() {
               </span>
             </div>
           ) : (
-            <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center w-full gap-8">
+            <div
+              className={`flex flex-col lg:flex-row justify-start ${
+                (data?.length || 0) % 3 === 0 ? "lg:justify-between" : "lg:justify-start"
+              } items-center w-full gap-8`}
+            >
               {data &&
                 map(data, (item, index) => (
                   <div key={index} className="w-full lg:w-1/3">
