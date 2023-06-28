@@ -9,7 +9,7 @@ module.exports = {
     }
   },
   daisyui: {
-    themes: ["night"]
+    themes: ["synthwave"]
   },
   plugins: [require("daisyui")]
 };
