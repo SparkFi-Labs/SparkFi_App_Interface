@@ -154,7 +154,11 @@ export const FileChooser = ({
       try {
         if (!isNull(ev.target.files)) {
           const file = ev.target.files[0];
-          if (!file.type.match(/((image\/(jpeg|gif|jpg|png|svg))|(video\/(wav|webm|mkv|flv|gif|wmv|mp4|mpg|mpeg)))/))
+          if (
+            !file.type.match(
+              /((image\/(jpeg|gif|jpg|png|svg))|(video\/(wav|webm|mkv|flv|gif|wmv|mp4|mpg|mpeg|3gp|3gep)))/
+            )
+          )
             return;
 
           setSelectedFile(file);

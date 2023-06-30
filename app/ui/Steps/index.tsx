@@ -28,7 +28,7 @@ export const Steps = ({ activeStep = 0, children }: StepsProps) => {
   useEffect(() => {
     forEach(childrenArray, (elem, index) => {
       if ((elem as ReactElement<any>).type !== Step)
-        throw new Error(`Invalid child. Only chid of type 'Step' is allowed. Element at index ${index}`);
+        throw new Error(`Invalid child. Only child of type 'Step' is allowed. Element at index ${index}`);
     });
   }, [childrenArray]);
 

@@ -28,7 +28,7 @@ export const saleIPFSMetadataSchema = Joi.object({
     uri: Joi.string()
       .uri({ scheme: ["https", "http", "git", /git\+https?/] })
       .required()
-  }).optional(),
+  }).required(),
   description: Joi.string().min(20).required(),
   links: Joi.object({
     linkedin: Joi.string().uri().optional(),

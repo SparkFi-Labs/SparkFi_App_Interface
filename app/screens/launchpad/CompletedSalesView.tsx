@@ -1,9 +1,12 @@
 import { useCompletedSales } from "@/hooks/app/launchpad";
 import SaleItemCard from "@/ui/Cards/SaleItemCard";
+import NoDataOrError from "@/ui/NoDataOrError";
 import { map } from "lodash";
-import { BsEmojiNeutral } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 export default function CompletedSalesView() {
+  const { push } = useRouter();
+
   const { data, isLoading, error } = useCompletedSales();
   return (
     <div className="flex flex-col gap-7 w-full justify-start items-start lg:px-10 px-4 py-8">
@@ -15,24 +18,25 @@ export default function CompletedSalesView() {
       ) : (
         <>
           {error || (data && data.length === 0) ? (
-            <div className="bg-[#0c0e1e] rounded-[10px] w-full flex justify-center items-center flex-col gap-7 py-32">
-              <div className="w-[4rem] h-[4rem] px-3 py-3 rounded-full flex justify-center items-center bg-[#131735]">
-                <BsEmojiNeutral className="text-[#c1c9ff] text-[4rem]" />
-              </div>
-              <span className="text-[#fff] text-[0.9rem] lg:text-[0.9875rem] font-[600] text-center">
-                {error
+            <NoDataOrError
+              message={
+                error
                   ? (error as any).errors
                     ? JSON.stringify((error as any).errors.map((e: any) => e.message))
                     : error.message
-                  : "No completed launch available at the moment"}
-              </span>
-            </div>
+                  : "No completed launch available at the moment"
+              }
+            />
           ) : (
-            <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center w-full gap-8">
+            <div
+              className={`flex flex-col lg:flex-row justify-start ${
+                (data?.length || 0) % 3 === 0 ? "lg:justify-between" : "lg:justify-start"
+              } items-center w-full gap-8`}
+            >
               {data &&
                 map(data, (item, index) => (
-                  <div key={index} className="w-full lg:w-1/3">
-                    <SaleItemCard data={item} width="100%" />
+                  <div key={index} className="w-full lg:w-1/4">
+                    <SaleItemCard onPress={() => push(`/launchpad/sales/${item.id}`)} data={item} width="100%" />
                   </div>
                 ))}
             </div>
