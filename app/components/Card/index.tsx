@@ -9,7 +9,9 @@ export interface ICardProps extends HTMLAttributes<HTMLDivElement> {
 export default function Card({ onPress, width, height, children, ...props }: ICardProps) {
   return (
     <div
-      className={onPress ? "bg-[#000] rounded-[15px] cursor-pointer" : "bg-[#000] rounded-[15px]"}
+      className={`card relative shadow-xl bordered card-compact bg-[#000] ${
+        onPress ? "cursor-pointer" : "cursor-default"
+      }`}
       onClick={onPress}
       style={{ width, height }}
       {...props}

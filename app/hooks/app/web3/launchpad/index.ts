@@ -1,14 +1,17 @@
 import { presaleFactoryContracts } from "@/assets/contracts";
 import { useContract } from "@/hooks/global";
 import presaleFactoryAbi from "@/assets/abis/PresaleFactory.json";
-import { useCallback, useState } from "react";
+import presaleAbi from "@/assets/abis/Presale.json";
+import { useCallback, useEffect, useState } from "react";
 import validateSchema from "@/utils/validateSchema";
 import { ethereumAddressSchema, validURISchema } from "@/schemas";
 import { useTokenDetails } from "@/hooks/contracts";
-import { parseUnits } from "@ethersproject/units";
+import { formatUnits, parseUnits } from "@ethersproject/units";
 import { ceil, toString } from "lodash";
 import { hexValue } from "@ethersproject/bytes";
 import assert from "assert";
+import { useSingleSale } from "../../launchpad";
+import { useWeb3React } from "@web3-react/core";
 
 export const usePresaleDeploymentInitializer = (
   newOwner: string,
@@ -99,4 +102,29 @@ export const usePresaleDeploymentInitializer = (
   );
 
   return { initiateDeployment, isLoading };
+};
+
+export const useMyClaimableInSale = (saleId: string) => {
+  const [claimable, setClaimable] = useState(0);
+  const { data: tokenSaleData } = useSingleSale(saleId);
+  const tokenDetails = useTokenDetails(tokenSaleData?.saleToken.id || "");
+  const saleContract = useContract(saleId, presaleAbi);
+  const { account } = useWeb3React();
+
+  useEffect(() => {
+    if (saleId && saleContract && tokenDetails && account) {
+      (async () => {
+        try {
+          const claimable = await saleContract.getCurrentClaimableToken(account);
+          let formatted: string | number = formatUnits(claimable, tokenDetails.decimals);
+          formatted = parseFloat(formatted);
+          setClaimable(formatted);
+        } catch (error: any) {
+          console.debug(error);
+        }
+      })();
+    }
+  }, [account, saleContract, saleId, tokenDetails]);
+
+  return claimable;
 };

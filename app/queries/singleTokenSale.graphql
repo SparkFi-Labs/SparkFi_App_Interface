@@ -1,5 +1,5 @@
-query IndexUpcomingTokenSales($first: Int = 3, $skip: Int = 0, $startTime: BigInt) {
-  tokenSales(first: $first, skip: $skip, where: { startTime_gt: $startTime }) {
+query IndexSingleTokenSale($id: ID!) {
+  tokenSale(id: $id) {
     id
     metadataURI
     presaleId

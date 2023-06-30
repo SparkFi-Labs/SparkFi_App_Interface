@@ -5,6 +5,7 @@ query IndexOnGoingTokenSales($first: Int = 3, $skip: Int = 0, $startTime: BigInt
     presaleId
     startTime
     endTime
+    minTotalPayment
     maxTotalPayment
     totalPaymentMade
     salePrice

@@ -1,8 +1,11 @@
 import Card, { ICardProps } from "@/components/Card";
 import { TokenSale } from "@/.graphclient";
 import { useIPFSGetMetadata } from "@/hooks/ipfs";
-import { BsEmojiNeutral } from "react-icons/bs";
 import { Fragment } from "react";
+import { CTAPurpleOutline } from "@/components/Button";
+import Countdown from "react-countdown";
+import { floor, multiply } from "lodash";
+import NoDataOrError from "../NoDataOrError";
 
 interface ISaleItemCardProps extends ICardProps {
   data: TokenSale;
@@ -19,34 +22,30 @@ export default function SaleItemCard({ data, ...props }: ISaleItemCardProps) {
       ) : (
         <div className="flex flex-col justify-start items-center w-full gap-9 rounded-[15px_15px_0px_0px]">
           {error ? (
-            <div className="w-full flex justify-center items-center px-3 py-3 flex-col">
-              <div className="w-10 h-10 lg:w-14 lg:h-14 px-3 py-3 rounded-full flex justify-center items-center bg-[#131735]">
-                <BsEmojiNeutral className="text-[#c1c9ff] text-[2em]" />
-              </div>
-              <span className="text-[#fff] text-[1rem] lg:text-[1.875rem] font-[600]">{error.message}</span>
-            </div>
+            <NoDataOrError message={error.message} />
           ) : (
             <>
               {metadata && (
                 <Fragment>
-                  <div
-                    className="flex flex-col justify-end items-start w-full h-[10rem] lg:h-[18rem] rounded-[inherit]"
-                    style={{
-                      backgroundImage: `url(${metadata.bannerURI})`,
-                      objectFit: "contain",
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "100%"
-                    }}
-                  >
-                    <div className="avatar relative ml-6 -mb-8">
+                  <figure className="w-full h-96 relative">
+                    <img src={metadata.bannerURI} alt={metadata.name} className="w-full h-full" />
+
+                    <div className="avatar absolute top-[50%] left-[49%]">
+                      <div className="w-20 lg:w-24 rounded-full ring ring-slate-500">
+                        <img src={metadata.logoURI} alt={data.saleToken.name} />
+                      </div>
+                    </div>
+                  </figure>
+                  <div className="w-full relative -mt-6">
+                    <div className="avatar relative ml-6 -mt-32">
                       <div className="w-12 lg:w-14 rounded-full ring ring-zinc-950">
                         <img src={metadata.logoURI} alt={data.saleToken.name} />
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col justify-start items-center w-full gap-3 py-4">
+                  <div className="w-full card-body">
                     <div className="w-full justify-between flex items-start px-2 py-2">
-                      <span className="text-[0.87rem] lg:text-[0.92rem] font-[700] text-[#fff]">{metadata.name}</span>
+                      <span className="font-[700] text-[#fff] card-title">{metadata.name}</span>
                       <div className="flex justify-center items-start gap-1">
                         <span className="text-[0.87rem] lg:text-[0.92rem] font-[400] text-[#0029ff]">
                           {data.totalPaymentMade}
@@ -83,6 +82,43 @@ export default function SaleItemCard({ data, ...props }: ISaleItemCardProps) {
                       <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
                         {data.salePrice} {data.paymentToken.symbol}
                       </span>
+                    </div>
+                    <div className="card-actions w-full justify-center">
+                      <CTAPurpleOutline
+                        label={
+                          <div className="w-full">
+                            {parseInt(data.startTime) > floor(Date.now() / 1000) ? (
+                              <Countdown
+                                date={multiply(parseInt(data.startTime), 1000)}
+                                renderer={({ days, hours, minutes, seconds, completed }) => (
+                                  <div className="w-full flex justify-center items-center">
+                                    <span className="text-[#fff] text-[0.9375rem] font-[500]">
+                                      {completed
+                                        ? "This pool has started"
+                                        : `This pool will start in ${days}D:${hours}H:${minutes}M:${seconds}S`}
+                                    </span>
+                                  </div>
+                                )}
+                              />
+                            ) : (
+                              <Countdown
+                                date={multiply(parseInt(data.endTime), 1000)}
+                                renderer={({ days, hours, minutes, seconds, completed }) => (
+                                  <div className="w-full flex justify-center items-center">
+                                    <span className="text-[#fff] text-[0.9375rem] font-[500]">
+                                      {completed
+                                        ? "This pool has already ended"
+                                        : `This pool will end in ${days}D:${hours}H:${minutes}M:${seconds}S`}
+                                    </span>
+                                  </div>
+                                )}
+                              />
+                            )}
+                          </div>
+                        }
+                        width="100%"
+                        height={50}
+                      />
                     </div>
                   </div>
                 </Fragment>

@@ -308,7 +308,14 @@ export default function NewLaunch() {
                           width="100%"
                           height="100%"
                           isfullyRounded
-                          onConfirmation={async () => await logoFileIPFSUploader.executeUpload()}
+                          onConfirmation={async () => {
+                            try {
+                              await logoFileIPFSUploader.executeUpload();
+                              toast("Successfully uploaded logo", { type: "success" });
+                            } catch (error: any) {
+                              toast(error.message, { type: "error" });
+                            }
+                          }}
                         />
                       </div>
                     </div>
@@ -319,7 +326,14 @@ export default function NewLaunch() {
                           onFilesSelected={files => setBannerFile(files ? files[0] : undefined)}
                           width="100%"
                           height="100%"
-                          onConfirmation={async () => await bannerFileIPFSUploader.executeUpload()}
+                          onConfirmation={async () => {
+                            try {
+                              await bannerFileIPFSUploader.executeUpload();
+                              toast("Successfully uploaded banner", { type: "success" });
+                            } catch (error: any) {
+                              toast(error.message, { type: "error" });
+                            }
+                          }}
                         />
                       </div>
                     </div>
@@ -331,7 +345,14 @@ export default function NewLaunch() {
                           width="100%"
                           height="100%"
                           isMotionPicture
-                          onConfirmation={async () => await introVideoFileIPFSUploader.executeUpload()}
+                          onConfirmation={async () => {
+                            try {
+                              await introVideoFileIPFSUploader.executeUpload();
+                              toast("Successfully uploaded video", { type: "success" });
+                            } catch (error: any) {
+                              toast(error.message, { type: "error" });
+                            }
+                          }}
                         />
                       </div>
                     </div>
@@ -537,7 +558,9 @@ export default function NewLaunch() {
                     </div>
                   </div>
                   <div className="flex flex-col justify-start items-start w-full gap-3">
-                    <span className="text-[1rem] text-[#fff] font-[600] capitalize">project description</span>
+                    <span className="text-[1rem] text-[#fff] font-[600] capitalize">
+                      project description (HTML allowed)
+                    </span>
                     <TextArea
                       width="100%"
                       height={400}

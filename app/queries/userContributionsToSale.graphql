@@ -1,0 +1,16 @@
+query IndexUserContributionToSale($account: Bytes!, $sale: String!) {
+  contributions(where: { user: $account, tokenSale: $sale }) {
+    id
+    amount
+    tokenSale {
+      id
+      paymentToken {
+        id
+        name
+        symbol
+        decimals
+      }
+    }
+    user
+  }
+}
