@@ -4,6 +4,8 @@ import { floor, multiply, reduce } from "lodash";
 import type { TokenSale } from "@/.graphclient";
 import { useMyContributions } from "@/hooks/app/launchpad";
 import { useMyClaimableInSale } from "@/hooks/app/web3/launchpad";
+import { useRef } from "react";
+import ContributeTokenModal from "../Modals/ContributeTokenModal";
 
 interface SaleItemInfoActionCardProps {
   saleData: TokenSale;
@@ -12,6 +14,7 @@ interface SaleItemInfoActionCardProps {
 export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionCardProps) {
   const { isLoading: myContributionsLoading, data: myContributionsData } = useMyContributions(saleData.id);
   const claimable = useMyClaimableInSale(saleData.id);
+  const contributeModalRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="bg-[linear-gradient(136deg,_#000_0%,_rgba(0,_0,_0,_0.00)_100%)] rounded-[7px] flex flex-col justify-start items-center h-full w-full">
@@ -140,7 +143,12 @@ export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionC
         {floor(Date.now() / 1000) > parseInt(saleData.startTime) && (
           <div className="w-full gap-3 flex justify-center items-center">
             {floor(Date.now() / 1000) < parseInt(saleData.endTime) ? (
-              <button className="btn capitalize bg-[#101121] w-1/2 py-2">
+              <button
+                onClick={() => {
+                  if (contributeModalRef.current) contributeModalRef.current.checked = true;
+                }}
+                className="btn capitalize bg-[#101121] w-1/2 py-2"
+              >
                 contribute {saleData.paymentToken.symbol}
               </button>
             ) : (
@@ -150,6 +158,13 @@ export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionC
           </div>
         )}
       </div>
+      <ContributeTokenModal
+        ref={contributeModalRef}
+        sale={saleData}
+        close={() => {
+          if (contributeModalRef.current) contributeModalRef.current.checked = false;
+        }}
+      />
     </div>
   );
 }

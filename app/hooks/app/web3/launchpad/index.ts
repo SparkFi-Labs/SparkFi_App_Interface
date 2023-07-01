@@ -2,6 +2,7 @@ import { presaleFactoryContracts } from "@/assets/contracts";
 import { useContract } from "@/hooks/global";
 import presaleFactoryAbi from "@/assets/abis/PresaleFactory.json";
 import presaleAbi from "@/assets/abis/Presale.json";
+import erc20Abi from "@/assets/abis/ERC20.json";
 import { useCallback, useEffect, useState } from "react";
 import validateSchema from "@/utils/validateSchema";
 import { ethereumAddressSchema, validURISchema } from "@/schemas";
@@ -102,6 +103,41 @@ export const usePresaleDeploymentInitializer = (
   );
 
   return { initiateDeployment, isLoading };
+};
+
+export const usePresaleContributor = (saleId: string) => {
+  const { data } = useSingleSale(saleId);
+  const paymentTokenDetails = useTokenDetails(data?.paymentToken.id || "");
+  const [isLoading, setIsLoading] = useState(false);
+  const presaleContract = useContract(saleId, presaleAbi);
+  const erc20Contract = useContract(data?.paymentToken.id || "", erc20Abi);
+
+  const contribute = useCallback(
+    async (amount: number) => {
+      if (presaleContract && paymentTokenDetails && data && erc20Contract) {
+        try {
+          setIsLoading(true);
+
+          const amountHex = hexValue(parseUnits(toString(amount), paymentTokenDetails.decimals));
+          const approvalTx = await erc20Contract.approve(saleId, amountHex);
+
+          await approvalTx.wait();
+
+          const contributionTx = await presaleContract.purchase(amountHex);
+          const awaitedTx = await contributionTx.wait();
+
+          setIsLoading(false);
+          return awaitedTx;
+        } catch (error: any) {
+          setIsLoading(false);
+          return Promise.reject(error);
+        }
+      }
+    },
+    [data, erc20Contract, paymentTokenDetails, presaleContract, saleId]
+  );
+
+  return { isLoading, contribute };
 };
 
 export const useMyClaimableInSale = (saleId: string) => {

@@ -16,6 +16,7 @@ import { useContractOwner } from "@/hooks/contracts";
 export default function Header() {
   const sidebarRef = useRef<HTMLInputElement>(null);
   const walletConnectModalRef = useRef<HTMLInputElement>(null);
+  const userMenuRef = useRef<HTMLDetailsElement>(null);
 
   const { isActive, connector, account } = useWeb3React();
   const etherBalance = useMyEtherBalance();
@@ -31,10 +32,10 @@ export default function Header() {
         >
           <FiMenu />
         </button>
-        <div className="flex justify-center gap-1 items-center">
+        <Link href="/" className="flex justify-center gap-1 items-center">
           <Image src="/images/sparkfi_logo.svg" height={45} width={50} alt="logo" />
           <span className="hidden lg:block uppercase text-[#fff] font-[500] text-[1.5em]">sparkfi</span>
-        </div>
+        </Link>
       </div>
       <div className="hidden lg:flex justify-center items-center gap-9 text-[#fff] font-[500] text-[0.95em] capitalize">
         <Link href="/">home</Link>
@@ -111,19 +112,27 @@ export default function Header() {
             </button>
           </div>
         )}
-        <details className="dropdown dropdown-end mb-1">
+        <details ref={userMenuRef} className="dropdown dropdown-end mb-1">
           <summary className="flex justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-[1.2em] cursor-pointer">
             <FiUser />
           </summary>
           <ul className="p-2 shadow-xl menu dropdown-content z-[1] bg-base-100 w-52 mt-3">
-            <li>
+            <li
+              onClick={() => {
+                if (userMenuRef.current) userMenuRef.current.open = false;
+              }}
+            >
               <Link href="/" className="capitalize flex justify-start items-center gap-1">
                 <MdAccountCircle />
                 <span>account overview</span>
               </Link>
             </li>
             {account === factoryOwner && (
-              <li>
+              <li
+                onClick={() => {
+                  if (userMenuRef.current) userMenuRef.current.open = false;
+                }}
+              >
                 <Link href="/launchpad/new" className="capitalize flex justify-start items-center gap-1">
                   <MdRocketLaunch />
                   <span>create new launch</span>
@@ -139,6 +148,8 @@ export default function Header() {
                       if (connector && connector.deactivate) {
                         await connector.deactivate();
                       }
+
+                      if (userMenuRef.current) userMenuRef.current.open = false;
                     }}
                     className="capitalize flex justify-start items-center gap-1"
                   >

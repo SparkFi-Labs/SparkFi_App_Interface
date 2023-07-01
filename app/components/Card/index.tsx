@@ -9,7 +9,7 @@ export interface ICardProps extends HTMLAttributes<HTMLDivElement> {
 export default function Card({ onPress, width, height, children, ...props }: ICardProps) {
   return (
     <div
-      className={`card relative shadow-xl bordered card-compact bg-[#000] ${
+      className={`card relative shadow-lg shadow-[#000]/70 bordered card-compact bg-[#0c0e1e] ${
         onPress ? "cursor-pointer" : "cursor-default"
       }`}
       onClick={onPress}

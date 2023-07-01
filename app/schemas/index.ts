@@ -14,6 +14,7 @@ export const ethereumAddressSchema = Joi.string()
   .required();
 export const dateIsoSchema = Joi.date().iso();
 export const validURISchema = Joi.string().uri().required();
+export const validNumberSchema = (name: string) => Joi.number().label(name).greater(0).required();
 export const saleIPFSMetadataSchema = Joi.object({
   name: Joi.string().required(),
   genre: Joi.string().required(),
