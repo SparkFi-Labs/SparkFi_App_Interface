@@ -8,14 +8,31 @@ query IndexSingleTokenSale($id: ID!) {
     minTotalPayment
     maxTotalPayment
     totalPaymentMade
+    totalAvailableSaleTokens
     salePrice
+    vestingType
+    linearVesting {
+      id
+      endTime
+    }
+    cliffPeriod {
+      id
+      claimTime
+      percentage
+    }
     paymentToken {
       symbol
       id
+      name
+      totalSupply
+      decimals
     }
     saleToken {
       symbol
       id
+      name
+      totalSupply
+      decimals
     }
   }
 }

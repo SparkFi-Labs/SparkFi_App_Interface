@@ -7,6 +7,7 @@ query IndexCompletedTokenSales($first: Int = 3, $skip: Int = 0, $endTime: BigInt
     endTime
     minTotalPayment
     maxTotalPayment
+    totalAvailableSaleTokens
     totalPaymentMade
     salePrice
     paymentToken {

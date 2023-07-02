@@ -7,7 +7,7 @@ interface PaymentTokens {
 }
 
 export const presaleFactoryContracts: ChainContracts = {
-  84531: "0x64FAF984Bf60dE19e24238521814cA98574E3b00"
+  84531: "0x4603b254ca806aDAFd52A35f5a8c5a97743df342"
 };
 export const launchpadPaymentTokens: PaymentTokens = {
   84531: [

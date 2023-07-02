@@ -10,6 +10,8 @@ import { SiGitbook } from "react-icons/si";
 import SaleItemInfoActionCard from "@/ui/Cards/SaleItemInfoActionCard";
 import { Tab, Tabs } from "@/ui/Tabs";
 import SingleSaleDescription from "@/screens/launchpad/SingleSaleDescription";
+import SingleSalePoolInfo from "@/screens/launchpad/SingleSalePoolInfo";
+import Head from "next/head";
 
 export default function SingleSale() {
   const { query } = useRouter();
@@ -28,6 +30,9 @@ export default function SingleSale() {
 
   return (
     <div className="w-screen flex flex-col justify-start py-2 items-center h-full">
+      <Head>
+        <title>{metadata ? metadata.name : "Loading..."}</title>
+      </Head>
       {metadataIsLoading || singleSaleLoading ? (
         <div className="w-full relative h-screen backdrop-blur-xl">
           <span className="loading loading-infinity w-[5rem] absolute top-[50%] left-[50%] text-[#0029ff]"></span>
@@ -49,7 +54,7 @@ export default function SingleSale() {
           ) : (
             <Fragment>
               {metadata && singleSaleData && (
-                <div className="flex flex-col justify-start items-center w-full gap-7">
+                <div className="flex flex-col justify-start items-center w-full gap-7 bg-[#101221]">
                   <div
                     className="flex flex-col lg:flex-row justify-center items-center lg:items-start px-5 lg:px-12 w-full py-24 lg:gap-8 h-auto"
                     style={{
@@ -128,9 +133,17 @@ export default function SingleSale() {
                     <Tabs activeTab={activeTab}>
                       <Tab onTabSelected={() => setActiveTab(0)} label="project info" />
                       <Tab onTabSelected={() => setActiveTab(1)} label="pool info" />
-                      <Tab onTabSelected={() => setActiveTab(2)} label="how to join" />
                     </Tabs>
-                    {activeTab === 0 && <SingleSaleDescription data={singleSaleData} />}
+                    {(() => {
+                      switch (activeTab) {
+                        case 0:
+                          return <SingleSaleDescription data={singleSaleData} />;
+                        case 1:
+                          return <SingleSalePoolInfo data={singleSaleData} />;
+                        default:
+                          return <SingleSaleDescription data={singleSaleData} />;
+                      }
+                    })()}
                   </div>
                 </div>
               )}

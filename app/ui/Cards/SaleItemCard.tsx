@@ -4,8 +4,9 @@ import { useIPFSGetMetadata } from "@/hooks/ipfs";
 import { Fragment } from "react";
 import { CTAPurpleOutline } from "@/components/Button";
 import Countdown from "react-countdown";
-import { floor, multiply } from "lodash";
+import { divide, floor, multiply } from "lodash";
 import NoDataOrError from "../NoDataOrError";
+import { useAtomicDate } from "@/hooks/app/shared";
 
 interface ISaleItemCardProps extends ICardProps {
   data: TokenSale;
@@ -13,6 +14,7 @@ interface ISaleItemCardProps extends ICardProps {
 
 export default function SaleItemCard({ data, ...props }: ISaleItemCardProps) {
   const { metadata, error, isLoading } = useIPFSGetMetadata(data.metadataURI);
+  const atomicDate = useAtomicDate();
   return (
     <Card {...props}>
       {isLoading ? (
@@ -48,20 +50,20 @@ export default function SaleItemCard({ data, ...props }: ISaleItemCardProps) {
                       <span className="font-[700] text-[#fff] card-title">{metadata.name}</span>
                       <div className="flex justify-center items-start gap-1">
                         <span className="text-[0.87rem] lg:text-[0.92rem] font-[400] text-[#0029ff]">
-                          {data.totalPaymentMade}
+                          {divide(parseInt(data.totalPaymentMade), parseFloat(data.salePrice))}
                         </span>
                         <span>/</span>
                         <span className="text-[0.87rem] lg:text-[0.92rem] font-[400] text-[#fff]">
-                          {data.maxTotalPayment}
+                          {data.totalAvailableSaleTokens}
                         </span>
                         <span className="text-[0.87rem] lg:text-[0.92rem] font-[400] text-[#fff]">
-                          {data.paymentToken.symbol}
+                          {data.saleToken.symbol}
                         </span>
                       </div>
                     </div>
                     <div className="w-full justify-between flex items-start px-2 py-2">
                       <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
-                        hard cap
+                        max. buy per wallet
                       </span>
                       <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
                         {data.maxTotalPayment} {data.paymentToken.symbol}
@@ -69,7 +71,7 @@ export default function SaleItemCard({ data, ...props }: ISaleItemCardProps) {
                     </div>
                     <div className="w-full justify-between flex items-start px-2 py-2">
                       <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
-                        soft cap
+                        min. buy per wallet
                       </span>
                       <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
                         {data.minTotalPayment} {data.paymentToken.symbol}
@@ -83,11 +85,19 @@ export default function SaleItemCard({ data, ...props }: ISaleItemCardProps) {
                         {data.salePrice} {data.paymentToken.symbol}
                       </span>
                     </div>
+                    <div className="w-full justify-between flex items-start px-2 py-2">
+                      <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
+                        amount for sale
+                      </span>
+                      <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
+                        {data.totalAvailableSaleTokens} {data.saleToken.symbol}
+                      </span>
+                    </div>
                     <div className="card-actions w-full justify-center">
                       <CTAPurpleOutline
                         label={
                           <div className="w-full">
-                            {parseInt(data.startTime) > floor(Date.now() / 1000) ? (
+                            {parseInt(data.startTime) > floor(atomicDate.getTime() / 1000) ? (
                               <Countdown
                                 date={multiply(parseInt(data.startTime), 1000)}
                                 renderer={({ days, hours, minutes, seconds, completed }) => (
