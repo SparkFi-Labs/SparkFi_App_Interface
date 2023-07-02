@@ -9,7 +9,7 @@ interface SingleSaleDescriptionProps {
 export default function SingleSaleDescription({ data }: SingleSaleDescriptionProps) {
   const { metadata, isLoading, error } = useIPFSGetMetadata(data.metadataURI);
   return (
-    <div className="flex justify-start items-center py-3 w-full overflow-auto">
+    <div className="flex justify-start items-center py-12 w-full overflow-auto">
       {isLoading ? (
         <span className="loading loading-infinity loading-lg text-[#0029ff]"></span>
       ) : (
