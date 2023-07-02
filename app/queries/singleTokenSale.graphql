@@ -8,6 +8,7 @@ query IndexSingleTokenSale($id: ID!) {
     minTotalPayment
     maxTotalPayment
     totalPaymentMade
+    totalAvailableSaleTokens
     salePrice
     vestingType
     linearVesting {

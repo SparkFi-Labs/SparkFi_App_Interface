@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import type { TokenSale } from "@/.graphclient";
 import { CTAPurple } from "@/components/Button";
-import { usePresaleContributor } from "@/hooks/app/web3/launchpad";
+import { usePresaleFunder } from "@/hooks/app/web3/launchpad";
 import { useMyTokenBalance } from "@/hooks/wallet";
 import { multiply } from "lodash";
 import { useRouter } from "next/router";
@@ -14,30 +14,30 @@ interface ModalProps {
   sale: TokenSale;
 }
 
-const ContributeTokenModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, close }, ref) => {
+const FundTokenSaleModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, close }, ref) => {
   const [amount, setAmount] = useState<number | undefined>(0);
 
-  const tokenBalance = useMyTokenBalance(sale.paymentToken.id);
-  const { isLoading, contribute } = usePresaleContributor(sale.id);
+  const tokenBalance = useMyTokenBalance(sale.saleToken.id);
+  const { isLoading, fund } = usePresaleFunder(sale.id);
 
   const { reload } = useRouter();
 
-  const callContribute = useCallback(async () => {
+  const callFund = useCallback(async () => {
     try {
-      const toastId = toast("Now contributing", { type: "info", autoClose: 10000 });
-      await contribute(amount as number);
+      const toastId = toast("Now funding token sale", { type: "info", autoClose: 10000 });
+      await fund(amount as number);
 
-      toast.update(toastId, { render: "Successfully contributed", type: "success", autoClose: 5000 });
+      toast.update(toastId, { render: "Successfully funded token sale", type: "success", autoClose: 5000 });
 
       reload();
     } catch (error: any) {
       toast(error.message, { type: "error", autoClose: 5000 });
     }
-  }, [amount, contribute, reload]);
+  }, [amount, fund, reload]);
 
   return (
     <>
-      <input type="checkbox" className="modal-toggle" id={`contribute-token-modal-${sale.id}`} ref={ref} />
+      <input type="checkbox" className="modal-toggle" id={`fund-token-sale-modal-${sale.id}`} ref={ref} />
       <div className="modal">
         <div className="bg-[#101221] rounded-[5px] modal-box flex flex-col justify-start items-center gap-7 w-full">
           <div className="flex justify-between items-center px-3 py-1 w-full">
@@ -105,10 +105,10 @@ const ContributeTokenModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, c
           <div className="modal-action w-full border-t border-[#878aa1] py-7">
             <CTAPurple
               disabled={isLoading}
-              onPress={callContribute}
+              onPress={callFund}
               label={
                 <div className="w-full flex justify-center items-center gap-2">
-                  <span className="text-[#fff] capitalize text-[1.2em]">contribute</span>
+                  <span className="text-[#fff] capitalize text-[1.2em]">fund</span>
                   {isLoading && <span className="loading loading-infinity loading-md text-accent"></span>}
                 </div>
               }
@@ -123,4 +123,4 @@ const ContributeTokenModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, c
   );
 });
 
-export default ContributeTokenModal;
+export default FundTokenSaleModal;

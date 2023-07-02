@@ -14,6 +14,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { usePresaleDeploymentInitializer } from "@/hooks/app/web3/launchpad";
 import validateSchema from "@/utils/validateSchema";
 import { saleIPFSMetadataSchema } from "@/schemas";
+import Head from "next/head";
 
 export default function NewLaunch() {
   const [activeStep, setActiveStep] = useState(0);
@@ -97,12 +98,12 @@ export default function NewLaunch() {
       console.log(projectMetadata);
       validateSchema(saleIPFSMetadataSchema, projectMetadata);
 
-      const toastId = toast("Now uploading metadata to IPFS", { type: "info", autoClose: false });
+      const toastId = toast("Now uploading metadata to IPFS", { type: "info", autoClose: 15000 });
       const metadataUploadResult = await metadataIPFSUploader.executeUpload();
 
       toast.update(toastId, { render: "Successfully uploaded metadata to IPFS", type: "success", autoClose: 5000 });
 
-      const toastId2 = toast("Now deploying pool to chain", { type: "info", autoClose: false });
+      const toastId2 = toast("Now deploying pool to chain", { type: "info", autoClose: 5000 });
       const deploymentResult = await presaleInitializer.initiateDeployment(
         (process.env.NEXT_PUBLIC_IPFS_GATEWAY || "https://ipfs.io") + "/ipfs/" + metadataUploadResult.cid.toString()
       );
@@ -120,6 +121,9 @@ export default function NewLaunch() {
 
   return (
     <div className="flex flex-col gap-24 justify-center items-center py-24 lg:px-24 px-3 w-screen">
+      <Head>
+        <title>Launchpad | New</title>
+      </Head>
       {isActive ? (
         <Fragment>
           <Steps activeStep={activeStep}>
@@ -173,23 +177,23 @@ export default function NewLaunch() {
                 <div className="flex flex-col lg:flex-row w-full justify-start lg:justify-between items-start gap-2">
                   <div className="flex flex-col justify-start items-start w-full lg:w-[48%] gap-4">
                     <div className="flex flex-col justify-start items-start w-full gap-3">
-                      <span className="text-[1rem] text-[#fff] font-[600] capitalize">hard cap</span>
+                      <span className="text-[1rem] text-[#fff] font-[600] capitalize">maximum buy</span>
                       <InputField
                         value={hardcap}
                         onTextChange={ev => setHardcap(ev.target.valueAsNumber)}
                         type="number"
-                        placeholder="Enter hard cap"
+                        placeholder="Enter minimum buy"
                         width="100%"
                         height="3.25rem"
                       />
                     </div>
                     <div className="flex flex-col justify-start items-start w-full gap-3">
-                      <span className="text-[1rem] text-[#fff] font-[600] capitalize">soft cap</span>
+                      <span className="text-[1rem] text-[#fff] font-[600] capitalize">minimum buy</span>
                       <InputField
                         value={softcap}
                         onTextChange={ev => setSoftcap(ev.target.valueAsNumber)}
                         type="number"
-                        placeholder="Enter soft cap"
+                        placeholder="Enter minimum buy"
                         width="100%"
                         height="3.25rem"
                       />
@@ -584,10 +588,7 @@ export default function NewLaunch() {
                     <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">project genre:</span>
                     <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">{projectMetadata.genre}</span>
                   </div>
-                  <div className="flex justify-between items-center gap-3 w-full border-b border-[#131735] px-1 py-2">
-                    <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">project genre:</span>
-                    <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">{projectMetadata.genre}</span>
-                  </div>
+
                   <div className="flex justify-between items-center gap-3 w-full border-b border-[#131735] px-1 py-2">
                     <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">project valuation:</span>
                     <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">
@@ -605,13 +606,13 @@ export default function NewLaunch() {
                     <span className="text-[0.89rem] text-[#fff] font-[600]">{projectMetadata.links?.website}</span>
                   </div>
                   <div className="flex justify-between items-center gap-3 w-full border-b border-[#131735] px-1 py-2">
-                    <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">hard cap:</span>
+                    <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">maximum buy per wallet:</span>
                     <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">
                       {hardcap} {selectedPaymentTokenDetail?.symbol}
                     </span>
                   </div>
                   <div className="flex justify-between items-center gap-3 w-full border-b border-[#131735] px-1 py-2">
-                    <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">soft cap:</span>
+                    <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">minimum buy per wallet:</span>
                     <span className="text-[0.89rem] text-[#fff] font-[600] capitalize">
                       {softcap} {selectedPaymentTokenDetail?.symbol}
                     </span>

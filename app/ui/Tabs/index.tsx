@@ -34,7 +34,7 @@ export const Tabs = ({ activeTab, children }: TabsProps) => {
   }, [childrenArray]);
 
   return (
-    <div className="flex justify-between items-center gap-4 w-full">
+    <div className="flex justify-evenly items-center gap-4 w-full">
       {map(childrenArray, (elem, index) => (
         <div key={index}>
           {cloneElement(elem as ReactElement, {

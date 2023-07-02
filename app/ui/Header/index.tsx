@@ -12,6 +12,7 @@ import { FaWallet } from "react-icons/fa";
 import presaleFactoryAbi from "@/assets/abis/PresaleFactory.json";
 import { presaleFactoryContracts } from "@/assets/contracts";
 import { useContractOwner } from "@/hooks/contracts";
+import { useAccountIsPresaleFactoryAdmin } from "@/hooks/app/web3/launchpad";
 
 export default function Header() {
   const sidebarRef = useRef<HTMLInputElement>(null);
@@ -21,6 +22,8 @@ export default function Header() {
   const { isActive, connector, account } = useWeb3React();
   const etherBalance = useMyEtherBalance();
   const factoryOwner = useContractOwner(presaleFactoryContracts, presaleFactoryAbi);
+  const isFactoryAdmin = useAccountIsPresaleFactoryAdmin();
+
   return (
     <div className="flex justify-between items-center w-full px-5 py-4 bg-[#0c0e1e]/50 lg:bg-[#0c0e1e]">
       <div className="flex justify-center items-center gap-3">
@@ -127,7 +130,7 @@ export default function Header() {
                 <span>account overview</span>
               </Link>
             </li>
-            {account === factoryOwner && (
+            {(account === factoryOwner || isFactoryAdmin) && (
               <li
                 onClick={() => {
                   if (userMenuRef.current) userMenuRef.current.open = false;

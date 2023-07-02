@@ -156,7 +156,7 @@ export const FileChooser = ({
           const file = ev.target.files[0];
           if (
             !file.type.match(
-              /((image\/(jpeg|gif|jpg|png|svg))|(video\/(wav|webm|mkv|flv|gif|wmv|mp4|mpg|mpeg|3gp|3gep)))/
+              /((image\/(jpeg|gif|jpg|png|svg|webp))|(video\/(wav|webm|mkv|flv|gif|wmv|mp4|mpg|mpeg|3gp|3gep)))/
             )
           )
             return;
@@ -190,7 +190,9 @@ export const FileChooser = ({
 
         if (!isNull(ev.dataTransfer)) {
           const file = ev.dataTransfer.files[0];
-          if (!file.type.match(/((image\/(jpeg|gif|jpg|png|svg))|(video\/(wav|webm|mkv|flv|gif|wmv|mp4|mpg|mpeg)))/))
+          if (
+            !file.type.match(/((image\/(jpeg|gif|jpg|png|svg|webp))|(video\/(wav|webm|mkv|flv|gif|wmv|mp4|mpg|mpeg)))/)
+          )
             return;
 
           setSelectedFile(file);

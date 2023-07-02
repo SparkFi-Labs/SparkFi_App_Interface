@@ -37,13 +37,13 @@ export default function SingleSalePoolInfo({ data }: SingleSalePoolInfoProps) {
                 <span className="text-[#0029ff] text-[1em]">{truncateEthAddress(data.presaleId)}</span>
               </div>
               <div className="w-full flex justify-between items-start">
-                <span className="text-[#c1c9ff] text-[1em] capitalize">hard cap</span>
+                <span className="text-[#c1c9ff] text-[1em] capitalize">max. buy per wallet</span>
                 <span className="text-[#fff] text-[1em]">
                   {data.maxTotalPayment} {data.paymentToken.symbol}
                 </span>
               </div>
               <div className="w-full flex justify-between items-start">
-                <span className="text-[#c1c9ff] text-[1em] capitalize">soft cap</span>
+                <span className="text-[#c1c9ff] text-[1em] capitalize">min. buy per wallet</span>
                 <span className="text-[#fff] text-[1em]">
                   {data.minTotalPayment} {data.paymentToken.symbol}
                 </span>
@@ -97,6 +97,12 @@ export default function SingleSalePoolInfo({ data }: SingleSalePoolInfoProps) {
               <div className="w-full flex justify-between items-start">
                 <span className="text-[#c1c9ff] text-[1em] capitalize">total supply</span>
                 <span className="text-[#fff] text-[1em]">{data.saleToken.totalSupply}</span>
+              </div>
+              <div className="w-full flex justify-between items-start">
+                <span className="text-[#c1c9ff] text-[1em] capitalize">percentage for sale</span>
+                <span className="text-[#fff] text-[1em]">
+                  {(parseFloat(data.totalAvailableSaleTokens) / parseInt(data.saleToken.totalSupply)) * 100}%
+                </span>
               </div>
             </div>
           </Card>

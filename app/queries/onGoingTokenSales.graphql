@@ -8,6 +8,7 @@ query IndexOnGoingTokenSales($first: Int = 3, $skip: Int = 0, $startTime: BigInt
     minTotalPayment
     maxTotalPayment
     totalPaymentMade
+    totalAvailableSaleTokens
     salePrice
     paymentToken {
       symbol
