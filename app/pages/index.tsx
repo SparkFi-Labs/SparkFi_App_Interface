@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { Accordion, AccordionItem } from "@/components/Accordion";
-import { CTAMainBG, CTAPurple, CTAPurpleOutline } from "@/components/Button";
+import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
+import UpcomingSalesView from "@/screens/home/UpcomingProjectsView";
 import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 const BenefitCard = ({ children }: any) => (
@@ -141,35 +141,10 @@ export default function Home() {
             </BenefitCard>
           </div>
         </section>
+
         <section className="w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 py-12 bg-transparent">
           <div className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full lg:px-10 px-2">
-            <div className="flex flex-col justify-start items-start w-full lg:w-1/2 gap-5 lg:gap-7 lg:px-8">
-              <span className="text-[#fff] font-[700] text-[1.4em] lg:text-[30px] capitalize leading-9">
-                about sparkFi
-              </span>
-              <div className="flex flex-col justify-start items-start gap-5 text-[#aaa] font-[400] text-[0.96em] lg:text-[1em]">
-                <p>
-                  Welcome to SparkFi, the ultimate destination for those seeking to explore and participate in the
-                  groundbreaking world of blockchain gaming, metaverse development, and AI innovation. As the leading
-                  launchpad in the industry, we specialize in launching, investing in, and incubating the most promising
-                  projects that are revolutionizing these transformative fields.
-                </p>
-                <p>
-                  At SparkFi, we understand the immense potential of blockchain technology and its ability to reshape
-                  industries. That&apos;s why we are committed to identifying and supporting the most visionary and
-                  groundbreaking initiatives in blockchain gaming, metaverse creation, and AI advancement. By partnering
-                  with forward-thinking entrepreneurs and developers, we aim to empower them to bring their innovative
-                  ideas to life and drive the future of blockchain technology.
-                </p>
-                <p>
-                  Holding $SPAK grants you access to exclusive investment opportunities, project governance, and a range
-                  of incentives within the SparkFi ecosystem. By becoming a part of the SparkFi community, you not only
-                  benefit from early access to groundbreaking projects but also actively contribute to shaping the
-                  future of blockchain gaming, metaverse development, and AI advancement.
-                </p>
-              </div>
-            </div>
-            <Image src="/images/sparkfi_logo.svg" width={400} height={400} alt="logo" />
+            <UpcomingSalesView />
           </div>
         </section>
         <section className="bg-[#101221] w-full flex flex-col justify-start items-start lg:items-center gap-9 lg:gap-12 px-3 lg:px-9 py-12 flex-1">
