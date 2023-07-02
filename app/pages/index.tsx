@@ -293,7 +293,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="w-full flex justify-center items-center gap-4 lg:gap-16 px-3 lg:px-10 py-3 lg:py-36 bg-transparent">
+        {/* <section className="w-full flex justify-center items-center gap-4 lg:gap-16 px-3 lg:px-10 py-3 lg:py-36 bg-transparent">
           <div className="w-full bg-[linear-gradient(98.34deg,_#000000_-2.54%,_#6100FF_70.68%,_#000000_105.77%)] rounded-[20px] flex justify-center items-start px-3 py-5 lg:py-12 overflow-clip">
             <div className="flex flex-col w-full lg:w-1/3 justify-start items-center gap-2 lg:gap-5">
               <img src="/images/polygon1.svg" className="w-1/3 h-32 lg:h-56 -mt-[4rem]" alt="triangle" />
@@ -323,7 +323,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </>
   );
