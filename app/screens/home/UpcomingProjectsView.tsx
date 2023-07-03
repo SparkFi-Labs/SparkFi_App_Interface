@@ -26,7 +26,7 @@ export default function UpcomingSalesView() {
             width="100%"
             height={50}
             label={
-              <div className="flex justify-center items-center gap-4 text-[#fff] w-full text-[1.2em]">
+              <div className="flex justify-center items-center gap-4 text-[#fff] w-full text-[1em]">
                 <span className="capitalize font-[500]">see all projects</span>
                 <BsArrowRight />
               </div>
