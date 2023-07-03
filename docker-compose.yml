@@ -1,0 +1,43 @@
+version: "3.3"
+services:
+  client:
+    container_name: sparkfi_pad_client_app
+    hostname: client
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    networks:
+      - sparkfi_pad
+    extra_hosts:
+      - host.docker.internal:host-gateway
+  ipfs:
+    container_name: sparkfi_pad_ipfs_daemon
+    hostname: ipfs
+    build:
+      context: ./ipfs
+      dockerfile: Dockerfile
+    networks:
+      - sparkfi_pad
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - ipfsdata:/.ipfs
+  proxy:
+    container_name: sparkfi_pad_proxy
+    hostname: proxy
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    networks:
+      - sparkfi_pad
+    ports:
+      - 7542:80
+    depends_on:
+      - client
+      - ipfs
+networks:
+  sparkfi_pad:
+    external: false
+volumes:
+  ipfsdata:
+    external: false

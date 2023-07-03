@@ -274,6 +274,31 @@ export const useMyClaimableInSale = (saleId: string) => {
   return claimable;
 };
 
+export const useMyTotalPurchasedInSale = (saleId: string) => {
+  const [claimable, setClaimable] = useState(0);
+  const { data: tokenSaleData } = useSingleSale(saleId);
+  const tokenDetails = useTokenDetails(tokenSaleData?.saleToken.id || "");
+  const saleContract = useContract(saleId, presaleAbi);
+  const { account } = useWeb3React();
+
+  useEffect(() => {
+    if (saleId && saleContract && tokenDetails && account) {
+      (async () => {
+        try {
+          const claimable = await saleContract.totalPurchased(account);
+          let formatted: string | number = formatUnits(claimable, tokenDetails.decimals);
+          formatted = parseFloat(formatted);
+          setClaimable(formatted);
+        } catch (error: any) {
+          console.debug(error);
+        }
+      })();
+    } else setClaimable(0);
+  }, [account, saleContract, saleId, tokenDetails]);
+
+  return claimable;
+};
+
 export const useAccountIsPresaleFactoryAdmin = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const { account } = useWeb3React();

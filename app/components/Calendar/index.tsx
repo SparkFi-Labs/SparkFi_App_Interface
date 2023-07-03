@@ -115,6 +115,10 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
   const monthsDropDownRef = useRef<HTMLDetailsElement>(null);
   const yearsDropDownRef = useRef<HTMLDetailsElement>(null);
 
+  const hoursDropdownRef = useRef<HTMLDetailsElement>(null);
+  const minutesDropdownRef = useRef<HTMLDetailsElement>(null);
+  const secondsDropdownRef = useRef<HTMLDetailsElement>(null);
+
   useEffect(() => {
     if (date) {
       let d: Date;
@@ -237,40 +241,64 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
       <div className="flex flex-col justify-start items-center gap-4 px-3 py-3 max-h-64">
         <Clock />
         <div className="w-full flex justify-between items-center gap-2 h-[80%]">
-          <details className="dropdown dropdown-end mb-1 relative">
+          <details ref={hoursDropdownRef} className="dropdown dropdown-end mb-1 relative">
             <summary className="btn btn-neutral btn-sm flex justify-center items-center btn-square">
               {currentSelectedHour}
             </summary>
             <ul className="p-2 menu shadow-xl dropdown-content z-50 bg-base-100 rounded-box w-52 h-64 overflow-auto absolute">
               {map(hoursInDay, (hour, index) => (
                 <li key={index}>
-                  <a onClick={() => setCurrentSelectedHour(hour)}>{hour}</a>
+                  <a
+                    onClick={() => {
+                      setCurrentSelectedHour(hour);
+
+                      if (hoursDropdownRef.current) hoursDropdownRef.current.open = false;
+                    }}
+                  >
+                    {hour}
+                  </a>
                 </li>
               ))}
             </ul>
           </details>
 
-          <details className="dropdown dropdown-end mb-1 relative">
+          <details ref={minutesDropdownRef} className="dropdown dropdown-end mb-1 relative">
             <summary className="btn btn-neutral btn-sm flex justify-center items-center btn-square">
               {currentSelectedMinute}
             </summary>
             <ul className="p-2 menu shadow-xl dropdown-content z-50 bg-base-100 rounded-box w-52 h-64 overflow-auto absolute">
               {map(minutesInHour, (minute, index) => (
                 <li key={index}>
-                  <a onClick={() => setCurrentSelectedMinute(minute)}>{minute}</a>
+                  <a
+                    onClick={() => {
+                      setCurrentSelectedMinute(minute);
+
+                      if (minutesDropdownRef.current) minutesDropdownRef.current.open = false;
+                    }}
+                  >
+                    {minute}
+                  </a>
                 </li>
               ))}
             </ul>
           </details>
 
-          <details className="dropdown dropdown-end mb-1 relative">
+          <details ref={secondsDropdownRef} className="dropdown dropdown-end mb-1 relative">
             <summary className="btn btn-neutral btn-sm flex justify-center items-center btn-square">
               {currentSelectedSecond}
             </summary>
             <ul className="p-2 menu shadow-xl dropdown-content z-50 bg-base-100 rounded-box w-52 h-64 overflow-auto absolute">
               {map(secondsInMinute, (seconds, index) => (
                 <li key={index}>
-                  <a onClick={() => setCurrentSelectedSecond(seconds)}>{seconds}</a>
+                  <a
+                    onClick={() => {
+                      setCurrentSelectedSecond(seconds);
+
+                      if (secondsDropdownRef.current) secondsDropdownRef.current.open = false;
+                    }}
+                  >
+                    {seconds}
+                  </a>
                 </li>
               ))}
             </ul>
