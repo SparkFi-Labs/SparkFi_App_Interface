@@ -12,11 +12,11 @@ COPY styles styles/
 COPY ui ui/
 COPY utils utils/
 COPY web3 web3/
-COPY .env .
+COPY .env /
 COPY *.json /
-COPY .graphclientrc.yml .
+COPY .graphclientrc.yml /
 COPY *.js /
-COPY next-env.d.ts .
+COPY next-env.d.ts /
 RUN yarn install
 RUN yarn build
 EXPOSE 38322
