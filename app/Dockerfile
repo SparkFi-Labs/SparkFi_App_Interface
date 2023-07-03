@@ -13,9 +13,9 @@ COPY ui ui/
 COPY utils utils/
 COPY web3 web3/
 COPY .env .
-COPY *.json .
+COPY *.json /
 COPY .graphclientrc.yml .
-COPY *.js .
+COPY *.js /
 COPY next-env.d.ts .
 RUN yarn install
 RUN yarn build
