@@ -15,9 +15,11 @@ import { usePresaleDeploymentInitializer } from "@/hooks/app/web3/launchpad";
 import validateSchema from "@/utils/validateSchema";
 import { saleIPFSMetadataSchema } from "@/schemas";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function NewLaunch() {
   const [activeStep, setActiveStep] = useState(0);
+  const { replace } = useRouter();
 
   const { chainId, isActive } = useWeb3React();
   const tokenAddresses = useMemo(() => launchpadPaymentTokens[chainId as number] || ([] as string[]), [chainId]);
@@ -103,17 +105,18 @@ export default function NewLaunch() {
 
       toast.update(toastId, { render: "Successfully uploaded metadata to IPFS", type: "success", autoClose: 5000 });
 
-      const toastId2 = toast("Now deploying pool to chain", { type: "info", autoClose: 5000 });
+      const toastId2 = toast("Now deploying pool to chain", { type: "info", autoClose: 15000 });
       const deploymentResult = await presaleInitializer.initiateDeployment(
         (process.env.NEXT_PUBLIC_IPFS_GATEWAY || "https://ipfs.io") + "/ipfs/" + metadataUploadResult.cid.toString()
       );
 
       console.log(deploymentResult);
       toast.update(toastId2, { render: "Successfully deployed", type: "success", autoClose: 5000 });
+      await replace("/launchpad");
     } catch (error: any) {
       toast(error.message, { type: "error" });
     }
-  }, [metadataIPFSUploader, presaleInitializer, projectMetadata]);
+  }, [metadataIPFSUploader, presaleInitializer, projectMetadata, replace]);
 
   useEffect(() => {
     if (tokenAddresses && tokenAddresses.length) setSelectedPaymentTokenAddress(toLower(tokenAddresses[0]));

@@ -6,6 +6,7 @@ import { useMyContributions } from "@/hooks/app/launchpad";
 import {
   useAccountIsPresaleFunder,
   useMyClaimableInSale,
+  useMyTotalPurchasedInSale,
   usePresaleCasher,
   usePresaleEmergencyWithdrawal,
   usePresaleWithdrawal
@@ -28,6 +29,7 @@ export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionC
   const { account } = useWeb3React();
   const { isLoading: myContributionsLoading, data: myContributionsData } = useMyContributions(saleData.id);
   const claimable = useMyClaimableInSale(saleData.id);
+  const purchased = useMyTotalPurchasedInSale(saleData.id);
   const contributeModalRef = useRef<HTMLInputElement>(null);
   const fundModalRef = useRef<HTMLInputElement>(null);
   const atomicDate = useAtomicDate();
@@ -156,6 +158,15 @@ export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionC
                 {saleData.paymentToken.symbol}
               </span>
             )}
+          </div>
+          <div className="flex justify-between items-start w-full">
+            <div className="flex justify-center items-center gap-1">
+              <AiFillDollarCircle />
+              <span className="text-[#878aa1] text-[0.875rem] capitalize">purchased</span>
+            </div>
+            <span className="text-[#fff] text-[0.875rem]">
+              {purchased} {saleData.saleToken.symbol}
+            </span>
           </div>
           <div className="flex justify-between items-start w-full">
             <div className="flex justify-center items-center gap-1">

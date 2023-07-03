@@ -65,22 +65,60 @@ export default function Header() {
             <FiX className="text-[1em] text-[#fff]" />
           </label>
           <li>
-            <Link href="/">home</Link>
+            <Link
+              onClick={() => {
+                if (sidebarRef.current) sidebarRef.current.checked = false;
+              }}
+              href="/"
+            >
+              home
+            </Link>
           </li>
           <li>
-            <Link href="/launchpad">launchpad</Link>
+            <Link
+              onClick={() => {
+                if (sidebarRef.current) sidebarRef.current.checked = false;
+              }}
+              href="/launchpad"
+            >
+              launchpad
+            </Link>
           </li>
           <li>
-            <Link href="/">staking</Link>
+            <Link
+              onClick={() => {
+                if (sidebarRef.current) sidebarRef.current.checked = false;
+              }}
+              href="/"
+            >
+              staking
+            </Link>
           </li>
           <li>
-            <Link href="/">swap</Link>
+            <Link
+              onClick={() => {
+                if (sidebarRef.current) sidebarRef.current.checked = false;
+              }}
+              href="/"
+            >
+              swap
+            </Link>
           </li>
           <li>
-            <Link href="/">contact us</Link>
+            <Link
+              onClick={() => {
+                if (sidebarRef.current) sidebarRef.current.checked = false;
+              }}
+              href="/"
+            >
+              contact us
+            </Link>
           </li>
           <li>
             <a
+              onClick={() => {
+                if (sidebarRef.current) sidebarRef.current.checked = false;
+              }}
               href="https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0"
               target="_blank"
               rel="noreferrer"
@@ -125,7 +163,7 @@ export default function Header() {
                 if (userMenuRef.current) userMenuRef.current.open = false;
               }}
             >
-              <Link href="/" className="capitalize flex justify-start items-center gap-1">
+              <Link href="/profile" className="capitalize flex justify-start items-center gap-1">
                 <MdAccountCircle />
                 <span>account overview</span>
               </Link>
