@@ -18,9 +18,13 @@ export default class CustomDocument extends Document {
             rel="stylesheet"
           />
           <link rel="icon" href="/favicon.ico" />
-          <meta name="description" content="SparkFi is an incubation hub for the next generation project." />
+          <meta
+            name="description"
+            content="A pioneering GameFi designed launchpad that serves as the ultimate incubator for high-quality projects on the Base chain and beyond."
+          />
           <meta name="robots" content="index, follow" />
           <meta name="keywords" content="launchpad, sparkfi, base" />
+          <link rel="manifest" href="/manifest.json" />
         </Head>
         <body>
           <Main />
