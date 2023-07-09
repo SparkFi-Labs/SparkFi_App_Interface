@@ -1,0 +1,44 @@
+resolver             127.0.0.11;
+client_max_body_size 1024M;
+
+server {
+  listen              80;
+  listen              443 ssl;
+  ssl_certificate     /certs/sparkfi.crt;
+  ssl_certificate_key /certs/sparkfi.key;
+  server_name         sparkfi.xyz www.sparkfi.xyz;
+  add_header          Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
+
+  if ($http_x_forwarded_proto = "http") {
+    return 301 https://sparkfi.xyz/$request_uri;
+  }
+
+  location / {
+    proxy_set_header   Host $host;
+    proxy_http_version 1.1;
+    proxy_set_header   Upgrade $http_upgrade;
+    proxy_set_header   Connection "upgrade";
+    proxy_pass         http://client:38322/;
+  }
+
+  location /ipfs-gateway {
+    rewrite            ^/ipfs-gateway/(.*) /$1 break;
+    proxy_set_header   Host $host;
+    proxy_cache_bypass $http_upgrade;
+    proxy_pass         http://ipfs:8080/;
+  }
+
+  location /ipfs-server {
+    rewrite            ^/ipfs-server/(.*) /$1 break;
+    proxy_set_header   Host $host;
+    proxy_cache_bypass $http_upgrade;
+    proxy_pass         http://ipfs:5001/;
+  }
+
+  location /ipfs/ {
+    rewrite            ^/ipfs/(.*) /$1 break;
+    proxy_set_header   Host $host;
+    proxy_cache_bypass $http_upgrade;
+    proxy_pass         http://ipfs:5001/;
+  }
+}

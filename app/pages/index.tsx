@@ -33,12 +33,17 @@ export default function Home() {
               incubation hub for the NEXT-GEN innovation
             </span>
             <span className="text-[#aaa] text-[0.8em] font-[400] leading-5 text-center">
-              A pioneering GameFi-designed launchpad that serves as the ultimate incubator for high-quality projects on
+              A pioneering GameFi designed launchpad that serves as the ultimate incubator for high-quality projects on
               the Base chain and beyond.
             </span>
             <div className="w-full lg:w-1/2 flex justify-center items-center gap-3 lg:gap-7 px-3">
-              <CTAPurple label="Enter App" width="50%" height={50} onClick={() => push("/launchpad")} />
-              <CTAPurpleOutline label="Read Docs" width="50%" height={50} />
+              <CTAPurple label="Enter App" width="50%" height={50} onPress={() => push("/launchpad")} />
+              <CTAPurpleOutline
+                label="Read Docs"
+                width="50%"
+                height={50}
+                onPress={() => window.open("https://docs.sparkfi.xyz", "_blank")}
+              />
             </div>
           </div>
         </section>
@@ -50,7 +55,7 @@ export default function Home() {
             <BenefitCard>
               <div className="flex flex-col gap-3 justify-start items-center w-full px-4">
                 <div className="avatar">
-                  <div className="w-24 rounded-full border border-[#6100ff]">
+                  <div className="w-24 rounded-full border border-[#0029ff]">
                     <img src="/images/spark_logo_black.svg" alt="logo_black" />
                   </div>
                 </div>
@@ -81,7 +86,7 @@ export default function Home() {
             <BenefitCard>
               <div className="flex flex-col gap-3 justify-start items-center w-full px-4">
                 <div className="avatar">
-                  <div className="w-24 rounded-full border border-[#6100ff]">
+                  <div className="w-24 rounded-full border border-[#0029ff]">
                     <img src="/images/spark_logo_black.svg" alt="logo_black" />
                   </div>
                 </div>
@@ -111,7 +116,7 @@ export default function Home() {
             <BenefitCard>
               <div className="flex flex-col gap-3 justify-start items-center w-full px-4">
                 <div className="avatar">
-                  <div className="w-24 rounded-full border border-[#6100ff]">
+                  <div className="w-24 rounded-full border border-[#0029ff]">
                     <img src="/images/spark_logo_black.svg" alt="logo_black" />
                   </div>
                 </div>
@@ -158,10 +163,10 @@ export default function Home() {
                   project selection
                 </span>
                 <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em]">
-                  SparkFi carefully selects high-quality GameFi projects to be featured on its platform. Projects are
-                  evaluated based on their uniqueness, potential for success, and alignment with SparkFi&apos;s mission
-                  of revolutionizing the gaming industry. This ensures that only the most promising projects are
-                  presented to the community.
+                  We meticulously handpick top-notch projects to showcase on our platform. These projects undergo a
+                  rigorous evaluation process, considering their distinctiveness, potential for success, and alignment
+                  with our mission to redefine the gaming, metaverse, and AI sectors. This meticulous approach
+                  guarantees that only the most promising ventures are introduced to our vibrant community.
                 </p>
               </div>
 
@@ -170,10 +175,10 @@ export default function Home() {
                   decentralized funding
                 </span>
                 <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em]">
-                  SparkFi provides developers with access to decentralized funding opportunities. This enables
-                  developers to access decentralized funding opportunities from SparkFi community through various
-                  mechanisms such as token sales, initial NFTs offerings (INOs), or token auctions. This allows
-                  developers to secure the necessary resources to develop and scale their projects.
+                  We offer developers unparalleled access to decentralized funding opportunities. Through our platform,
+                  developers can tap into the vast funding potential of the SparkFi community through diverse mechanisms
+                  like token sales, initial NFT offerings (INOs), or token auctions. This empowers developers to secure
+                  the essential resources required to nurture and expand their projects effectively.
                 </p>
               </div>
             </div>
@@ -186,10 +191,10 @@ export default function Home() {
                   incubation & support
                 </span>
                 <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em]">
-                  Once selected, SparkFi provides comprehensive support and resources to GameFi projects. Developers
-                  receive guidance, mentorship, technical expertise, and marketing assistance to enhance the success and
-                  growth of their projects. This incubation process helps developers navigate the challenges of building
-                  and launching innovative gaming experiences.
+                  Upon selection, we extend comprehensive support and resources to the chosen projects. Developers are
+                  provided with guidance, mentorship, technical expertise, and marketing assistance to amplify the
+                  success and growth of their ventures. Our incubation process aims to assist developers in navigating
+                  the obstacles inherent in building and launching groundbreaking gaming experiences.
                 </p>
               </div>
 
@@ -198,10 +203,10 @@ export default function Home() {
                   launch & distribution
                 </span>
                 <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em]">
-                  Once a project is developed and ready for launch, SparkFi facilitates its token distribution to the
-                  community. The platform helps with marketing efforts, creating awareness, and attracting users to
-                  experience the innovative games created through the SparkFi ecosystem and also launch the project
-                  tokens on partners exchanges.
+                  Upon the completion of project development and readiness for launch. Our platform actively supports
+                  marketing endeavors, generating awareness, and attracting users to engage with the pioneering concepts
+                  cultivated within the SparkFi ecosystem. Additionally, we collaborate with partner exchanges to ensure
+                  a successful launch of the project&apos;s tokens in the market.
                 </p>
               </div>
             </div>

@@ -18,7 +18,7 @@ export default function SingleSaleDescription({ data }: SingleSaleDescriptionPro
             <NoDataOrError message={error.message} />
           ) : (
             <article
-              className="text-[#878aa1] w-full overflow-auto text-[0.85em] lg:text-[1em]"
+              className="prose w-full overflow-auto max-w-none prose-slate lg:prose-xl prose-sm prose-a:break-all prose-a:text-[#0029ff] text-[#878aa1]"
               dangerouslySetInnerHTML={{
                 __html: metadata?.description || ""
               }}

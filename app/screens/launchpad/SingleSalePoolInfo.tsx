@@ -11,7 +11,7 @@ interface SingleSalePoolInfoProps {
 export default function SingleSalePoolInfo({ data }: SingleSalePoolInfoProps) {
   const { metadata } = useIPFSGetMetadata(data.metadataURI);
   return (
-    <div className="flex justify-start items-center py-3 w-full">
+    <div className="flex justify-start items-center py-3 w-full prose max-w-none lg:prose-xl prose-sm">
       <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start w-full gap-5">
         <div className="w-full lg:w-1/2">
           <Card width="100%">
