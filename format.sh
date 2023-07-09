@@ -1,1 +1,1 @@
-prettier --write **/**/*{Dockerfile,yml,ts,tsx,js,json,css,graphql}
+prettier --write **/**/*{Dockerfile,yml,ts,tsx,js,json,css,graphql,nginx}

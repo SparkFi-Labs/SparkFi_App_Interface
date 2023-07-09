@@ -6,7 +6,7 @@ import { CTAPurple } from "@/components/Button";
 export default function Profile() {
   const { isActive, account } = useWeb3React();
   return (
-    <div className="flex flex-col gap-7 justify-start items-center w-screen">
+    <div className="flex flex-col gap-7 justify-start items-center w-screen bg-[#101221]">
       <div className=" w-full bg-[url('/images/profile_overview.png')] bg-no-repeat bg-cover flex justify-between items-start px-14">
         <div className="flex justify-center items-end h-[6rem] lg:h-[12rem]">
           <span className="text-[#fff] capitalize font-[700]">account overview</span>

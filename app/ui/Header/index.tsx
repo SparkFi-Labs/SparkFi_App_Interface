@@ -57,7 +57,7 @@ export default function Header() {
       <input ref={sidebarRef} id="sidebar" type="checkbox" className="drawer-toggle" />
       <div className="drawer-side lg:hidden z-20 min-h-screen">
         <label htmlFor="sidebar" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 min-h-screen bg-base-200 text-base-content capitalize font-[500] text-[0.95em]">
+        <ul className="menu p-4 w-80 min-h-screen bg-[#0c0e1e] text-base-content capitalize font-[500] text-[0.95em]">
           <label
             htmlFor="sidebar"
             className="btn btn-square btn-sm btn-neutral px-1 py-1 flex justify-center items-center m-4"
@@ -157,7 +157,7 @@ export default function Header() {
           <summary className="flex justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-[1.2em] cursor-pointer">
             <FiUser />
           </summary>
-          <ul className="p-2 shadow-xl menu dropdown-content z-[1] bg-base-100 w-52 mt-3">
+          <ul className="p-2 shadow-xl menu dropdown-content z-[1] bg-[#0029ff] w-52 mt-3">
             <li
               onClick={() => {
                 if (userMenuRef.current) userMenuRef.current.open = false;
