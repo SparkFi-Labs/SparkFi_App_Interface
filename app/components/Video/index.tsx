@@ -17,10 +17,10 @@ export default function Video({ width, height, children, ...props }: VideoProps)
 
   return (
     <figure className="flex flex-col justify-start items-start rounded-[inherit]" style={{ width, height }}>
-      <div className="w-full relative flex justify-center items-center rounded-[inherit]">
+      <div className="w-full h-[400px] lg:h-[798px] relative flex justify-center items-center rounded-[inherit]">
         <video
+          style={{ width: "100%" }}
           {...props}
-          style={{ objectFit: "cover" }}
           onClick={() => {
             if (videoElement.current) videoElement.current.pause();
           }}
@@ -29,8 +29,7 @@ export default function Video({ width, height, children, ...props }: VideoProps)
               setProgressValue((videoElement.current.currentTime / videoElement.current.duration) * 100);
           }}
           ref={videoElement}
-          width="100%"
-          height="100%"
+          className="object-cover h-full rounded-[inherit]"
           preload="auto"
           onEnded={() => setIsPlaying(false)}
         >
