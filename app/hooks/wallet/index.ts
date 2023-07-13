@@ -4,7 +4,7 @@ import erc20Abi from "@/assets/abis/ERC20.json";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 
-export const useMyTokenBalance = (tokenAddress: string) => {
+export const useMyTokenBalance = (tokenAddress: string | { [chainId: number]: string }) => {
   const erc20Contract = useContract(tokenAddress, erc20Abi);
   const [balance, setBalance] = useState(0);
   const { account } = useWeb3React();

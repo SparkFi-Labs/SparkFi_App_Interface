@@ -2,9 +2,14 @@ import { useWeb3React } from "@web3-react/core";
 import { FaWallet } from "react-icons/fa";
 import { formatEthAddress } from "eth-address";
 import { CTAPurple } from "@/components/Button";
+import { useMyTokenBalance } from "@/hooks/wallet";
+import { sparkFiTokenContracts } from "@/assets/contracts";
+import { useTokenDetails } from "@/hooks/contracts";
 
 export default function Profile() {
   const { isActive, account } = useWeb3React();
+  const tokenBalance = useMyTokenBalance(sparkFiTokenContracts);
+  const tokenDetails = useTokenDetails(sparkFiTokenContracts);
   return (
     <div className="flex flex-col gap-7 justify-start items-center w-screen bg-[#101221]">
       <div className=" w-full bg-[url('/images/profile_overview.png')] bg-no-repeat bg-cover flex justify-between items-start px-14">
@@ -33,12 +38,12 @@ export default function Profile() {
       </div>
       <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center w-full px-3 py-4 lg:px-14 gap-5">
         <div className="bg-[#000] rounded-[0.3125rem] flex flex-col justify-start items-start px-7 py-7 w-full lg:w-1/3 gap-12">
-          <span className="text-[#c1c9ff] uppercase text-[0.9375rem] font-[400]">$spak staked</span>
+          <span className="text-[#c1c9ff] uppercase text-[0.9375rem] font-[400]">{tokenDetails?.symbol} staked</span>
           <span className="text-[#fff] text-[1.875rem] font-[700]">0.00</span>
         </div>
         <div className="bg-[#000] rounded-[0.3125rem] flex flex-col justify-start items-start px-7 py-7 w-full lg:w-1/3 gap-12">
-          <span className="text-[#c1c9ff] uppercase text-[0.9375rem] font-[400]">$spak balance</span>
-          <span className="text-[#fff] text-[1.875rem] font-[700]">0.00</span>
+          <span className="text-[#c1c9ff] uppercase text-[0.9375rem] font-[400]">{tokenDetails?.symbol} balance</span>
+          <span className="text-[#fff] text-[1.875rem] font-[700]">{tokenBalance}</span>
         </div>
       </div>
       <div className="w-full px-3 py-4 lg:px-14">
