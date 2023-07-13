@@ -8,7 +8,7 @@ import validateSchema from "@/utils/validateSchema";
 import { ethereumAddressSchema, validNumberSchema, validURISchema } from "@/schemas";
 import { useTokenDetails } from "@/hooks/contracts";
 import { formatUnits, parseUnits } from "@ethersproject/units";
-import { ceil, toString } from "lodash";
+import { ceil } from "lodash";
 import { hexValue } from "@ethersproject/bytes";
 import assert from "assert";
 import { useSingleSale } from "../../launchpad";
@@ -50,11 +50,26 @@ export const usePresaleDeploymentInitializer = (
 
           setIsLoading(true);
 
-          const salePriceHex = hexValue(parseUnits(toString(salePrice), paymentTokenDetails.decimals));
+          const salePriceHex = hexValue(
+            parseUnits(
+              salePrice.toLocaleString("fullwide", { useGrouping: false, maximumSignificantDigits: 12 }),
+              paymentTokenDetails.decimals
+            )
+          );
           const startTimeHex = hexValue(startTime);
           const daysToLastHex = hexValue(ceil(daysToLast));
-          const hardCapHex = hexValue(parseUnits(toString(maxTotalPayment), saleTokenDetails.decimals));
-          const softCapHex = hexValue(parseUnits(toString(minTotalPayment), saleTokenDetails.decimals));
+          const hardCapHex = hexValue(
+            parseUnits(
+              maxTotalPayment.toLocaleString("fullwide", { useGrouping: false, maximumSignificantDigits: 12 }),
+              saleTokenDetails.decimals
+            )
+          );
+          const softCapHex = hexValue(
+            parseUnits(
+              minTotalPayment.toLocaleString("fullwide", { useGrouping: false, maximumSignificantDigits: 12 }),
+              saleTokenDetails.decimals
+            )
+          );
           const withdrawalDelayHex = hexValue(withdrawalDelay);
 
           const tx = await factoryContract.deploySale(
@@ -119,7 +134,12 @@ export const usePresaleContributor = (saleId: string) => {
           validateSchema(validNumberSchema("amount"), amount);
           setIsLoading(true);
 
-          const amountHex = hexValue(parseUnits(toString(amount), paymentTokenDetails.decimals));
+          const amountHex = hexValue(
+            parseUnits(
+              amount.toLocaleString("fullwide", { useGrouping: false, maximumSignificantDigits: 12 }),
+              paymentTokenDetails.decimals
+            )
+          );
           const approvalTx = await erc20Contract.approve(saleId, amountHex);
 
           await approvalTx.wait();
@@ -155,7 +175,12 @@ export const usePresaleFunder = (saleId: string) => {
           validateSchema(validNumberSchema("amount"), amount);
           setIsLoading(true);
 
-          const amountHex = hexValue(parseUnits(toString(amount), saleTokenDetails.decimals));
+          const amountHex = hexValue(
+            parseUnits(
+              amount.toLocaleString("fullwide", { useGrouping: false, maximumSignificantDigits: 12 }),
+              saleTokenDetails.decimals
+            )
+          );
           const approvalTx = await erc20Contract.approve(saleId, amountHex);
 
           await approvalTx.wait();
