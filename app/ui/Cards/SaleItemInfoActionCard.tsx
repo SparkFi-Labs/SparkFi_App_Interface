@@ -154,7 +154,7 @@ export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionC
               <span className="loading loading-infinity loading-md text-[#0029ff]"></span>
             ) : (
               <span className="text-[#fff] text-[0.875rem]">
-                {reduce(myContributionsData, (accumulator, contribB) => accumulator + parseInt(contribB.amount), 0)}{" "}
+                {reduce(myContributionsData, (accumulator, contribB) => accumulator + parseFloat(contribB.amount), 0)}{" "}
                 {saleData.paymentToken.symbol}
               </span>
             )}
