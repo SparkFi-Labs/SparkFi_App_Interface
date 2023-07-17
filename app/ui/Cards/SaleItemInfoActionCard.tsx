@@ -48,9 +48,10 @@ export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionC
     <div className="bg-[linear-gradient(136deg,_#000_0%,_rgba(0,_0,_0,_0.00)_100%)] rounded-[7px] flex flex-col justify-start items-center h-full w-full">
       {parseInt(saleData.startTime) > floor(atomicDate.getTime() / 1000) ? (
         <Countdown
+          className="px-2"
           date={multiply(parseInt(saleData.startTime), 1000)}
           renderer={({ days, hours, minutes, seconds, completed }) => (
-            <div className="w-full flex flex-col justify-start items-center gap-4 py-4 px-2">
+            <div className="w-full flex flex-col justify-start items-center gap-4 py-4">
               <span className="text-[#0029ff] text-[0.875rem] font-[600] uppercase">
                 {completed ? "sale has started" : "sale starts in"}
               </span>
@@ -77,13 +78,14 @@ export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionC
         />
       ) : (
         <Countdown
+          className="px-2"
           date={multiply(parseInt(saleData.endTime), 1000)}
           renderer={({ days, hours, minutes, seconds, completed }) => (
-            <div className="w-full flex flex-col justify-start items-center gap-4 py-4 px-2">
+            <div className="w-full flex flex-col justify-start items-center gap-4 py-4">
               <span className="text-[#0029ff] text-[0.875rem] font-[600] uppercase">
                 {completed ? "sale has ended" : "sale ends in"}
               </span>
-              <div className="stats shadow gap-3">
+              <div className="stats shadow">
                 <div className="stat place-items-center">
                   <span className="stat-value">{days}</span>
                   <span className="stat-desc capitalize">days</span>
@@ -107,37 +109,37 @@ export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionC
       )}
       <div className="flex flex-col justify-start items-center w-full border-t border-t-[#393c54] rounded-[0px_0px_7px_7px] bg-[linear-gradient(134deg,_#000_0%,_rgba(0,_0,_0,_0.00)_100%)] px-3 py-4 gap-7">
         <div className="w-full justify-between flex items-start">
-          <span className="font-[400] text-[#878aa1] capitalize text-[0.87rem]">total sold</span>
+          <span className="font-[400] text-[#878aa1] capitalize text-[0.65rem] lg:text-[0.87rem]">total sold</span>
           <div className="flex justify-center items-start gap-1">
-            <span className="text-[0.87rem] lg:text-[0.92rem] font-[400] text-[#0029ff]">
-              {divide(parseInt(saleData.totalPaymentMade), parseFloat(saleData.salePrice))}
+            <span className="text-[0.65rem] lg:text-[0.92rem] font-[400] text-[#0029ff]">
+              {divide(parseFloat(saleData.totalPaymentMade), parseFloat(saleData.salePrice))}
             </span>
-            <span>/</span>
-            <span className="text-[0.87rem] lg:text-[0.92rem] font-[400] text-[#fff]">
+            <span className="text-[0.65rem] lg:text-[0.92rem]">/</span>
+            <span className="text-[0.65rem] lg:text-[0.92rem] font-[400] text-[#fff]">
               {saleData.totalAvailableSaleTokens}
             </span>
-            <span className="text-[0.87rem] lg:text-[0.92rem] font-[400] text-[#fff]">{saleData.saleToken.symbol}</span>
+            <span className="text-[0.65rem] lg:text-[0.92rem] font-[400] text-[#fff]">{saleData.saleToken.symbol}</span>
           </div>
         </div>
         <div className="w-full justify-between flex items-start">
-          <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
+          <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
             max. buy per wallet
           </span>
-          <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
+          <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#fff]">
             {saleData.maxTotalPayment} {saleData.paymentToken.symbol}
           </span>
         </div>
         <div className="w-full justify-between flex items-start">
-          <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
+          <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
             min. buy per wallet
           </span>
-          <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
+          <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#fff]">
             {saleData.minTotalPayment} {saleData.paymentToken.symbol}
           </span>
         </div>
         <div className="w-full justify-between flex items-start">
-          <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">price</span>
-          <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
+          <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">price</span>
+          <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#fff]">
             {saleData.salePrice} {saleData.paymentToken.symbol}
           </span>
         </div>
@@ -148,12 +150,12 @@ export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionC
           <div className="flex justify-between items-start w-full">
             <div className="flex justify-center items-center gap-1">
               <AiFillDollarCircle />
-              <span className="text-[#878aa1] text-[0.875rem] capitalize">your contributon</span>
+              <span className="text-[#878aa1] text-[0.65rem] lg:text-[0.875rem] capitalize">your contributon</span>
             </div>
             {myContributionsLoading ? (
               <span className="loading loading-infinity loading-md text-[#0029ff]"></span>
             ) : (
-              <span className="text-[#fff] text-[0.875rem]">
+              <span className="text-[#fff] text-[0.65rem] lg:text-[0.875rem]">
                 {reduce(myContributionsData, (accumulator, contribB) => accumulator + parseFloat(contribB.amount), 0)}{" "}
                 {saleData.paymentToken.symbol}
               </span>
@@ -162,18 +164,18 @@ export default function SaleItemInfoActionCard({ saleData }: SaleItemInfoActionC
           <div className="flex justify-between items-start w-full">
             <div className="flex justify-center items-center gap-1">
               <AiFillDollarCircle />
-              <span className="text-[#878aa1] text-[0.875rem] capitalize">purchased</span>
+              <span className="text-[#878aa1] text-[0.65rem] lg:text-[0.875rem] capitalize">purchased</span>
             </div>
-            <span className="text-[#fff] text-[0.875rem]">
+            <span className="text-[#fff] text-[0.65rem] lg:text-[0.875rem]">
               {purchased} {saleData.saleToken.symbol}
             </span>
           </div>
           <div className="flex justify-between items-start w-full">
             <div className="flex justify-center items-center gap-1">
               <AiFillDollarCircle />
-              <span className="text-[#878aa1] text-[0.875rem] capitalize">available to claim</span>
+              <span className="text-[#878aa1] text-[0.65rem] lg:text-[0.875rem] capitalize">available to claim</span>
             </div>
-            <span className="text-[#fff] text-[0.875rem]">
+            <span className="text-[#fff] text-[0.65rem] lg:text-[0.875rem]">
               {claimable} {saleData.saleToken.symbol}
             </span>
           </div>

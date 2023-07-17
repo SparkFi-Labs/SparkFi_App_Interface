@@ -16,7 +16,7 @@
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/constants": "^5.7.0",
     "@ethersproject/contracts": "^5.7.0",
-    "@ethersproject/providers": "^5.7.2",
+    "@ethersproject/providers": "5.7.0",
     "@ethersproject/units": "^5.7.0",
     "@tailwindcss/typography": "^0.5.9",
     "@trustwallet/web3-react-trust-wallet": "^0.0.4",
