@@ -9,7 +9,7 @@ export default function ActiveSalesView() {
 
   const { data, isLoading, error } = useActiveSales();
   return (
-    <div className="flex flex-col gap-7 w-full justify-start items-start lg:px-10 px-4 py-8">
+    <div className="flex flex-col gap-12 w-full justify-start items-start lg:px-10 px-4 py-8">
       <span className="capitalize text-[1.24rem] text-[#fff] font-[600]">active sales</span>
       {isLoading ? (
         <div className="flex justify-center items-center w-full">
@@ -36,7 +36,12 @@ export default function ActiveSalesView() {
               {data &&
                 map(data, (item, index) => (
                   <div key={index} className="w-full lg:w-1/4">
-                    <SaleItemCard onPress={() => push(`/launchpad/sales/${item.id}`)} data={item} width="100%" />
+                    <SaleItemCard
+                      hoverEffect
+                      onPress={() => push(`/launchpad/sales/${item.id}`)}
+                      data={item}
+                      width="100%"
+                    />
                   </div>
                 ))}
             </div>

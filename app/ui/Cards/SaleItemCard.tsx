@@ -29,10 +29,10 @@ export default function SaleItemCard({ data, ...props }: ISaleItemCardProps) {
             <>
               {metadata && (
                 <Fragment>
-                  <figure className="w-full h-96 relative">
+                  <figure className="w-full h-56 relative">
                     <img src={metadata.bannerURI} alt={metadata.name} className="w-full h-full" />
 
-                    <div className="avatar absolute top-[50%] left-[49%]">
+                    <div className="avatar absolute top-[50%] left-[45%]">
                       <div className="w-20 lg:w-24 rounded-full ring ring-slate-500">
                         <img src={metadata.logoURI} alt={data.saleToken.name} />
                       </div>
@@ -49,47 +49,47 @@ export default function SaleItemCard({ data, ...props }: ISaleItemCardProps) {
                     <div className="w-full justify-between flex items-start px-2 py-2">
                       <span className="font-[700] text-[#fff] card-title">{metadata.name}</span>
                       <div className="flex justify-center items-start gap-1">
-                        <span className="text-[0.87rem] lg:text-[0.92rem] font-[400] text-[#0029ff]">
-                          {divide(parseInt(data.totalPaymentMade), parseFloat(data.salePrice))}
+                        <span className="text-[0.65rem] lg:text-[0.92rem] font-[400] text-[#0029ff]">
+                          {divide(parseFloat(data.totalPaymentMade), parseFloat(data.salePrice))}
                         </span>
                         <span>/</span>
-                        <span className="text-[0.87rem] lg:text-[0.92rem] font-[400] text-[#fff]">
+                        <span className="text-[0.65rem] lg:text-[0.92rem] font-[400] text-[#fff]">
                           {data.totalAvailableSaleTokens}
                         </span>
-                        <span className="text-[0.87rem] lg:text-[0.92rem] font-[400] text-[#fff]">
+                        <span className="text-[0.65rem] lg:text-[0.92rem] font-[400] text-[#fff]">
                           {data.saleToken.symbol}
                         </span>
                       </div>
                     </div>
                     <div className="w-full justify-between flex items-start px-2 py-2">
-                      <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
+                      <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
                         max. buy per wallet
                       </span>
-                      <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
+                      <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#fff]">
                         {data.maxTotalPayment} {data.paymentToken.symbol}
                       </span>
                     </div>
                     <div className="w-full justify-between flex items-start px-2 py-2">
-                      <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
+                      <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
                         min. buy per wallet
                       </span>
-                      <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
+                      <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#fff]">
                         {data.minTotalPayment} {data.paymentToken.symbol}
                       </span>
                     </div>
                     <div className="w-full justify-between flex items-start px-2 py-2">
-                      <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
+                      <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
                         price
                       </span>
-                      <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
+                      <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#fff]">
                         {data.salePrice} {data.paymentToken.symbol}
                       </span>
                     </div>
                     <div className="w-full justify-between flex items-start px-2 py-2">
-                      <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
+                      <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#878aa1] capitalize">
                         amount for sale
                       </span>
-                      <span className="text-[0.73rem] lg:text-[0.84rem] font-[400] text-[#fff]">
+                      <span className="text-[0.65rem] lg:text-[0.84rem] font-[400] text-[#fff]">
                         {data.totalAvailableSaleTokens} {data.saleToken.symbol}
                       </span>
                     </div>
