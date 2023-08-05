@@ -38,7 +38,7 @@ export default function Footer() {
             <a href="https://twitter.com/sparkfi_xyz" rel="noreferrer" target="_blank">
               <FaTwitter />
             </a>
-            <a href="https://t.me/sparkfi_xyz" rel="noreferrer" target="_blank">
+            <a href="https://t.me/Official_SparkFi" rel="noreferrer" target="_blank">
               <FaTelegramPlane />
             </a>
             <a href="https://discord.com/invite/WtBvqvuaTu" rel="noreferrer" target="_blank">
