@@ -1,1 +1,1 @@
-prettier --write **/**/*{Dockerfile,yml,ts,tsx,js,json,css,graphql,nginx}
+prettier --write **/**/*{Dockerfile,yml,ts,tsx,js,json,css,graphql,nginx,sh} --plugin=/usr/lib/node_modules/prettier-plugin-sh/lib/index.js --plugin=/usr/lib/node_modules/prettier-plugin-nginx/dist/index.js

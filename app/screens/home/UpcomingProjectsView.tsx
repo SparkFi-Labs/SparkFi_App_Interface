@@ -11,11 +11,11 @@ export default function UpcomingSalesView() {
 
   const { data, isLoading, error } = useUpcomingSales();
   return (
-    <div className="flex flex-col gap-7 w-full justify-start items-start lg:px-10 px-4 py-4">
+    <div className="flex flex-col gap-7 w-full justify-start items-start lg:px-10 px-1 py-4">
       <div className="w-full flex flex-col lg:flex-row justify-start lg:justify-between items-start gap-4">
         <div className="flex justify-start flex-col items-start gap-3 w-full lg:w-1/2">
-          <span className="capitalize text-[2rem] text-[#fff] font-[600]">upcoming projects</span>
-          <span className="text-[#aaa] text-[1rem] font-[500]">
+          <span className="capitalize text-[2rem] text-[#fff] font-[400]">upcoming projects</span>
+          <span className="text-[#aaa] text-[1rem] font-[500] font-inter">
             Explore our meticulously curated collection of live and forthcoming projects, rigorously vetted for
             excellence and engage in the exhilarating realm of groundbreaking unveilings.
           </span>

@@ -2,6 +2,7 @@ query IndexSingleTokenSale($id: ID!) {
   tokenSale(id: $id) {
     id
     metadataURI
+    saleType
     presaleId
     startTime
     endTime

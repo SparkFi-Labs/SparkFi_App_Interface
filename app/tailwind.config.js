@@ -17,6 +17,8 @@ module.exports = {
         spinAxis: "spinAxis 4s linear infinite"
       },
       fontFamily: {
+        manuale: ["Manuale", "serif"],
+        prostoOne: ["Prosto One", "cursive"],
         inter: ["Inter", "sans-serif"]
       }
     }

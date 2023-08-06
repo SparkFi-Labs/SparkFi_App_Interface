@@ -12,10 +12,10 @@ export const AccordionItem = ({ children, title }: IAccordionItemProps) => {
   return (
     <div className="flex flex-col justify-start items-center gap-4 w-full">
       <div className="flex justify-between items-start w-full px-2 py-2">
-        <span className="text-[#fff] font-[400] text-[1em] leading-5">{title}</span>
+        <span className="text-[#fff] font-[400] text-[1em] leading-5 font-inter">{title}</span>
         <button
           onClick={() => setOpen(o => !o)}
-          className="bg-[#0c0e1e] border-[0.75px] border-[#6100ff] px-2 py-2 flex justify-center items-center text-[1em] font-[500] text-[#fff]"
+          className="bg-[#0c0e1e] border-[0.75px] border-[#c1c9ff] px-2 py-2 flex justify-center items-center text-[1em] font-[500] text-[#fff]"
         >
           {open ? <FiMinus /> : <FiPlus />}
         </button>
