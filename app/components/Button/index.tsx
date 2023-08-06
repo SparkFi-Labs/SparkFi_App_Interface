@@ -10,7 +10,7 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const CTAPurple = ({ label, onPress, width, height, isLoading, ...props }: IButtonProps) => (
   <button
-    className="flex justify-center items-center gap-2 border-0 outline-0 w-full h-full px-2 py-2 text-[#fff] bg-[#0029ff] rounded-[7px] text-[0.8em]"
+    className="flex justify-center items-center gap-2 border-0 outline-0 w-full h-full px-2 py-2 text-[#fff] bg-[#0029ff] rounded-[7px] text-[0.8em] font-inter"
     onClick={onPress}
     style={{ width, height }}
     {...props}
@@ -21,7 +21,7 @@ export const CTAPurple = ({ label, onPress, width, height, isLoading, ...props }
 
 export const CTAPurpleOutline = ({ label, onPress, width, height, isLoading, ...props }: IButtonProps) => (
   <button
-    className="flex justify-center items-center gap-2 outline-0 w-full h-full px-2 py-2 text-[#fff] bg-[#0c0e1e] border border-[#0029ff] rounded-[7px] text-[0.8em]"
+    className="flex justify-center items-center gap-2 outline-0 w-full h-full px-2 py-2 text-[#fff] bg-[#0c0e1e] border border-[#0029ff] rounded-[7px] text-[0.8em] font-inter"
     onClick={onPress}
     style={{ width, height }}
     {...props}
@@ -32,7 +32,7 @@ export const CTAPurpleOutline = ({ label, onPress, width, height, isLoading, ...
 
 export const CTAMainBG = ({ label, onPress, width, height, isLoading, ...props }: IButtonProps) => (
   <button
-    className="flex justify-center items-center gap-2 outline-0 w-full h-full px-2 py-2 text-[#fff] bg-[#0c0e1e] rounded-[7px] text-[0.8em]"
+    className="flex justify-center items-center gap-2 outline-0 w-full h-full px-2 py-2 text-[#fff] bg-[#0c0e1e] rounded-[7px] text-[0.8em] font-inter"
     onClick={onPress}
     style={{ width, height }}
     {...props}

@@ -1,0 +1,28 @@
+<svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 100">
+<circle id="Ellipse 12" cx="31.0972" cy="31.0969" r="30.5354" fill="#151938"/>
+<circle id="Ellipse 13" cx="31.0972" cy="31.0969" r="30.5354" fill="url(#paint0_radial_37_4301)"/>
+<circle id="Ellipse 14" cx="31.0969" cy="31.097" r="30.5354" transform="rotate(-178.937 31.0969 31.097)" fill="url(#paint1_radial_37_4301)"/>
+<g id="Group 86">
+<path id="Polygon 1" d="M31.0739 8.86719L38.0148 20.8892H36.5239L31.0739 11.5922L25.5438 20.8892H24.1331L31.0739 8.86719Z" fill="#0029FF"/>
+<path id="Polygon 2" d="M52.0801 47.5803L38.2416 46.4852L39.0866 45.2568L49.835 46.0359L45.3096 36.2105L46.1092 35.0482L52.0801 47.5803Z" fill="#0029FF"/>
+<path id="Polygon 3" d="M10.3554 47.7711L15.7842 34.9949L16.681 36.1859L12.5323 46.132L23.2857 44.9574L24.1344 46.0844L10.3554 47.7711Z" fill="#0029FF"/>
+<path id="Rectangle 80" d="M21.8889 26.6596L30.9455 22.9729L40.002 26.6596V38.5213L30.9455 47.0169L21.8889 38.5213V26.6596Z" fill="url(#paint2_linear_37_4301)"/>
+</g>
+</g>
+<defs>
+<radialGradient id="paint0_radial_37_4301" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.4095 10.6993) rotate(54.1821) scale(31.9332)">
+<stop stop-color="#F5F5F5"/>
+<stop offset="1" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint1_radial_37_4301" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.4092 10.6993) rotate(54.1821) scale(31.9332)">
+<stop stop-color="#F5F5F5"/>
+<stop offset="1" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint2_linear_37_4301" x1="23.011" y1="26.8199" x2="33.2697" y2="47.0169" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E20CF4"/>
+<stop offset="0.433235" stop-color="#FFE603"/>
+<stop offset="0.433335" stop-color="#0029FF"/>
+</linearGradient>
+</defs>
+</svg>

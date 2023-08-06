@@ -2,6 +2,6 @@ sources:
   - name: PresaleFactory
     handler:
       graphql:
-        endpoint: ${NEXT_PUBLIC_GRAPH_ENDPOINT}
+        endpoint: ${NEXT_PUBLIC_LAUNCHPAD_GRAPH_ENDPOINT}
 documents:
-  - queries/*.graphql
+  - queries/**/*.graphql

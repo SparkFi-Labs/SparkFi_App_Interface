@@ -3,12 +3,11 @@ import { Accordion, AccordionItem } from "@/components/Accordion";
 import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
 import UpcomingSalesView from "@/screens/home/UpcomingProjectsView";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 const BenefitCard = ({ children }: any) => (
-  <div className="rounded-[7px] py-14 px-2 bg-[radial-gradient(100%_134.13%_at_0%_0%,_#000000_0%,_#000000_100%)] w-full lg:w-1/4 lg:min-h-[35rem]">
-    {children}
-  </div>
+  <div className="rounded-[7px] py-14 px-2 bg-[#151938] w-full lg:w-1/4 lg:min-h-[35rem]">{children}</div>
 );
 
 export default function Home() {
@@ -29,12 +28,12 @@ export default function Home() {
             <Image src="/images/ellipse_top.svg" width={1400} height={1000} alt="ellipse" />
             </div> */}
 
-            <span className="text-[#fff] text-[1.4rem] lg:text-[3.125rem] capitalize font-[600] text-center">
-              incubation hub for the NEXT-GEN innovation
+            <span className="text-[#fff] text-[1.4rem] lg:text-[3.125rem] capitalize font-[400] text-center">
+              ignite your startup&apos;s success
             </span>
             <span className="text-[#aaa] text-[0.8em] font-[400] leading-5 text-center">
-              A pioneering GameFi designed launchpad that serves as the ultimate incubator for high-quality projects on
-              the Base chain and beyond.
+              An innovative solution for token launches, supporting new projects and fostering liquidity provisioning on
+              Base Network
             </span>
             <div className="w-full lg:w-1/2 flex justify-center items-center gap-3 lg:gap-7 px-3">
               <CTAPurple label="Enter App" width="50%" height={50} onPress={() => push("/launchpad")} />
@@ -47,103 +46,37 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 py-12">
-          <span className="capitalize text-[#fff] font-[600] text-[1em] lg:text-[30px] leading-9">
-            our hub&apos;s benefits
-          </span>
-          <div className="flex flex-col lg:flex-row justify-start lg:justify-center items-center lg:items-start px-3 lg:px-10 gap-3 lg:gap-7 py-3 lg:py-8 w-full">
-            <BenefitCard>
-              <div className="flex flex-col gap-3 justify-start items-center w-full px-4">
-                <div className="avatar">
-                  <div className="w-24 rounded-full border border-[#0029ff]">
-                    <img src="/images/spark_logo_black.svg" alt="logo_black" />
-                  </div>
-                </div>
-                <span className="text-[#fff] capitalize text-center text-[1em] font-[500] leading-6">
-                  $SPAK holders
-                </span>
-                <ul className="flex flex-col justify-start items-start gap-3 font-[400] px-2 text-[#aaa] text-[0.96em] list-disc leading-4">
-                  <li>
-                    <span>
-                      Access to early-stage investment opportunities in promising gaming, metaverse and AI projects.
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      Peace of mind investment into bona fide and high vetted ideas built by team you can trust.
-                    </span>
-                  </li>
-                  <li>
-                    <span>Opportunity to participate in governance and decision-making around projects.</span>
-                  </li>
-                  <li>
-                    <span>Access to staking and rewards programs.</span>
-                  </li>
-                </ul>
-              </div>
-            </BenefitCard>
+        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 pt-20 pb-6 lg:pb-48">
+          <div className="flex flex-col-reverse lg:flex-row justify-start items-center lg:justify-around gap-10 lg:items-start w-full">
+            <Image src="/images/cubes.svg" width={644} height={644} alt="cubes" />
+            <div className="flex flex-col justify-start items-center lg:items-start gap-12 lg:w-1/3">
+              <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
+                about sparkFi
+              </span>
+              <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                SparkFi is an innovative decentralized marketplace that opens up exciting opportunities for retail
+                investors to expand their investment horizons in the primary market.
+              </p>
 
-            <BenefitCard>
-              <div className="flex flex-col gap-3 justify-start items-center w-full px-4">
-                <div className="avatar">
-                  <div className="w-24 rounded-full border border-[#0029ff]">
-                    <img src="/images/spark_logo_black.svg" alt="logo_black" />
-                  </div>
-                </div>
-                <span className="text-[#fff] capitalize text-center text-[1em] font-[500] leading-6">new projects</span>
-                <ul className="flex flex-col justify-start items-start gap-3 font-[400] px-2 text-[#aaa] text-[0.96em] list-disc leading-4">
-                  <li>
-                    <span>Access to funding from investors who are actively involved in the SparkFi ecosystem.</span>
-                  </li>
-                  <li>
-                    <span>
-                      Opportunity to gain valuable exposure and recognition through some of the industry well-known
-                      names.
-                    </span>
-                  </li>
-                  <li>
-                    <span>Access to our incubation service, industry expertise and networking.</span>
-                  </li>
-                  <li>
-                    <span>
-                      Opportunity to engaged with a ready-made community who are eager to engage with new projects.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </BenefitCard>
+              <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                What sets us apart is our robust deal flows and rigorous due diligence process. We work tirelessly to
+                curate the best investment options for retail investors, allowing them to purchase tokens from promising
+                projects right from their early stages.
+              </p>
 
-            <BenefitCard>
-              <div className="flex flex-col gap-3 justify-start items-center w-full px-4">
-                <div className="avatar">
-                  <div className="w-24 rounded-full border border-[#0029ff]">
-                    <img src="/images/spark_logo_black.svg" alt="logo_black" />
-                  </div>
-                </div>
-                <span className="text-[#fff] capitalize text-center text-[1em] font-[500] leading-6">
-                  venture funds
-                </span>
-                <ul className="flex flex-col justify-start items-start gap-3 font-[400] px-2 text-[#aaa] text-[0.96em] list-disc leading-4">
-                  <li>
-                    <span>
-                      Opportunity to empower engaged communities by accelerating projects and amplifying their reach in
-                      the market.
-                    </span>
-                  </li>
-                  <li>
-                    <span>Access to deeper insight into why and how other successful projects have thrived.</span>
-                  </li>
-                  <li>
-                    <span>Opportunity to secure investment in next-gen metaverse and AI projects.</span>
-                  </li>
-                  <li>
-                    <span>
-                      Giving back to the community by sharing knowledge, and engaging with passionate individuals.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </BenefitCard>
+              <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                By offering carefully vetted opportunities, we empowers retail investors with the chance to get in on
+                the ground floor of potential high-growth ventures. Whether you&apos;re a seasoned investor or just
+                starting, SparkFi provides a user-friendly platform to explore and diversify your investments in the
+                thriving world of cryptocurrencies and blockchain projects.
+              </p>
+
+              <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                Say goodbye to traditional barriers and welcome a new era of financial inclusivity with SparkFi - the
+                decentralized marketplace designed to put retail investors in the driver&apos;s seat of their investment
+                journey.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -152,33 +85,29 @@ export default function Home() {
             <UpcomingSalesView />
           </div>
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-start lg:items-center gap-9 lg:gap-12 px-3 lg:px-9 py-12 flex-1">
-          <span className="capitalize text-[#fff] font-[600] text-[1.4em] lg:text-[30px] leading-9">
-            how sparkFi works
+        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-9 lg:gap-12 px-3 lg:px-9 py-12 flex-1">
+          <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
+            what makes us different
           </span>
           <div className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full lg:px-10 relative">
             <div className="flex flex-col gap-8 lg:gap-14 w-full lg:w-1/3">
-              <div className="flex flex-col justify-start items-start w-full gap-5 lg:px-8">
-                <span className="text-[#c1c9ff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
-                  project selection
+              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+                <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
+                  selective listing
                 </span>
-                <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em]">
-                  We meticulously handpick top-notch projects to showcase on our platform. These projects undergo a
-                  rigorous evaluation process, considering their distinctiveness, potential for success, and alignment
-                  with our mission to redefine the gaming, metaverse, and AI sectors. This meticulous approach
-                  guarantees that only the most promising ventures are introduced to our vibrant community.
+                <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                  We adopt a careful and selective approach to project listings on our platform. We prioritize projects
+                  with strong fundamentals, innovative concepts, and real-world use cases.
                 </p>
               </div>
 
-              <div className="flex flex-col justify-start items-start w-full gap-5 lg:px-8">
-                <span className="text-[#c1c9ff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
-                  decentralized funding
+              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+                <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
+                  accelerator program
                 </span>
-                <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em]">
-                  We offer developers unparalleled access to decentralized funding opportunities. Through our platform,
-                  developers can tap into the vast funding potential of the SparkFi community through diverse mechanisms
-                  like token sales, initial NFT offerings (INOs), or token auctions. This empowers developers to secure
-                  the essential resources required to nurture and expand their projects effectively.
+                <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                  Through our accelerator program, startups gain access to industry experts, mentors, and advisors who
+                  help refine their business strategies, marketing efforts, and product development.
                 </p>
               </div>
             </div>
@@ -186,60 +115,56 @@ export default function Home() {
             <div className="hidden lg:block absolute h-80 w-80 rounded-[50%] bg-[radial-gradient(50%_50.00%_at_50%_50.00%,_rgba(0,_41,_255,_0.70)_0%,_rgba(7,_13,_55,_0.00)_100%)] lg:left-[calc(50%_-_353.23px/2_-_0.39px)]"></div>
 
             <div className="flex flex-col gap-8 lg:gap-14 w-full lg:w-1/3">
-              <div className="flex flex-col justify-start items-start w-full gap-5 lg:px-8">
-                <span className="text-[#c1c9ff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
-                  incubation & support
+              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+                <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
+                  SparkFi protect
                 </span>
-                <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em]">
-                  Upon selection, we extend comprehensive support and resources to the chosen projects. Developers are
-                  provided with guidance, mentorship, technical expertise, and marketing assistance to amplify the
-                  success and growth of their ventures. Our incubation process aims to assist developers in navigating
-                  the obstacles inherent in building and launching groundbreaking gaming experiences.
+                <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                  We developed a special feature that safeguards Vested IDOs on the our platform. It is designed to
+                  ensure the protection and integrity of both investors and the projects launched on our platform.
                 </p>
               </div>
 
-              <div className="flex flex-col justify-start items-start w-full gap-5 lg:px-8">
-                <span className="text-[#c1c9ff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
-                  launch & distribution
+              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+                <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
+                  engagement initiatives
                 </span>
-                <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em]">
-                  Upon the completion of project development and readiness for launch. Our platform actively supports
-                  marketing endeavors, generating awareness, and attracting users to engage with the pioneering concepts
-                  cultivated within the SparkFi ecosystem. Additionally, we collaborate with partner exchanges to ensure
-                  a successful launch of the project&apos;s tokens in the market.
+                <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                  Through our community-driven initiatives, such as staking, voting on new listings and platform
+                  upgrades, we are committed to fostering a supportive and inclusive community.
                 </p>
               </div>
             </div>
           </div>
         </section>
         <section className="w-full flex flex-col justify-start items-center gap-4 lg:gap-16 px-3 lg:px-10 py-3 lg:py-12 bg-transparent">
-          <span className="capitalize text-[#fff] font-[600] text-[1.4em] lg:text-[30px] leading-9">
+          <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
             frequently asked questions
           </span>
           <div className="flex flex-col lg:flex-row justify-start lg:justify-center items-center lg:items-start w-full gap-7">
             <div className="w-full lg:w-1/2 lg:px-12">
               <Accordion>
                 <AccordionItem title="What is SparkFi?">
-                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
                     SparkFi is a pioneering GameFi-designed launchpad that serves as the ultimate incubator for
                     high-quality projects on the Base chain and beyond.
                   </span>
                 </AccordionItem>
                 <AccordionItem title="What kind of projects should we expect on SparkFi?">
-                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
                     We only select the best projects. Projects to look out for are focused on blockchain games, NFTs,
                     the Metaverse, DeFi, and other recent developments in the blockchain space.
                   </span>
                 </AccordionItem>
                 <AccordionItem title="How do I participate in the IDO?">
-                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
                     Buy and stake SPAK or SPAK-LP tokens to gain a spot in IDOs while you wait for the IDO pools to
                     open. When the pool is open, participate by depositing a minimum amount of desired token allocation
                     you want to purchase in ETH.
                   </span>
                 </AccordionItem>
                 <AccordionItem title="Is SparkFi multi-chain?">
-                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
                     Currently, it is only on BASE. We&apos;ll gradually integrate other chains to make SparkFi a
                     multichain launchpad.
                   </span>
@@ -249,23 +174,23 @@ export default function Home() {
             <div className="w-full lg:w-1/2 lg:px-12">
               <Accordion>
                 <AccordionItem title="When can we claim the IDO tokens?">
-                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
                     Token unlock/claim will be in accordance with the vesting schedule of the project.
                   </span>
                 </AccordionItem>
                 <AccordionItem title="Why Base?">
-                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
                     Base offers a secure, low-cost, flexible and developer-friendly Ethereum L2 blockchain platform that
                     support a wide range of use cases, from gaming and entertainment to finance and commerce.
                   </span>
                 </AccordionItem>
                 <AccordionItem title="Will there be a token? Where can I learn about it?">
-                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
                     The token is expected to launch in Q2-Q3 of 2023.
                   </span>
                 </AccordionItem>
                 <AccordionItem title="How can I contact the team?">
-                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5">
+                  <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
                     You can get in touch with the team via our social handles.
                   </span>
                 </AccordionItem>

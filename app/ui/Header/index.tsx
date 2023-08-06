@@ -36,20 +36,31 @@ export default function Header() {
           <FiMenu />
         </button>
         <Link href="/" className="flex justify-center gap-1 items-center">
-          <Image src="/images/sparkfi_logo.svg" height={45} width={50} alt="logo" />
-          <span className="hidden lg:block uppercase text-[#fff] font-[500] text-[1.5em]">sparkfi</span>
+          <Image src="/images/logo.svg" height={36} width={36} alt="logo" />
+          <span className="text-[#fff] font-[500] text-[1.5em] font-manuale">SparkFi</span>
         </Link>
       </div>
       <div className="hidden lg:flex justify-center items-center gap-9 text-[#fff] font-[500] text-[0.95em] capitalize">
-        <Link href="/">home</Link>
-        <Link href="/launchpad">launchpad</Link>
-        <Link href="/staking">staking</Link>
-        <Link href="/swap">swap</Link>
-        <Link href="/">contact us</Link>
+        <Link className="font-inter" href="/">
+          home
+        </Link>
+        <Link className="font-inter" href="/launchpad">
+          launchpad
+        </Link>
+        <Link className="font-inter" href="/staking">
+          staking
+        </Link>
+        <Link className="font-inter" href="/swap">
+          swap
+        </Link>
+        <Link className="font-inter" href="/">
+          contact us
+        </Link>
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0"
           target="_blank"
           rel="noreferrer"
+          className="font-inter"
         >
           apply
         </a>
