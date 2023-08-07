@@ -1,4 +1,4 @@
-query IndexOnGoingTokenSales($first: Int = 3, $skip: Int = 0, $startTime: BigInt, $endTime: BigInt) {
+query IndexOnGoingTokenSales($first: Int = 2, $skip: Int = 0, $startTime: BigInt, $endTime: BigInt) {
   tokenSales(first: $first, skip: $skip, where: { startTime_lte: $startTime, endTime_gt: $endTime }) {
     id
     metadataURI

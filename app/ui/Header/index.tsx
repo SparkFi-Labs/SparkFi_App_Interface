@@ -50,9 +50,6 @@ export default function Header() {
         <Link className="font-inter" href="/staking">
           staking
         </Link>
-        <Link className="font-inter" href="/swap">
-          swap
-        </Link>
         <Link className="font-inter" href="/">
           contact us
         </Link>
@@ -77,6 +74,7 @@ export default function Header() {
           </label>
           <li>
             <Link
+              className="font-inter"
               onClick={() => {
                 if (sidebarRef.current) sidebarRef.current.checked = false;
               }}
@@ -87,6 +85,7 @@ export default function Header() {
           </li>
           <li>
             <Link
+              className="font-inter"
               onClick={() => {
                 if (sidebarRef.current) sidebarRef.current.checked = false;
               }}
@@ -97,6 +96,7 @@ export default function Header() {
           </li>
           <li>
             <Link
+              className="font-inter"
               onClick={() => {
                 if (sidebarRef.current) sidebarRef.current.checked = false;
               }}
@@ -107,16 +107,7 @@ export default function Header() {
           </li>
           <li>
             <Link
-              onClick={() => {
-                if (sidebarRef.current) sidebarRef.current.checked = false;
-              }}
-              href="/swap"
-            >
-              swap
-            </Link>
-          </li>
-          <li>
-            <Link
+              className="font-inter"
               onClick={() => {
                 if (sidebarRef.current) sidebarRef.current.checked = false;
               }}
@@ -127,6 +118,7 @@ export default function Header() {
           </li>
           <li>
             <a
+              className="font-inter"
               onClick={() => {
                 if (sidebarRef.current) sidebarRef.current.checked = false;
               }}
@@ -176,7 +168,7 @@ export default function Header() {
             >
               <Link href="/profile" className="capitalize flex justify-start items-center gap-1">
                 <MdAccountCircle />
-                <span>account overview</span>
+                <span className="font-inter">account overview</span>
               </Link>
             </li>
             {(account === factoryOwner || isFactoryAdmin) && (

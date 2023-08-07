@@ -31,7 +31,7 @@ export default function Home() {
             <span className="text-[#fff] text-[1.4rem] lg:text-[3.125rem] capitalize font-[400] text-center">
               ignite your startup&apos;s success
             </span>
-            <span className="text-[#aaa] text-[0.8em] font-[400] leading-5 text-center">
+            <span className="text-[#aaa] text-[0.9em] font-[500] leading-5 text-center font-inter">
               An innovative solution for token launches, supporting new projects and fostering liquidity provisioning on
               Base Network
             </span>
@@ -53,28 +53,28 @@ export default function Home() {
               <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
                 about sparkFi
               </span>
-              <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
-                SparkFi is an innovative decentralized marketplace that opens up exciting opportunities for retail
-                investors to expand their investment horizons in the primary market.
+              <p className="text-[#aaa] font-[500] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                SparkFi is the first launchpad platform built on the Base blockchain, designed to support new blockchain
+                projects in a decentralized manner. By possessing a specific amount of SPAK tokens, users can
+                participate in any launch on SparkFi, allowing them to purchase tokens from promising projects right
+                from their early stages.
               </p>
 
-              <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
-                What sets us apart is our robust deal flows and rigorous due diligence process. We work tirelessly to
-                curate the best investment options for retail investors, allowing them to purchase tokens from promising
-                projects right from their early stages.
+              <p className="text-[#aaa] font-[500] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                Our mission is to provide a decentralized launchpad platform on the Base blockchain for new and
+                innovative blockchain projects to be launched and achieve their full potential.
               </p>
 
-              <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+              <p className="text-[#aaa] font-[500] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
                 By offering carefully vetted opportunities, we empowers retail investors with the chance to get in on
                 the ground floor of potential high-growth ventures. Whether you&apos;re a seasoned investor or just
-                starting, SparkFi provides a user-friendly platform to explore and diversify your investments in the
-                thriving world of cryptocurrencies and blockchain projects.
+                starting, we provides a user-friendly platform for you to explore and diversify your investments in the
+                thriving world of crypto projects opportunities.
               </p>
 
-              <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
-                Say goodbye to traditional barriers and welcome a new era of financial inclusivity with SparkFi - the
-                decentralized marketplace designed to put retail investors in the driver&apos;s seat of their investment
-                journey.
+              <p className="text-[#aaa] font-[500] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
+                With our easy-to-use interface and advanced features, SparkFi is set to become the go-to platform for
+                innovative blockchain projects looking to get off the ground and easily reach their full potential.
               </p>
             </div>
           </div>
@@ -92,6 +92,7 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full lg:px-10 relative">
             <div className="flex flex-col gap-8 lg:gap-14 w-full lg:w-1/3">
               <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+                <Image src="/images/shopping_cart.svg" width={70} height={70} alt="shopping_cart" />
                 <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
                   selective listing
                 </span>
@@ -102,12 +103,13 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+                <Image src="/images/heart.svg" width={70} height={70} alt="heart" />
                 <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
-                  accelerator program
+                  user friendly
                 </span>
                 <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
-                  Through our accelerator program, startups gain access to industry experts, mentors, and advisors who
-                  help refine their business strategies, marketing efforts, and product development.
+                  We designed our platform to be accessible and user-friendly, making it easier for both seasoned
+                  investors and newcomers to explore and participate in the world of blockchain projects.
                 </p>
               </div>
             </div>
@@ -116,6 +118,7 @@ export default function Home() {
 
             <div className="flex flex-col gap-8 lg:gap-14 w-full lg:w-1/3">
               <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+                <Image src="/images/shield.svg" width={70} height={70} alt="shield" />
                 <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
                   SparkFi protect
                 </span>
@@ -126,12 +129,13 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+                <Image src="/images/link.svg" width={70} height={70} alt="link" />
                 <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
-                  engagement initiatives
+                  built on base
                 </span>
                 <p className="text-[#aaa] font-[400] text-[0.85em] lg:text-[0.96em] font-inter text-center lg:text-justify">
-                  Through our community-driven initiatives, such as staking, voting on new listings and platform
-                  upgrades, we are committed to fostering a supportive and inclusive community.
+                  We developed our platform on Base, most secure, low-cost, developer-friendly Ethereum L2 network built
+                  to bring the next billion users to web3. It is powered by Optimism&apos;s OP Stack.
                 </p>
               </div>
             </div>
