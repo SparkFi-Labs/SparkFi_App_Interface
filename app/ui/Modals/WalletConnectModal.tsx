@@ -52,8 +52,10 @@ const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, 
         <div className="bg-[#000] rounded-[5px] modal-box flex flex-col justify-start items-center gap-7">
           <div className="flex justify-between items-center px-3 py-1 w-full">
             <div className="flex flex-col justify-start gap-2 items-start">
-              <span className="capitalize text-[1em] leading-6 text-[#f5f5f5] font-[500]">connect wallet</span>
-              <span className="text-[0.7em] lg:text-[0.8em] leading-6 text-[#c1c9ff] font-[400]">
+              <span className="capitalize text-[1em] leading-6 text-[#f5f5f5] font-[500] font-inter">
+                connect wallet
+              </span>
+              <span className="text-[0.7em] lg:text-[0.8em] leading-6 text-[#c1c9ff] font-[400] font-inter">
                 Connect wallet in one click to start using SparkFi
               </span>
             </div>
@@ -73,7 +75,9 @@ const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, 
                 <div className="bg-[#0c0e1e] rounded-[5px] flex justify-center items-center p-2">
                   <Image src="/images/metamask.svg" alt="metamask" width={40} height={40} />
                 </div>
-                <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500]">metamask</span>
+                <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500] font-inter">
+                  metamask
+                </span>
               </button>
               <button
                 onClick={connectCoinbase}
@@ -82,7 +86,9 @@ const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, 
                 <div className="bg-[#0c0e1e] rounded-[5px] flex justify-center items-center p-2">
                   <Image src="/images/coinbase.svg" alt="coinbase" width={40} height={40} />
                 </div>
-                <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500]">coinbase</span>
+                <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500] font-inter">
+                  coinbase
+                </span>
               </button>
             </div>
 
@@ -94,7 +100,9 @@ const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, 
                 <div className="bg-[#0c0e1e] rounded-[5px] flex justify-center items-center p-2">
                   <Image src="/images/trust_wallet.svg" alt="trust" width={40} height={40} />
                 </div>
-                <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500]">trust wallet</span>
+                <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500] font-inter">
+                  trust wallet
+                </span>
               </button>
               <button
                 onClick={connectWalletConnect}
@@ -103,25 +111,28 @@ const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, 
                 <div className="bg-[#0c0e1e] rounded-[5px] flex justify-center items-center p-2">
                   <Image src="/images/wallet_connect.svg" alt="wallet_connect" width={40} height={40} />
                 </div>
-                <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500]">wallet connect</span>
+                <span className="capitalize text-[0.89em] leading-6 text-[#f5f5f5] font-[500] font-inter">
+                  wallet connect
+                </span>
               </button>
             </div>
           </div>
           <div className="flex flex-col w-full justify-start items-start gap-3 p-4 bg-[#040511] rounded-[5px]">
             <div className="flex justify-start items-center gap-2 w-full">
               <FiEye className="text-[#f5f5f5] text-[0.5em] lg:text-[0.8em]" />
-              <span className="text-[0.5em] lg:text-[0.8em] leading-6 text-[#c1c9ff] font-[400]">
+              <span className="text-[0.5em] lg:text-[0.8em] leading-6 text-[#c1c9ff] font-[400] font-inter">
                 View only permissions: We can&apos;t do anything without your approval.
               </span>
             </div>
             <div className="flex justify-start items-center gap-2 w-full">
               <FiHelpCircle className="text-[#f5f5f5] text-[0.5em] lg:text-[0.8em]" />
-              <span className="text-[0.5em] lg:text-[0.8em] leading-6 text-[#c1c9ff] font-[400]">
+              <span className="text-[0.5em] lg:text-[0.8em] leading-6 text-[#c1c9ff] font-[400] font-inter">
                 New to Web3?{" "}
                 <a
                   href="https://www.quicknode.com/guides/web3-fundamentals-security/basics-to-web3-wallets#:~:text=What%20are%20Web3%20Wallets%3F,NFTs%2C%20and%20other%20digital%20tokens."
                   target="_blank"
                   rel="noreferrer"
+                  className="font-inter"
                 >
                   Learn about wallets.
                 </a>
