@@ -31,13 +31,13 @@ export default function Header() {
           onClick={() => {
             if (sidebarRef.current) sidebarRef.current.checked = true;
           }}
-          className="flex lg:hidden justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-[1.2em]"
+          className="flex lg:hidden justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-[1.1em]"
         >
           <FiMenu />
         </button>
         <Link href="/" className="flex justify-center gap-1 items-center">
-          <Image src="/images/logo.svg" height={36} width={36} alt="logo" />
-          <span className="text-[#fff] font-[500] text-[1.5em] font-manuale">SparkFi</span>
+          <Image src="/images/logo.svg" height={30} width={30} alt="logo" />
+          <span className="text-[#fff] font-[500] text-[0.87em] lg:text-[1.5em] font-manuale">SparkFi</span>
         </Link>
       </div>
       <div className="hidden lg:flex justify-center items-center gap-9 text-[#fff] font-[500] text-[0.95em] capitalize">
@@ -152,12 +152,14 @@ export default function Header() {
               >
                 <FaWallet className="text-green-500 text-[1em]" />
               </div>
-              <div className="px-5 py-1 text-[#fff] uppercase">{millify(etherBalance, { precision: 3 })} eth</div>
+              <div className="px-5 py-1 text-[#fff] uppercase font-inter text-[0.7em] lg:text-[1em]">
+                {millify(etherBalance, { precision: 3 })} eth
+              </div>
             </button>
           </div>
         )}
         <details ref={userMenuRef} className="dropdown dropdown-end mb-1">
-          <summary className="flex justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-[1.2em] cursor-pointer">
+          <summary className="flex justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-[0.7em] lg:text-[1.2em] cursor-pointer">
             <FiUser />
           </summary>
           <ul className="p-2 shadow-lg menu dropdown-content z-[1] bg-[#0029ff] w-52 mt-3 shadow-slate-600">
@@ -179,7 +181,7 @@ export default function Header() {
               >
                 <Link href="/launchpad/new" className="capitalize flex justify-start items-center gap-1">
                   <MdRocketLaunch />
-                  <span>create new launch</span>
+                  <span className="font-inter">create new launch</span>
                 </Link>
               </li>
             )}
@@ -198,7 +200,7 @@ export default function Header() {
                     className="capitalize flex justify-start items-center gap-1"
                   >
                     <FiLogOut />
-                    <span>disconnect wallet</span>
+                    <span className="font-inter">disconnect wallet</span>
                   </a>
                 </li>
               </Fragment>

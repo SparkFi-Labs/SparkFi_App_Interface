@@ -27,7 +27,7 @@ export default function UpcomingSalesView() {
             height={50}
             label={
               <div className="flex justify-center items-center gap-4 text-[#fff] w-full text-[1em]">
-                <span className="capitalize font-[500]">see all projects</span>
+                <span className="capitalize font-[500] font-inter">see all projects</span>
                 <BsArrowRight />
               </div>
             }
@@ -50,7 +50,7 @@ export default function UpcomingSalesView() {
                     </span>
                     <span className="font-[500] capitalize text-[1em] font-inter">apply for launch</span>
                     <CTAPurple
-                      width="100%"
+                      width="90%"
                       height={50}
                       label={<span className="font-inter font-[500] text-[1.1em] capitalize">submit your project</span>}
                     />
