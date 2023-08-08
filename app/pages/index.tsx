@@ -6,10 +6,6 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-const BenefitCard = ({ children }: any) => (
-  <div className="rounded-[7px] py-14 px-2 bg-[#151938] w-full lg:w-1/4 lg:min-h-[35rem]">{children}</div>
-);
-
 export default function Home() {
   const { push } = useRouter();
   return (
@@ -46,9 +42,18 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 pt-20 pb-6 lg:pb-48">
+        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 px-3 lg:px-9 pt-20 pb-6 lg:pb-48">
           <div className="flex flex-col-reverse lg:flex-row justify-start items-center lg:justify-around gap-10 lg:items-start w-full">
-            <Image src="/images/cubes.svg" width={644} height={644} alt="cubes" />
+            <div className="flex justify-center items-center relative w-full lg:w-1/2 text-center">
+              <img src="/images/cubes.svg" className="w-full h-full m-auto" alt="cubes" />
+              <Image
+                src="/images/box.gif"
+                alt="box"
+                width={500}
+                height={500}
+                className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]"
+              />
+            </div>
             <div className="flex flex-col justify-start items-center lg:items-start gap-12 lg:w-1/3">
               <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
                 about sparkFi
@@ -141,7 +146,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="w-full flex flex-col justify-start items-center gap-4 lg:gap-16 px-3 lg:px-10 py-3 lg:py-12 bg-transparent">
+        <section className="w-full flex flex-col justify-start items-center gap-7 lg:gap-16 px-3 lg:px-10 py-3 lg:py-12 bg-transparent">
           <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
             frequently asked questions
           </span>
@@ -202,37 +207,9 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* <section className="w-full flex justify-center items-center gap-4 lg:gap-16 px-3 lg:px-10 py-3 lg:py-36 bg-transparent">
-          <div className="w-full bg-[linear-gradient(98.34deg,_#000000_-2.54%,_#6100FF_70.68%,_#000000_105.77%)] rounded-[20px] flex justify-center items-start px-3 py-5 lg:py-12 overflow-clip">
-            <div className="flex flex-col w-full lg:w-1/3 justify-start items-center gap-2 lg:gap-5">
-              <img src="/images/polygon1.svg" className="w-1/3 h-32 lg:h-56 -mt-[4rem]" alt="triangle" />
-              <div className="flex flex-col gap-2 justify-start items-center w-full">
-                <span className="text-[#fff] font-[600] text-[1.4em] lg:text-[35px] leading-9 text-center">
-                  Is your project ready to take off on SparkFi?
-                </span>
-                <span className="text-[#aaa] font-[400] text-[0.89em] lg:text-[18px] text-center leading-5">
-                  Apply to launch your project on SparkFi, or submit an early expression of interest to join our
-                  innovative platform and get set for an incredible launch experience!
-                </span>
-              </div>
-              <div className="w-full flex justify-start items-center gap-3">
-                <img src="/images/polygon2.svg" className="w-1/3 h-32 lg:h-56" alt="triangle" />
-                <CTAMainBG
-                  label="Apply for launch"
-                  width="33.3%"
-                  height={50}
-                  onPress={() =>
-                    window.open(
-                      "https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0",
-                      "_blank"
-                    )
-                  }
-                />
-                <img src="/images/polygon3.svg" className="w-1/3 h-32 lg:h-56" alt="triangle" />
-              </div>
-            </div>
-          </div>
-        </section> */}
+        <section className="w-full flex flex-col justify-start items-center gap-7 lg:gap-16 px-3 lg:px-10 py-3 lg:py-12 bg-transparent">
+          <div className="flex justify-between items-center w-full"></div>
+        </section>
       </div>
     </>
   );

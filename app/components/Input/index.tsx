@@ -51,13 +51,10 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 export const InputField = ({ onTextChange, width, height, type, ...props }: InputFieldProps) => (
-  <div
-    className="bg-[#0c0e1e] border border-[#131735] rounded-[8px] flex justify-start items-center gap-1 px-2 py-2"
-    style={{ width, height }}
-  >
+  <div className="bg-[#0f1122] rounded-[8px] flex justify-start items-center gap-1 px-2 py-2" style={{ width, height }}>
     <input
       onChange={onTextChange}
-      className="w-full border-0 outline-0 bg-transparent text-left px-1 py-1 text-[#4d4f5c] text-[0.82em]"
+      className="w-full border-0 outline-0 bg-transparent text-left px-1 py-1 text-[#4d4f5c] font-inter text-[0.82em]"
       type={type}
       {...props}
     />
