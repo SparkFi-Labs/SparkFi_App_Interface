@@ -5,6 +5,7 @@
 @layer base {
   * {
     font-family: "Prosto One", cursive;
+    scroll-behavior: smooth;
   }
 
   ::-webkit-scrollbar {
