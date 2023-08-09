@@ -1,36 +1,104 @@
-import { CTAPurple } from "@/components/Button";
 import Image from "next/image";
-import { FaDiscord, FaGithub, FaMediumM, FaTelegramPlane, FaTwitter } from "react-icons/fa";
-import { SiGitbook } from "react-icons/si";
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0029ff] w-full flex justify-center items-center py-14">
-      <div className="flex flex-col gap-5 justify-start items-center w-full lg:w-1/3 px-4">
-        <Image src="/images/sparkfi_logo.svg" width={70} height={70} alt="logo" />
-        <div className="flex flex-row gap-5 justify-center items-center w-full text-[#fff] text-[1.4em]">
-          <a href="https://twitter.com/sparkfi_xyz" rel="noreferrer" target="_blank">
-            <FaTwitter />
-          </a>
-          <a href="https://t.me/Official_SparkFi" rel="noreferrer" target="_blank">
-            <FaTelegramPlane />
-          </a>
-          <a href="https://discord.com/invite/WtBvqvuaTu" rel="noreferrer" target="_blank">
-            <FaDiscord />
-          </a>
-          <a href="https://github.com/SparkFi-Labs" rel="noreferrer" target="_blank">
-            <FaGithub />
-          </a>
-          <a href="https://docs.sparkfi.xyz/" rel="noreferrer" target="_blank">
-            <SiGitbook />
-          </a>
-          <a href="https://sparkfi-xyz.medium.com/" rel="noreferrer" target="_blank">
-            <FaMediumM />
-          </a>
+    <footer className="bg-[#0029ff] w-full flex flex-col justify-start lg:justify-center items-start lg:items-center gap-7 py-4">
+      <div className="flex flex-col justify-start lg:justify-center items-start lg:items-center py-14 px-2 lg:px-28 gap-8 lg:gap-12">
+        <div className="flex justify-start w-full items-center">
+          <Link href="/" className="flex justify-center gap-1 items-center">
+            <Image src="/images/logo.svg" height={30} width={30} alt="logo" />
+            <span className="text-[#fff] font-[500] text-[0.87em] lg:text-[1.5em] font-manuale">SparkFi</span>
+          </Link>
         </div>
-        <span className="text-[1em] text-[#fff] font-[400] capitalize">
-          copyright &copy; 2023. all rights reserved.
-        </span>
+        <div className="flex flex-col lg:flex-row justify-evenly items-start w-full gap-7 lg:gap-16">
+          <span className="text-[#fff] text-[0.9em] font-[400] leading-5 font-inter w-full lg:w-1/4">
+            SparkFi is an ultimate platform that fuels innovation and propels startups to new heights! At SparkF our
+            mission is to provide a launchpad for crypto startups, equipping them with the necessary resources,
+            mentorship, and networking opportunities to thrive in today&apos;s fast-paced business landscape.
+          </span>
+          <div className="flex flex-col justify-start lg:justify-center items-start w-full lg:w-1/4 gap-7">
+            <span className="uppercase text-[0.95em] lg:text-[1.1em] font-[400]">information</span>
+            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-[0.92em] lg:text-[1em] capitalize">
+              <Link className="font-inter font-[400]" href="/#faq">
+                FAQ
+              </Link>
+              <a className="font-inter" href="#faq">
+                litepaper
+              </a>
+              <a className="font-inter" href="https://github.com/SparkFi-Labs" target="_blank">
+                github
+              </a>
+              <a className="font-inter" href="#faq">
+                contact
+              </a>
+            </div>
+          </div>
+          <div className="flex flex-col justify-start lg:justify-center items-start w-full lg:w-1/4 gap-7">
+            <span className="uppercase text-[0.95em] lg:text-[1.1em] font-[400]">explore</span>
+            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-[0.92em] lg:text-[1em] capitalize">
+              <Link className="font-inter" href="/launchpad">
+                pools
+              </Link>
+              <Link className="font-inter" href="/staking">
+                staking
+              </Link>
+              <a className="font-inter" href="#" target="_blank">
+                SPAK token
+              </a>
+            </div>
+          </div>
+          <div className="flex flex-col justify-start lg:justify-center items-start w-full lg:w-1/4 gap-7">
+            <span className="uppercase text-[0.95em] lg:text-[1.1em] font-[400]">connect</span>
+            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-[0.92em] lg:text-[1em] capitalize">
+              <a className="font-inter" href="https://t.me/Official_SparkFi" target="_blank">
+                telegram
+              </a>
+              <a className="font-inter" href="https://twitter.com/sparkfi_xyz" target="_blank">
+                twitter
+              </a>
+              <a className="font-inter" href="https://sparkfi-xyz.medium.com/" target="_blank">
+                medium
+              </a>
+              <a className="font-inter" href="https://discord.com/invite/WtBvqvuaTu" target="_blank">
+                discord
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="w-full h-[1px] bg-[#fff]"></div>
+      <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-start  gap-2 lg:gap-10 px-2 lg:px-28 w-full">
+        <div className="w-full lg:w-1/3">
+          <div className="flex flex-col justify-start lg:justify-center items-start w-full gap-2 lg:gap-7">
+            <span className="uppercase text-[0.95em] lg:text-[1.1em] font-[400]">private investments</span>
+            <span className="font-inter font-[400]">partners@sparkfi.xyz</span>
+          </div>
+        </div>
+        <div className="flex flex-col gap-7 w-full lg:w-1/3">
+          <span className="hidden lg:block capitalize font-inter font-[400]">
+            copyright &copy; 2023, sparkFi. all rights reserved.
+          </span>
+          <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-start lg:items-center capitalize">
+            <a className="font-inter" href="#" target="_blank">
+              terms & conditions
+            </a>
+            <a className="font-inter" href="#" target="_blank">
+              privacy policy
+            </a>
+            <a className="font-inter" href="#" target="_blank">
+              brand kits
+            </a>
+          </div>
+        </div>
+        <div className="flex flex-col gap-7 w-full justify-start items-start lg:w-1/3">
+          <div className="flex justify-center items-center w-full">
+            <Image src="/images/logo_white_bg.svg" width={62} height={62} alt="logo" />
+          </div>
+          <span className="block lg:hidden capitalize font-inter font-[400]">
+            copyright &copy; 2023, sparkFi. all rights reserved.
+          </span>
+        </div>
       </div>
     </footer>
   );
