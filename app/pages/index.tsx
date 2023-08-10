@@ -34,7 +34,7 @@ export default function Home() {
             <span className="text-[#fff] text-[1.4rem] lg:text-[3.125rem] capitalize font-[400] text-center">
               ignite your startup&apos;s success
             </span>
-            <span className="text-[#aaa] text-[0.9em] font-[500] leading-5 text-center font-inter">
+            <span className="text-[#aaa] text-[16px] lg:text-[18px] font-[500] leading-5 text-center font-inter">
               An innovative solution for token launches, supporting new projects and fostering liquidity provisioning on
               Base Network
             </span>
