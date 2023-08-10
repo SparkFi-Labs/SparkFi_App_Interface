@@ -9,6 +9,14 @@ import { ThreeCircles } from "react-loader-spinner";
 import { RWebShare } from "react-web-share";
 import Image from "next/image";
 import { BsMedium } from "react-icons/bs";
+import Card from "@/components/Card";
+import { Tab, Tabs } from "@/ui/Tabs";
+import SingleSalePoolInfo from "@/screens/launchpad/SingleSalePoolInfo";
+import type { TokenSale } from "@/.graphclient";
+import { floor, isNil, multiply } from "lodash";
+import { useAtomicDate } from "@/hooks/app/shared";
+import { CTAPurpleOutline } from "@/components/Button";
+import Countdown from "react-countdown";
 
 const Checker = ({
   isChecked = false,
@@ -20,12 +28,12 @@ const Checker = ({
   hasConnector?: boolean;
 }) => {
   return (
-    <div className="flex justify-start items-start gap-3 w-full">
-      <div className="flex flex-col justify-start items-center gap-1">
-        <div className="w-4 h-4 rounded-full flex justify-center items-center px-1 py-1 outline outline-2 outline-[#fff] border border-[#0029ff] bg-[#0029ff]">
-          {isChecked && <FiCheck />}
+    <div className="flex justify-start items-start gap-3 w-full py-1">
+      <div className="flex flex-col justify-start items-center gap-1 min-h-[30px]">
+        <div className="w-5 h-5 rounded-full flex justify-center items-center px-1 py-1 outline outline-2 outline-[#fff] border border-[#0029ff] bg-[#0029ff]">
+          {isChecked && <FiCheck size={10} />}
         </div>
-        {hasConnector && <div className="w-[0.9px] h-[12px] bg-[#0029ff]"></div>}
+        {hasConnector && <div className="w-[0.9px] min-h-[inherit] bg-[#0029ff]"></div>}
       </div>
       {label}
     </div>
@@ -52,9 +60,10 @@ export default function SingleSale() {
   } = useIPFSGetMetadata(singleSaleData?.metadataURI as string);
 
   const [activeTab, setActiveTab] = useState(0);
+  const atomicDate = useAtomicDate();
 
   return (
-    <div className="w-screen flex flex-col justify-start items-center gap-8 my-11 px-3 lg:px-14">
+    <div className="w-screen flex flex-col justify-start items-center gap-5 lg:gap-8 my-11 px-3 lg:px-14">
       {singleSaleLoading || metadataIsLoading ? (
         <div className="flex justify-center items-center w-full m-auto h-screen">
           <ThreeCircles color="#fff" width={90} />
@@ -95,7 +104,28 @@ export default function SingleSale() {
             </RWebShare>
           </div>
           <div className="flex justify-start items-center w-full">
-            <Checker label={<span className="font-inter text-xs lg:text-sm capitalize font-[500]">preparation</span>} />
+            <Checker
+              label={
+                <span className="font-inter text-xs lg:text-sm capitalize font-[500]">
+                  {!isNil(singleSaleData) && (
+                    <>
+                      {((!isNil(singleSaleData.whitelistStartTime) &&
+                        atomicDate.getTime() / 1000 < parseInt(singleSaleData.whitelistStartTime)) ||
+                        atomicDate.getTime() / 1000 < parseInt(singleSaleData.startTime)) &&
+                        "preparation"}
+                      {!isNil(singleSaleData.whitelistStartTime) &&
+                        !isNil(singleSaleData.whitelistEndTime) &&
+                        atomicDate.getTime() / 1000 >= parseInt(singleSaleData.whitelistStartTime) &&
+                        atomicDate.getTime() / 1000 < parseInt(singleSaleData.whitelistEndTime) &&
+                        "whitelist"}
+                      {atomicDate.getTime() / 1000 >= parseInt(singleSaleData.startTime) &&
+                        atomicDate.getTime() / 1000 < parseInt(singleSaleData.endTime) &&
+                        "live"}
+                    </>
+                  )}
+                </span>
+              }
+            />
           </div>
           <div className="flex justify-between items-start h-20 lg:h-24 w-full">
             <div className="flex justify-start items-start gap-7 h-full">
@@ -168,34 +198,160 @@ export default function SingleSale() {
           <div className="w-full bg-[#151938] min-h-[152px] flex justify-between lg:justify-evenly items-center flex-wrap rounded-[8px] px-3 lg:px-6 py-2">
             <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">price</span>
-              <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+              <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
                 {singleSaleData?.salePrice} {singleSaleData?.paymentToken.symbol}
               </span>
             </div>
             <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">min. allocation</span>
-              <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+              <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
                 {singleSaleData?.minTotalPayment} {singleSaleData?.paymentToken.symbol}
               </span>
             </div>
             <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">max. allocation</span>
-              <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+              <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
                 {singleSaleData?.maxTotalPayment} {singleSaleData?.paymentToken.symbol}
               </span>
             </div>
             <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">tokens for sale</span>
-              <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+              <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
                 {singleSaleData?.totalAvailableSaleTokens} {singleSaleData?.saleToken.symbol}
               </span>
             </div>
             <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">hardcap</span>
-              <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+              <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
                 {parseFloat(singleSaleData?.totalAvailableSaleTokens) * parseFloat(singleSaleData?.salePrice)}{" "}
                 {singleSaleData?.saleToken.symbol}
               </span>
+            </div>
+          </div>
+          <div className="flex flex-col lg:flex-row w-full gap-6 justify-start items-center lg:items-start">
+            <div className="w-full lg:w-1/3 rounded-[8px] lg:min-h-[407px]">
+              <Card width="100%" style={{ minHeight: "inherit" }}>
+                <div className="card-body">
+                  <div className="flex flex-col gap-6 justify-start items-start px-3 py-5">
+                    <span className="font-inter text-[15px] lg:text-[18px] font-[500] capitalize">IDO process:</span>
+                    <div className="flex flex-col gap-2">
+                      <Checker
+                        isChecked={
+                          (!isNil(singleSaleData?.whitelistStartTime) &&
+                            atomicDate.getTime() / 1000 <= parseInt(singleSaleData?.whitelistStartTime)) ||
+                          atomicDate.getTime() / 1000 >= parseInt(singleSaleData?.startTime) ||
+                          atomicDate.getTime() / 1000 <= parseInt(singleSaleData?.endTime)
+                        }
+                        hasConnector
+                        label={
+                          <div className="flex flex-col justify-start items-start gap-2">
+                            <span className="font-inter text-[0.8rem] lg:text-[0.9rem] font-[500] capitalize">
+                              preparation
+                            </span>
+                            <p className="font-inter text-[0.79rem] lg:text-[0.88rem] font-[500] text-[#d9d9d9]">
+                              Project is preparing for whitelist.
+                            </p>
+                          </div>
+                        }
+                      />
+                      <Checker
+                        isChecked={
+                          !isNil(singleSaleData?.whitelistStartTime) &&
+                          atomicDate.getTime() / 1000 >= parseInt(singleSaleData?.whitelistStartTime)
+                        }
+                        hasConnector
+                        label={
+                          <div className="flex flex-col justify-start items-start gap-2">
+                            <span className="font-inter text-[0.8rem] lg:text-[0.9rem] font-[500] capitalize">
+                              whitelist
+                            </span>
+                            <p className="font-inter text-[0.79rem] lg:text-[0.88rem] font-[500] text-[#d9d9d9]">
+                              You can whitelist for this project.
+                            </p>
+                          </div>
+                        }
+                      />
+                      <Checker
+                        isChecked={atomicDate.getTime() / 1000 >= parseInt(singleSaleData?.startTime)}
+                        hasConnector
+                        label={
+                          <div className="flex flex-col justify-start items-start gap-2">
+                            <span className="font-inter text-[0.8rem] lg:text-[0.9rem] font-[500] capitalize">
+                              sale
+                            </span>
+                            <p className="font-inter text-[0.79rem] lg:text-[0.88rem] font-[500] text-[#d9d9d9]">
+                              You can fill your allocation.
+                            </p>
+                          </div>
+                        }
+                      />
+                      <Checker
+                        isChecked={
+                          atomicDate.getTime() / 1000 >=
+                          parseInt(singleSaleData?.endTime) + (singleSaleData?.withdrawDelay || 0)
+                        }
+                        label={
+                          <div className="flex flex-col justify-start items-start gap-2">
+                            <span className="font-inter text-[0.8rem] lg:text-[0.9rem] font-[500] capitalize">
+                              distribution
+                            </span>
+                            <p className="font-inter text-[0.79rem] lg:text-[0.88rem] font-[500] text-[#d9d9d9]">
+                              You can claim your tokens.
+                            </p>
+                          </div>
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="card-actions w-full">
+                    <CTAPurpleOutline
+                      label={
+                        parseInt(singleSaleData?.startTime) > floor(atomicDate.getTime() / 1000) ? (
+                          <Countdown
+                            date={multiply(parseInt(singleSaleData?.startTime), 1000)}
+                            renderer={({ days, hours, minutes, seconds }) => (
+                              <span className="font-inter font-[500] text-[1em] lg:text-[1.3em] text-[#d9d9d9]">
+                                Sale will start in {days}D:{hours}H:{minutes}M:{seconds}S
+                              </span>
+                            )}
+                          />
+                        ) : (
+                          <Countdown
+                            date={multiply(parseInt(singleSaleData?.endTime), 1000)}
+                            renderer={({ days, hours, minutes, seconds, completed }) => (
+                              <span className="font-inter font-[500] text-[1em] lg:text-[1.3em] text-[#d9d9d9]">
+                                {!completed
+                                  ? `Sale closes in ${days}D:${hours}H:${minutes}M:${seconds}S`
+                                  : `Sale closed on ${new Date(
+                                      multiply(parseInt(singleSaleData?.endTime), 1000)
+                                    ).toISOString()}`}
+                              </span>
+                            )}
+                          />
+                        )
+                      }
+                      width="100%"
+                      height={55}
+                    />
+                  </div>
+                </div>
+              </Card>
+            </div>
+            <div className="lg:w-[66%] w-full flex flex-col justify-start items-start gap-4">
+              <Tabs activeTab={activeTab}>
+                <Tab onTabSelected={() => setActiveTab(0)} label="project info" />
+                <Tab onTabSelected={() => setActiveTab(1)} label="whitelist" />
+                <Tab onTabSelected={() => setActiveTab(2)} label="participate" />
+              </Tabs>
+              <div className="w-full rounded-[8px]">
+                <Card width="100%">
+                  <div className="card-body w-full">
+                    {activeTab === 0 && !isNil(singleSaleData) && (
+                      <SingleSalePoolInfo data={singleSaleData as TokenSale} />
+                    )}
+                  </div>
+                </Card>
+              </div>
             </div>
           </div>
         </>

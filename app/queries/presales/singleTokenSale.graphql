@@ -5,6 +5,7 @@ query IndexSingleTokenSale($id: ID!) {
     saleType
     whitelistStartTime
     whitelistEndTime
+    withdrawDelay
     presaleId
     startTime
     endTime
