@@ -35,8 +35,29 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
             <>
               {metadata && (
                 <Fragment>
-                  <div className="bg-[#141a45] rounded-t-[inherit] w-full flex flex-col gap-4 min-h-[174px] lg:min-h-[212px] py-7 px-7">
-                    <div className="flex justify-between items-start w-full">
+                  <div className="bg-[#141a45] rounded-t-[inherit] w-full flex flex-col gap-4 min-h-[174px] relative lg:min-h-[212px] py-7 px-7 overflow-clip">
+                    <Image
+                      src="/images/ellipse_85.svg"
+                      width={300}
+                      height={150}
+                      alt="ellipse"
+                      className="absolute top-0 left-[60%] lg:left-[50%]"
+                    />
+                    <Image
+                      src="/images/ellipse_85.svg"
+                      width={300}
+                      height={150}
+                      alt="ellipse"
+                      className="absolute -top-16 left-[65%] lg:left-[55%]"
+                    />
+                    <Image
+                      src="/images/ellipse_85.svg"
+                      width={300}
+                      height={150}
+                      alt="ellipse"
+                      className="absolute -top-32 left-[73%] lg:left-[63%] bg-[radial-gradient(36.16%_25.08%_at_51.95%_75.00%,_rgba(103,_121,_255,_0.50)_0%,_rgba(9,_15,_58,_0.00)_100%)]"
+                    />
+                    <div className="flex justify-between items-start w-full z-30">
                       <span className="font-inter font-[600] text-[1em] lg:text-[2em]">{metadata.name}</span>
                       <span className="capitalize flex justify-center items-center px-1 py-1 bg-[#101121] text-[#ffe603] font-inter font-[400] text-[0.8em] lg:text-[0.88em] rounded-sm">
                         {label}
@@ -44,7 +65,7 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                     </div>
 
                     <div className="flex justify-between w-full items-center">
-                      <div className="flex justify-center items-center gap-3">
+                      <div className="flex justify-center items-center gap-3 z-30">
                         <Image
                           src={metadata.projectLogoURI}
                           width={100}
@@ -61,7 +82,7 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                         width={80}
                         height={80}
                         alt={metadata.name}
-                        className="rounded-xl"
+                        className="rounded-xl z-30"
                       />
                     </div>
                     <div className="flex justify-start items-start w-full">
