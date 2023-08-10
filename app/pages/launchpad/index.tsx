@@ -47,13 +47,13 @@ export default function Launchpad() {
             </div>
           </div>
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 pt-6 lg:pt-12 pb-6 lg:pb-12">
+        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 pt-6 lg:pt-12 pb-6 lg:pb-12 px-3 lg:px-8">
           <ActiveSalesView />
         </section>
-        <section className="bg-transparent w-full flex flex-col justify-start items-center gap-7 pt-6 lg:pt-12 pb-6 lg:pb-12">
+        <section className="bg-transparent w-full flex flex-col justify-start items-center gap-7 pt-6 lg:pt-12 pb-6 lg:pb-12 px-3 lg:px-8">
           <UpcomingSalesView />
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 pt-6 lg:pt-12 pb-6 lg:pb-12">
+        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 pt-6 lg:pt-12 pb-6 lg:pb-12 px-3 lg:px-8">
           <CompletedSalesView />
         </section>
         <section className="w-full flex flex-col justify-start items-center gap-7 lg:gap-16 py-3 lg:py-12 bg-transparent container mx-auto">
