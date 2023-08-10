@@ -1,11 +1,11 @@
 import { isAddress } from "@ethersproject/address";
 import Joi from "joi";
-import { isNull } from "lodash";
+import { isNil } from "lodash";
 
 // export const binarySchema = Joi.binary().encoding("base64");
 export const ethereumAddressSchema = Joi.string()
   .custom((value, helpers) => {
-    if (isNull(value) || typeof value === "undefined") return helpers.error("any.invalid");
+    if (isNil(value)) return helpers.error("any.invalid");
 
     if (!isAddress(value)) throw new Error("invalid ethereum address");
 
@@ -18,18 +18,12 @@ export const validNumberSchema = (name: string) => Joi.number().label(name).grea
 export const saleIPFSMetadataSchema = Joi.object({
   name: Joi.string().required(),
   genre: Joi.string().required(),
-  logoURI: Joi.string()
+  projectLogoURI: Joi.string()
     .uri({ scheme: ["https", "http", "git", /git\+https?/] })
     .required(),
-  bannerURI: Joi.string()
+  tokenLogoURI: Joi.string()
     .uri({ scheme: ["https", "http", "git", /git\+https?/] })
     .required(),
-  media: Joi.object({
-    type: Joi.string().valid("image", "video").required(),
-    uri: Joi.string()
-      .uri({ scheme: ["https", "http", "git", /git\+https?/] })
-      .required()
-  }).required(),
   description: Joi.string().min(20).required(),
   links: Joi.object({
     linkedin: Joi.string().uri().optional(),
@@ -42,5 +36,24 @@ export const saleIPFSMetadataSchema = Joi.object({
     medium: Joi.string().uri().optional()
   }).optional(),
   initialMarketCap: Joi.string().optional(),
-  projectValuation: Joi.string().optional()
+  projectValuation: Joi.string().optional(),
+  team: Joi.array()
+    .items(
+      Joi.object({
+        name: Joi.string().required(),
+        role: Joi.string().required(),
+        description: Joi.string().required()
+      })
+    )
+    .required(),
+  tokenomics: Joi.array()
+    .items(
+      Joi.object({
+        name: Joi.string().required(),
+        value: Joi.number().max(100),
+        description: Joi.string().allow(" ").optional()
+      })
+    )
+    .required(),
+  roadmap: Joi.string().required()
 });

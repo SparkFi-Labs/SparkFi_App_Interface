@@ -13,6 +13,7 @@ import { hexValue } from "@ethersproject/bytes";
 import assert from "assert";
 import { useSingleSale } from "../../launchpad";
 import { useWeb3React } from "@web3-react/core";
+import bytecodes from "@/assets/bytecodes";
 
 export const usePresaleDeploymentInitializer = (
   newOwner: string,
@@ -25,7 +26,8 @@ export const usePresaleDeploymentInitializer = (
   daysToLast: number,
   minTotalPayment: number,
   maxTotalPayment: number,
-  withdrawalDelay: number
+  withdrawalDelay: number,
+  presaleType: 1 | 2
 ) => {
   const factoryContract = useContract(presaleFactoryContracts, presaleFactoryAbi);
   const paymentTokenDetails = useTokenDetails(paymentToken);
@@ -71,8 +73,10 @@ export const usePresaleDeploymentInitializer = (
             )
           );
           const withdrawalDelayHex = hexValue(withdrawalDelay);
+          const creationCode = presaleType === 1 ? bytecodes.regularSale : bytecodes.allocationSale;
 
           const tx = await factoryContract.deploySale(
+            creationCode,
             metadataURI,
             newOwner,
             casher,
@@ -86,7 +90,8 @@ export const usePresaleDeploymentInitializer = (
             hardCapHex,
             [],
             [],
-            withdrawalDelayHex
+            withdrawalDelayHex,
+            presaleType
           );
 
           const awaitedTx = await tx.wait();
@@ -109,6 +114,7 @@ export const usePresaleDeploymentInitializer = (
       newOwner,
       paymentToken,
       paymentTokenDetails,
+      presaleType,
       salePrice,
       saleToken,
       saleTokenDetails,

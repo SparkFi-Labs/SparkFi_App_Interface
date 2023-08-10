@@ -46,7 +46,7 @@ export const Steps = ({ activeStep = 0, children }: StepsProps) => {
             })}
             {(elem as ReactElement<any>).props.title && (
               <div className="flex justify-center items-center w-1/3">
-                <span className="font-[500] text-[0.5em] lg:text-[0.9em] capitalize text-[#fff]">
+                <span className="font-[500] text-[0.5em] lg:text-[0.9em] font-inter capitalize text-[#fff]">
                   {(elem as ReactElement<any>).props.title}
                 </span>
               </div>
