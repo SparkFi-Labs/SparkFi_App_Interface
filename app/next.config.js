@@ -11,6 +11,7 @@ const withPWA = require("next-pwa")({
 module.exports = withPWA({
   reactStrictMode: true,
   images: {
-    domains: ["sparkfi.xyz"]
+    domains: ["sparkfi.xyz"],
+    dangerouslyAllowSVG: true
   }
 });

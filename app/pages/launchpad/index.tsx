@@ -9,11 +9,15 @@ export default function Launchpad() {
       <Head>
         <title>Launchpad | Pools</title>
       </Head>
-      <ActiveSalesView />
-      <div className="bg-[#101221] w-full py-7">
+      <div className="px-3 w-full">
+        <ActiveSalesView />
+      </div>
+      <div className="bg-[#101221] w-full py-7 px-3">
         <UpcomingSalesView />
       </div>
-      <CompletedSalesView />
+      <div className="px-3 w-full">
+        <CompletedSalesView />
+      </div>
     </div>
   );
 }

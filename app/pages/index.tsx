@@ -49,8 +49,8 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 px-3 lg:px-9 pt-20 pb-6 lg:pb-48">
-          <div className="flex flex-col-reverse lg:flex-row justify-start items-center lg:justify-around gap-10 lg:items-start w-full">
+        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 pt-20 pb-6 lg:pb-48">
+          <div className="flex flex-col-reverse lg:flex-row justify-start items-center lg:justify-around gap-10 lg:items-start w-full container mx-auto">
             <div className="flex justify-center items-center relative w-full lg:w-1/2 text-center">
               <img src="/images/cubes.svg" className="w-full h-full m-auto" alt="cubes" />
               <Image
@@ -61,7 +61,7 @@ export default function Home() {
                 className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]"
               />
             </div>
-            <div className="flex flex-col justify-start items-center lg:items-start gap-12 lg:w-1/3">
+            <div className="flex flex-col justify-start items-center lg:items-start gap-12 lg:w-1/3 px-3">
               <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
                 about sparkFi
               </span>
@@ -92,18 +92,16 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-9 py-12 bg-transparent">
-          <div className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full lg:px-10 px-2">
-            <UpcomingSalesView />
-          </div>
+        <section className="w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-8 py-12 bg-transparent">
+          <UpcomingSalesView />
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-9 lg:gap-12 px-3 lg:px-9 py-12 flex-1">
+        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-9 lg:gap-12 py-12 flex-1">
           <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
             what makes us different
           </span>
-          <div className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full lg:px-10 relative">
+          <div className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full mx-auto relative container">
             <div className="flex flex-col gap-8 lg:gap-14 w-full lg:w-1/3">
-              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 px-2 lg:px-8">
                 <Image src="/images/shopping_cart.svg" width={70} height={70} alt="shopping_cart" />
                 <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
                   selective listing
@@ -114,7 +112,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 px-2 lg:px-8">
                 <Image src="/images/heart.svg" width={70} height={70} alt="heart" />
                 <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
                   user friendly
@@ -129,7 +127,7 @@ export default function Home() {
             <div className="hidden lg:block absolute h-80 w-80 rounded-[50%] bg-[radial-gradient(50%_50.00%_at_50%_50.00%,_rgba(0,_41,_255,_0.70)_0%,_rgba(7,_13,_55,_0.00)_100%)] lg:left-[calc(50%_-_353.23px/2_-_0.39px)]"></div>
 
             <div className="flex flex-col gap-8 lg:gap-14 w-full lg:w-1/3">
-              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 px-2 lg:px-8">
                 <Image src="/images/shield.svg" width={70} height={70} alt="shield" />
                 <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
                   SparkFi protect
@@ -140,7 +138,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 lg:px-8">
+              <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 px-2 lg:px-8">
                 <Image src="/images/link.svg" width={70} height={70} alt="link" />
                 <span className="text-[#fff] font-[500] text-[0.98em] lg:text-[20px] capitalize leading-6">
                   built on base
@@ -160,8 +158,8 @@ export default function Home() {
           <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
             frequently asked questions
           </span>
-          <div className="flex flex-col lg:flex-row justify-start lg:justify-center items-center lg:items-start w-full gap-7">
-            <div className="w-full lg:w-1/2 lg:px-12">
+          <div className="flex flex-col lg:flex-row justify-start lg:justify-center items-center lg:items-start w-full gap-7 container mx-auto">
+            <div className="w-full lg:w-1/2">
               <Accordion>
                 <AccordionItem title="What is SparkFi?">
                   <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
@@ -217,11 +215,11 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="w-full flex flex-col justify-start items-center gap-7 lg:gap-16 px-3 lg:px-9 py-3 lg:py-12 bg-transparent">
-          <div className="flex justify-start items-center w-full px-1 lg:px-10">
+        <section className="w-full flex flex-col justify-start items-center gap-7 lg:gap-16 py-3 lg:py-12 bg-transparent container mx-auto">
+          <div className="flex justify-start items-center w-full px-3 lg:px-5">
             <span className="capitalize text-[1.4em] lg:text-[30px] text-[#fff] font-[400]">stay updated</span>
           </div>
-          <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start w-full gap-12 px-1 lg:px-10 lg:h-96">
+          <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start w-full gap-12 px-3 lg:px-5 lg:h-96">
             <div className="w-full lg:w-1/2 rounded-[8px] h-full">
               <Card width="100%" height="100%">
                 <div className="card-body w-full justify-start items-start">
