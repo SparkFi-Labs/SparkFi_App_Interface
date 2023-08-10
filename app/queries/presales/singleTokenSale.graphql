@@ -3,6 +3,8 @@ query IndexSingleTokenSale($id: ID!) {
     id
     metadataURI
     saleType
+    whitelistStartTime
+    whitelistEndTime
     presaleId
     startTime
     endTime
