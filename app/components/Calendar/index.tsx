@@ -139,7 +139,7 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
       <div className="flex flex-col justify-start items-start py-3 px-2 text-[#fff] border-b lg:border-b-0 lg:border-r border-[#131735] h-full">
         <div className="flex justify-between items-center w-full">
           <details ref={monthsDropDownRef} className="dropdown relative">
-            <summary className="capitalize text-[0.76em] btn btn-ghost btn-square btn-sm px-1 py-1 w-full">
+            <summary className="capitalize text-[0.76em] btn btn-ghost btn-square btn-sm px-1 py-1 w-full font-inter">
               {monthsOfYear[paramsAsDateObject.getMonth()]} {paramsAsDateObject.getFullYear()}
             </summary>
             <ul className="p-2 menu shadow-xl dropdown-content z-[1] bg-base-100 rounded-box w-52 h-52 overflow-auto">
@@ -152,7 +152,9 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
 
                       if (monthsDropDownRef.current) monthsDropDownRef.current.open = false;
                     }}
-                    className={`capitalize ${currentSelectedMonth === index ? "bg-primary text-primary-content" : ""}`}
+                    className={`capitalize ${
+                      currentSelectedMonth === index ? "bg-primary text-primary-content" : ""
+                    } font-inter`}
                   >
                     {month}
                   </a>
@@ -161,14 +163,14 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
             </ul>
           </details>
           <details ref={yearsDropDownRef} className="dropdown relative">
-            <summary className="btn btn-ghost btn-square btn-sm text-[0.76em] px-1 py-1 w-full">
+            <summary className="btn btn-ghost btn-square btn-sm text-[0.76em] px-1 py-1 w-full font-inter">
               {currentSelectedYear}
             </summary>
             <ul className="p-2 menu shadow-xl dropdown-content z-[1] bg-base-100 rounded-box w-52 h-52 overflow-auto">
               {map(yearsFrom1970, (year, index) => (
                 <li key={index}>
                   <a
-                    className={`${currentSelectedYear === year ? "bg-primary text-primary-content" : ""}`}
+                    className={`${currentSelectedYear === year ? "bg-primary text-primary-content" : ""} font-inter`}
                     onClick={() => {
                       setCurrentSelectedYear(year);
                       setCurrentSelectedMonth(0);
@@ -192,7 +194,7 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
                 } else setCurrentSelectedMonth(m => m - 1);
                 setCurrentSelectedDate(1);
               }}
-              className="btn btn-circle btn-sm btn-ghost flex justify-center items-center px-1 py-1 text-[#fff] text-[0.92em]"
+              className="btn btn-circle btn-sm btn-ghost flex justify-center items-center px-1 py-1 text-[#fff] text-[0.92em] font-inter"
             >
               <FiChevronLeft />
             </button>
@@ -206,7 +208,7 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
 
                 setCurrentSelectedDate(1);
               }}
-              className="btn btn-sm btn-ghost btn-circle flex justify-center items-center px-1 py-1 text-[#fff] text-[0.92em]"
+              className="btn btn-sm btn-ghost btn-circle flex justify-center items-center px-1 py-1 text-[#fff] text-[0.92em] font-inter"
             >
               <FiChevronRight />
             </button>
@@ -220,13 +222,13 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
             })),
             (day, index) => (
               <div key={index} className="flex gap-2 flex-col w-1/6 justify-start items-center">
-                <span className="text-[0.94em] capitalize">{day.name}</span>
+                <span className="text-[0.94em] capitalize font-inter">{day.name}</span>
                 {datesOfDaysOfWeekInSelectedMonth[day.id] &&
                   map(datesOfDaysOfWeekInSelectedMonth[day.id], (dt, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentSelectedDate(dt)}
-                      className={`text-[0.84em] flex justify-center items-center btn btn-circle btn-sm ${
+                      className={`text-[0.84em] font-inter flex justify-center items-center btn btn-circle btn-sm ${
                         dt === currentSelectedDate ? "btn-primary btn-active" : "btn-ghost"
                       }`}
                     >
@@ -242,13 +244,14 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
         <Clock />
         <div className="w-full flex justify-between items-center gap-2 h-[80%]">
           <details ref={hoursDropdownRef} className="dropdown dropdown-end mb-1 relative">
-            <summary className="btn btn-neutral btn-sm flex justify-center items-center btn-square">
+            <summary className="btn btn-neutral btn-sm flex justify-center items-center btn-square font-inter">
               {currentSelectedHour}
             </summary>
             <ul className="p-2 menu shadow-xl dropdown-content z-50 bg-base-100 rounded-box w-52 h-64 overflow-auto absolute">
               {map(hoursInDay, (hour, index) => (
                 <li key={index}>
                   <a
+                    className="font-inter"
                     onClick={() => {
                       setCurrentSelectedHour(hour);
 
@@ -263,13 +266,14 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
           </details>
 
           <details ref={minutesDropdownRef} className="dropdown dropdown-end mb-1 relative">
-            <summary className="btn btn-neutral btn-sm flex justify-center items-center btn-square">
+            <summary className="btn btn-neutral btn-sm flex justify-center items-center btn-square font-inter">
               {currentSelectedMinute}
             </summary>
             <ul className="p-2 menu shadow-xl dropdown-content z-50 bg-base-100 rounded-box w-52 h-64 overflow-auto absolute">
               {map(minutesInHour, (minute, index) => (
                 <li key={index}>
                   <a
+                    className="font-inter"
                     onClick={() => {
                       setCurrentSelectedMinute(minute);
 
@@ -284,13 +288,14 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
           </details>
 
           <details ref={secondsDropdownRef} className="dropdown dropdown-end mb-1 relative">
-            <summary className="btn btn-neutral btn-sm flex justify-center items-center btn-square">
+            <summary className="btn btn-neutral btn-sm flex justify-center items-center btn-square font-inter">
               {currentSelectedSecond}
             </summary>
             <ul className="p-2 menu shadow-xl dropdown-content z-50 bg-base-100 rounded-box w-52 h-64 overflow-auto absolute">
               {map(secondsInMinute, (seconds, index) => (
                 <li key={index}>
                   <a
+                    className="font-inter"
                     onClick={() => {
                       setCurrentSelectedSecond(seconds);
 
@@ -307,7 +312,7 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
         <div className="flex w-full justify-end items-center">
           <button
             onClick={() => onDateChange && onDateChange(paramsAsDateObject)}
-            className="btn btn-sm btn-circle btn-ghost text-[#fff] capitalize flex justify-center items-center"
+            className="btn btn-sm btn-circle btn-ghost text-[#fff] capitalize flex justify-center items-center font-inter"
           >
             ok
           </button>

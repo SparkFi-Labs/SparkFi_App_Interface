@@ -14,7 +14,7 @@ import {
 } from "react";
 import { FiCalendar, FiCheck, FiX } from "react-icons/fi";
 import Calendar from "../Calendar";
-import { isNull, startsWith } from "lodash";
+import { isNil, isNull, startsWith } from "lodash";
 import { FaImage, FaPlay } from "react-icons/fa";
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -44,6 +44,12 @@ interface FilePickerProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "t
   onConfirmation?: MouseEventHandler<HTMLButtonElement>;
 }
 
+interface JSONPickerProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "accept"> {
+  onFilesSelected?: (files: FileList | null) => any;
+  width?: number | string;
+  height?: number | string;
+}
+
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   onTextChange?: ChangeEventHandler<HTMLTextAreaElement>;
   width?: number | string;
@@ -68,7 +74,7 @@ export const TextArea = ({ onTextChange, width, height, ...props }: TextAreaProp
   >
     <textarea
       onChange={onTextChange}
-      className="w-full border-0 outline-0 bg-transparent text-left px-1 py-1 text-[#4d4f5c] text-[0.82em] h-full"
+      className="w-full border-0 outline-0 bg-transparent text-left px-1 py-1 text-[#4d4f5c] text-[0.82em] h-full font-inter"
       {...props}
     ></textarea>
   </div>
@@ -105,7 +111,7 @@ export const DateField = ({ onDateChanged, width, height, date: dateExternal, ..
     >
       <input
         type="text"
-        className="w-full border-0 outline-0 bg-transparent text-left px-1 py-1 text-[#4d4f5c] text-[0.82em]"
+        className="w-full border-0 outline-0 bg-transparent text-left px-1 py-1 text-[#4d4f5c] text-[0.82em] font-inter"
         placeholder="YYYY-MM-DD HH:MM:SS"
         disabled
         value={`${dateValue.getFullYear()}-${
@@ -129,6 +135,50 @@ export const DateField = ({ onDateChanged, width, height, date: dateExternal, ..
         />
       )}
     </div>
+  );
+};
+
+export const JSONChooser = ({ onFilesSelected, width, height, ...props }: JSONPickerProps) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
+
+  const handleFileInputChange = useCallback(
+    (ev: ChangeEvent<HTMLInputElement>) => {
+      try {
+        if (!isNil(ev.target.files)) {
+          const file = ev.target.files[0];
+          if (!file.type.match(/(application\/json)/)) return;
+
+          setSelectedFile(file);
+          if (onFilesSelected) onFilesSelected(ev.target.files);
+        }
+      } catch (error: any) {
+        console.debug(error);
+      }
+    },
+    [onFilesSelected]
+  );
+
+  return (
+    <Fragment>
+      <InputField
+        onClick={() => {
+          if (fileInputRef.current) fileInputRef.current.click();
+        }}
+        width={width}
+        height={height}
+        value={!isNil(selectedFile) ? selectedFile.name : ""}
+        {...props}
+      />
+      <input
+        ref={fileInputRef}
+        type="file"
+        className="hidden"
+        accept="application/json"
+        onChange={handleFileInputChange}
+        {...props}
+      />
+    </Fragment>
   );
 };
 
@@ -229,7 +279,7 @@ export const FileChooser = ({
         } flex justify-center items-center bg-[#0c0e1e] border border-[#131735] cursor-pointer`}
         style={{ width, height }}
       >
-        {!selectedFile || !fileDataURL ? (
+        {isNil(selectedFile) || isNil(selectedFile) ? (
           <div
             onClick={() => {
               if (fileInputRef.current) fileInputRef.current.click();

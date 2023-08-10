@@ -12,6 +12,9 @@ export const presaleFactoryContracts: ChainContracts = {
 export const sparkFiTokenContracts: ChainContracts = {
   84531: "0xf6a6a429a0b9676293Df0E3616A6a33cA673b5C3"
 };
+export const allocatorContracts: ChainContracts = {
+  84531: "0xa0bed207c2449e84dc56128b22fdb077c1930495"
+};
 export const launchpadPaymentTokens: PaymentTokens = {
   84531: [
     "0x4200000000000000000000000000000000000006",
