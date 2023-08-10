@@ -1,4 +1,4 @@
-import { forEach, map } from "lodash";
+import { forEach, map, multiply } from "lodash";
 import { Children, MouseEventHandler, ReactElement, ReactNode, cloneElement, useEffect } from "react";
 
 interface TabProps {
@@ -10,8 +10,8 @@ interface TabProps {
 export const Tab = ({ isActive, label, onTabSelected }: TabProps) => (
   <button
     onClick={onTabSelected}
-    className={`btn btn-ghost no-animation lg:btn-wide text-[0.82em] lg:text-[1em] btn-lg capitalize px-3 py-2 flex justify-center items-end rounded-none ${
-      isActive ? "text-[#ffe603] border-b-[0.25rem] border-b-[#878aa1] font-[#600]" : "text-[#878aa1] font-[#500]"
+    className={`btn btn-ghost no-animation font-[400] text-sm lg:text-xl btn-lg capitalize px-3 py-2 flex items-end rounded-none ${
+      isActive ? "border-b-[0.25rem] border-b-[#0029ff]" : ""
     }`}
   >
     {label}
@@ -34,7 +34,7 @@ export const Tabs = ({ activeTab, children }: TabsProps) => {
   }, [childrenArray]);
 
   return (
-    <div className="flex justify-evenly items-center gap-4 w-full">
+    <div className="flex justify-between items-center w-full">
       {map(childrenArray, (elem, index) => (
         <div key={index}>
           {cloneElement(elem as ReactElement, {

@@ -136,7 +136,7 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">
                                 sale starts in
                               </span>
-                              <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+                              <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
                                 {days}D:{hours}H:{minutes}M:{seconds}S
                               </span>
                             </div>
@@ -148,9 +148,9 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                           renderer={({ days, hours, minutes, seconds, completed }) => (
                             <div className="flex flex-col w-1/2 lg:w-1/2 justify-start items-start gap-3">
                               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">
-                                {!completed ? "sale closes on" : "sale closed on"}
+                                {!completed ? "sale closes in" : "sale closed on"}
                               </span>
-                              <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em]">
+                              <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em]">
                                 {!completed
                                   ? `${days}D:${hours}H:${minutes}M:${seconds}S`
                                   : new Date(multiply(parseInt(data.endTime), 1000)).toISOString()}
