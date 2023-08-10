@@ -3,18 +3,43 @@ import { useSingleSale } from "@/hooks/app/launchpad";
 import { useIPFSGetMetadata } from "@/hooks/ipfs";
 import NoDataOrError from "@/ui/NoDataOrError";
 import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
+import { Fragment, ReactNode, useState } from "react";
 import { FaDiscord, FaGithub, FaLinkedinIn, FaMediumM, FaTelegramPlane, FaTwitter } from "react-icons/fa";
-import { FiGlobe } from "react-icons/fi";
+import { FiCheck, FiGlobe, FiShare2 } from "react-icons/fi";
 import { SiGitbook } from "react-icons/si";
 import SaleItemInfoActionCard from "@/ui/Cards/SaleItemInfoActionCard";
 import { Tab, Tabs } from "@/ui/Tabs";
 import SingleSaleDescription from "@/screens/launchpad/SingleSaleDescription";
 import SingleSalePoolInfo from "@/screens/launchpad/SingleSalePoolInfo";
 import Head from "next/head";
+import Link from "next/link";
+import { ThreeCircles } from "react-loader-spinner";
+import { RWebShare } from "react-web-share";
+
+const Checker = ({
+  isChecked = false,
+  label,
+  hasConnector = false
+}: {
+  isChecked?: boolean;
+  label: ReactNode;
+  hasConnector?: boolean;
+}) => {
+  return (
+    <div className="flex justify-start items-start gap-3 w-full">
+      <div className="flex flex-col justify-start items-center gap-1">
+        <div className="w-4 h-4 rounded-full flex justify-center items-center px-1 py-1 outline outline-2 outline-[#fff] border border-[#0029ff] bg-[#0029ff]">
+          {isChecked && <FiCheck />}
+        </div>
+        {hasConnector && <div className="w-[0.9px] h-[12px] bg-[#0029ff]"></div>}
+      </div>
+      {label}
+    </div>
+  );
+};
 
 export default function SingleSale() {
-  const { query } = useRouter();
+  const { query, asPath } = useRouter();
   const {
     data: singleSaleData,
     isLoading: singleSaleLoading,
@@ -29,127 +54,51 @@ export default function SingleSale() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="w-screen flex flex-col justify-start py-2 items-center h-full">
-      <Head>
-        <title>{metadata ? metadata.name : "Loading..."}</title>
-      </Head>
-      {metadataIsLoading || singleSaleLoading ? (
-        <div className="w-full relative h-screen backdrop-blur-xl">
-          <span className="loading loading-infinity w-[5rem] absolute top-[50%] left-[50%] text-[#0029ff]"></span>
+    <div className="w-screen flex flex-col justify-start items-center gap-8 my-11 px-3 lg:px-14">
+      {singleSaleLoading || metadataIsLoading ? (
+        <div className="flex justify-center items-center w-full m-auto h-screen">
+          <ThreeCircles color="#fff" width={90} />
         </div>
       ) : (
-        <div className="flex flex-col justify-start items-center w-full">
-          {singleSaleError || metadataError ? (
-            <NoDataOrError
-              message={
-                singleSaleError
-                  ? (singleSaleError as any).errors
-                    ? JSON.stringify((singleSaleError as any).errors.map((e: any) => e.message))
-                    : singleSaleError.message
-                  : metadataError
-                  ? metadataError.message
-                  : "An error occured"
-              }
-            />
-          ) : (
-            <Fragment>
-              {metadata && singleSaleData && (
-                <div className="flex flex-col justify-start items-center w-full gap-7 bg-[#101221]">
-                  <div
-                    className="flex flex-col lg:flex-row justify-center items-center lg:items-start px-5 lg:px-12 w-full py-24 lg:gap-8 h-auto"
-                    style={{
-                      backgroundImage: `url(${metadata.bannerURI})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "100%",
-                      objectFit: "cover"
-                    }}
-                  >
-                    <div className="flex relative flex-col w-full lg:w-[55%] rounded-[7px_7px_0px_0px] justify-start items-center h-full -mb-44 lg:mb-[auto]">
-                      <Video controls={false} width="100%" height="60%" className="rounded-[inherit] hidden-scrollbar">
-                        <source src={metadata.media?.uri} />
-                      </Video>
-                      <div
-                        className={`bg-[#000] rounded-b-[7px] w-full flex ${
-                          metadata.links?.website ? "justify-between" : "justify-end"
-                        } items-center px-7 py-7`}
-                      >
-                        {metadata.links?.website && (
-                          <a
-                            className="flex justify-center items-center gap-2"
-                            href={metadata.links.website}
-                            target="_blank"
-                          >
-                            <FiGlobe className="text-[#c1c9ff]" />
-                            <span className="capitalize text-[#ffe603] text-[0.9375rem]">website</span>
-                          </a>
-                        )}
-                        <div className="flex justify-center items-center gap-4 text-[#c1c9ff]">
-                          {metadata.links?.twitter && (
-                            <a href={metadata.links.twitter} target="_blank">
-                              <FaTwitter />
-                            </a>
-                          )}
-                          {metadata.links?.telegram && (
-                            <a href={metadata.links.telegram} target="_blank">
-                              <FaTelegramPlane />
-                            </a>
-                          )}
-                          {metadata.links?.discord && (
-                            <a href={metadata.links.discord} target="_blank">
-                              <FaDiscord />
-                            </a>
-                          )}
-                          {metadata.links?.github && (
-                            <a href={metadata.links.github} target="_blank">
-                              <FaGithub />
-                            </a>
-                          )}
-                          {metadata.links?.gitbook && (
-                            <a href={metadata.links.gitbook} target="_blank">
-                              <SiGitbook />
-                            </a>
-                          )}
-                          {metadata.links?.medium && (
-                            <a href={metadata.links.medium} target="_blank">
-                              <FaMediumM />
-                            </a>
-                          )}
-                          {metadata.links?.linkedin && (
-                            <a href={metadata.links.linkedin} target="_blank">
-                              <FaLinkedinIn />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="hidden lg:block w-[35%] h-full">
-                      <SaleItemInfoActionCard saleData={singleSaleData} />
-                    </div>
-                  </div>
-                  <div className="block w-full lg:hidden py-12 px-1 mt-4">
-                    <SaleItemInfoActionCard saleData={singleSaleData} />
-                  </div>
-                  <div className="w-full items-start justify-center flex flex-col px-2 lg:px-14 py-2 lg:py-5 gap-3">
-                    <Tabs activeTab={activeTab}>
-                      <Tab onTabSelected={() => setActiveTab(0)} label="project info" />
-                      <Tab onTabSelected={() => setActiveTab(1)} label="pool info" />
-                    </Tabs>
-                    {(() => {
-                      switch (activeTab) {
-                        case 0:
-                          return <SingleSaleDescription data={singleSaleData} />;
-                        case 1:
-                          return <SingleSalePoolInfo data={singleSaleData} />;
-                        default:
-                          return <SingleSaleDescription data={singleSaleData} />;
-                      }
-                    })()}
-                  </div>
-                </div>
-              )}
-            </Fragment>
-          )}
-        </div>
+        <>
+          <div className="w-full flex justify-between items-start">
+            <div className="text-xs lg:text-lg breadcrumbs">
+              <ul>
+                <li>
+                  <Link href="/" className="text-[#fff] capitalize">
+                    home
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/launchpad" className="text-[#fff] capitalize">
+                    pools
+                  </Link>
+                </li>
+                <li>
+                  <Link href={asPath} className="text-[#fff] capitalize">
+                    {metadata?.name}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <RWebShare
+              data={{
+                text: `Participate in ${metadata?.name}'s token sale on Sparkfi incubation pad`,
+                url: typeof window !== "undefined" ? window.location.href : asPath,
+                title: `${metadata?.name}`
+              }}
+            >
+              <button className="btn btn-ghost btn-sm flex justify-center items-center gap-2 text-xs lg:text-lg">
+                <span className="font-inter text-[#fff] capitalize">share</span>
+                <FiShare2 />
+              </button>
+            </RWebShare>
+          </div>
+          <div className="flex justify-start items-center w-full">
+            <Checker label={<span className="font-inter text-xs lg:text-sm capitalize font-[500]">preparation</span>} />
+          </div>
+          <div className=""></div>
+        </>
       )}
     </div>
   );

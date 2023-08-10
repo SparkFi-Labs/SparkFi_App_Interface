@@ -36,13 +36,13 @@ export default function CompletedSalesView() {
             </div>
           ) : (
             <div
-              className={`flex flex-col lg:flex-row justify-start lg:justify-center items-center w-full gap-8 lg:h-[34rem]`}
+              className={`flex flex-col lg:flex-row justify-start lg:justify-center items-center w-full gap-8 lg:h-[34rem] overflow-auto`}
             >
               {data &&
                 data.length &&
                 map(data, (item, index) => (
                   <div key={index} className="w-full lg:w-1/2 rounded-[8px]">
-                    <SaleItemCard data={item} width="100%" height="100%" />
+                    <SaleItemCard data={item} width="100%" height="100%" label="completed" />
                   </div>
                 ))}
               {data && data.length === 1 && (
