@@ -12,7 +12,7 @@ export default function SingleSalePoolInfo({ data }: SingleSalePoolInfoProps) {
         <span className="font-inter text-[#fff] text-[15px] lg:text-[18px]">Whitelist open</span>
         <span className="font-inter text-[#dcdcdc] text-[13px] lg:text-[16px] font-[400] text-right">
           {!isNil(data.whitelistStartTime)
-            ? new Date(multiply(parseInt(data.whitelistStartTime as string), 1000)).toDateString()
+            ? new Date(multiply(parseInt(data.whitelistStartTime as string), 1000)).toLocaleString()
             : "No whitelisting"}
         </span>
       </div>
@@ -20,7 +20,7 @@ export default function SingleSalePoolInfo({ data }: SingleSalePoolInfoProps) {
         <span className="font-inter text-[#fff] text-[15px] lg:text-[18px]">Whitelist close</span>
         <span className="font-inter text-[#dcdcdc] text-[13px] lg:text-[16px] text-right">
           {!isNil(data.whitelistEndTime)
-            ? new Date(multiply(parseInt(data.whitelistEndTime as string), 1000)).toDateString()
+            ? new Date(multiply(parseInt(data.whitelistEndTime as string), 1000)).toLocaleString()
             : "No whitelisting"}
         </span>
       </div>
