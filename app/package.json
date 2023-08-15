@@ -28,6 +28,7 @@
     "@web3-react/walletconnect": "^8.2.0",
     "@web3-react/walletconnect-v2": "^8.3.3",
     "axios": "^1.4.0",
+    "big-integer": "^1.6.51",
     "eth-address": "^1.0.1",
     "joi": "^17.9.2",
     "keccak256": "^1.0.6",

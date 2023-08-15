@@ -1,2 +1,4 @@
 node_modules
 .whitelist-store
+zk.test.js
+.env
