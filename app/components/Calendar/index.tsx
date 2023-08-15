@@ -135,7 +135,7 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
     }
   }, [date]);
   return (
-    <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start gap-3 max-w-xl bg-[#0c0e1e] border border-[#131735] rounded-[8px] shadow-xl absolute top-[50%] lg:left-[50%] z-30">
+    <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start gap-3 max-w-xl bg-[#0c0e1e] border border-[#131735] rounded-[8px] shadow-xl absolute top-[50%] left-0 z-30">
       <div className="flex flex-col justify-start items-start py-3 px-2 text-[#fff] border-b lg:border-b-0 lg:border-r border-[#131735] h-full">
         <div className="flex justify-between items-center w-full">
           <details ref={monthsDropDownRef} className="dropdown relative">
@@ -309,7 +309,7 @@ export default function Calendar({ date, onDateChange }: CalendarProps) {
             </ul>
           </details>
         </div>
-        <div className="flex w-full justify-end items-center">
+        <div className="flex w-full justify-center lg:justify-end items-center">
           <button
             onClick={() => onDateChange && onDateChange(paramsAsDateObject)}
             className="btn btn-sm btn-circle btn-ghost text-[#fff] capitalize flex justify-center items-center font-inter"

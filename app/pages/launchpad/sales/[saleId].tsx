@@ -110,18 +110,19 @@ export default function SingleSale() {
                 <span className="font-inter text-xs lg:text-sm capitalize font-[500]">
                   {!isNil(singleSaleData) && (
                     <>
-                      {((!isNil(singleSaleData.whitelistStartTime) &&
-                        atomicDate.getTime() / 1000 < parseInt(singleSaleData.whitelistStartTime)) ||
-                        atomicDate.getTime() / 1000 < parseInt(singleSaleData.startTime)) &&
-                        "preparation"}
+                      {(!isNil(singleSaleData.whitelistStartTime)
+                        ? atomicDate.getTime() / 1000 < parseInt(singleSaleData.whitelistStartTime)
+                        : atomicDate.getTime() / 1000 < parseInt(singleSaleData.startTime)) && "preparation"}
                       {!isNil(singleSaleData.whitelistStartTime) &&
                         !isNil(singleSaleData.whitelistEndTime) &&
                         atomicDate.getTime() / 1000 >= parseInt(singleSaleData.whitelistStartTime) &&
                         atomicDate.getTime() / 1000 < parseInt(singleSaleData.whitelistEndTime) &&
+                        atomicDate.getTime() / 1000 < parseInt(singleSaleData.startTime) &&
                         "whitelist"}
                       {atomicDate.getTime() / 1000 >= parseInt(singleSaleData.startTime) &&
                         atomicDate.getTime() / 1000 < parseInt(singleSaleData.endTime) &&
                         "live"}
+                      {atomicDate.getTime() / 1000 >= parseInt(singleSaleData.endTime) && "ended"}
                     </>
                   )}
                 </span>
@@ -225,7 +226,7 @@ export default function SingleSale() {
               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">hardcap</span>
               <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
                 {parseFloat(singleSaleData?.totalAvailableSaleTokens) * parseFloat(singleSaleData?.salePrice)}{" "}
-                {singleSaleData?.saleToken.symbol}
+                {singleSaleData?.paymentToken.symbol}
               </span>
             </div>
           </div>
@@ -344,7 +345,7 @@ export default function SingleSale() {
                 <Tab onTabSelected={() => setActiveTab(1)} label="whitelist" />
                 <Tab onTabSelected={() => setActiveTab(2)} label="participate" />
               </Tabs>
-              <div className="w-full rounded-[8px] lg:min-h-[364px]">
+              <div className="w-full rounded-[8px] min-h-[250px] lg:min-h-[364px]">
                 {(activeTab === 0 || activeTab === 1) && (
                   <Card width="100%" style={{ minHeight: "inherit" }}>
                     <div className="card-body w-full justify-center items-center">

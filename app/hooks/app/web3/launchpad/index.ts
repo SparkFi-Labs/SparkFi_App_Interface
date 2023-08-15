@@ -8,12 +8,14 @@ import validateSchema from "@/utils/validateSchema";
 import { ethereumAddressSchema, validNumberSchema, validURISchema } from "@/schemas";
 import { useTokenDetails } from "@/hooks/contracts";
 import { formatUnits, parseUnits } from "@ethersproject/units";
-import { ceil } from "lodash";
+import { ceil, isNil } from "lodash";
 import { hexValue } from "@ethersproject/bytes";
 import assert from "assert";
 import { useSingleSale } from "../../launchpad";
 import { useWeb3React } from "@web3-react/core";
 import bytecodes from "@/assets/bytecodes";
+import { _composeMerkleTree } from "@/utils/merkletree";
+import { getZKChallenge, saveWhitelist } from "@/utils/server";
 
 export const usePresaleDeploymentInitializer = (
   newOwner: string,
@@ -213,7 +215,7 @@ export const usePresaleCasher = (saleId: string) => {
   const presaleContract = useContract(saleId, presaleAbi);
 
   const cash = useCallback(async () => {
-    if (presaleContract) {
+    if (!isNil(presaleContract)) {
       try {
         setIsLoading(true);
 
@@ -230,6 +232,61 @@ export const usePresaleCasher = (saleId: string) => {
   }, [presaleContract]);
 
   return { isLoading, cash };
+};
+
+export const usePresaleWhitelistSetCountdown = (saleId: string, startTime: number, durationInDays: number) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const presaleContract = useContract(saleId, presaleAbi);
+
+  const startWhitelistCountdown = useCallback(async () => {
+    if (!isNil(presaleContract)) {
+      try {
+        setIsLoading(true);
+
+        const startTimeHex = hexValue(startTime);
+        const durationInDaysHex = hexValue(durationInDays);
+        const startTx = await presaleContract.setWhitelistDuration(startTimeHex, durationInDaysHex);
+        const awaitedTx = await startTx.wait();
+
+        setIsLoading(false);
+        return awaitedTx;
+      } catch (error) {
+        setIsLoading(false);
+        return Promise.reject(error);
+      }
+    }
+  }, [durationInDays, presaleContract, startTime]);
+
+  return { isLoading, startWhitelistCountdown };
+};
+
+export const usePresaleWhitelist = (saleId: string, whitelist: string) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const presaleContract = useContract(saleId, presaleAbi);
+
+  const setWhitelist = useCallback(async () => {
+    if (!isNil(presaleContract)) {
+      try {
+        setIsLoading(true);
+
+        const mtree = _composeMerkleTree(whitelist);
+
+        const whitelistTx = await presaleContract.setWhitelist(mtree.getHexRoot());
+        const awaitedTx = await whitelistTx.wait();
+
+        const zkChallenge = await getZKChallenge();
+        await saveWhitelist(saleId, whitelist, zkChallenge.result);
+
+        setIsLoading(false);
+        return awaitedTx;
+      } catch (error) {
+        setIsLoading(false);
+        return Promise.reject(error);
+      }
+    }
+  }, [presaleContract, saleId, whitelist]);
+
+  return { isLoading, setWhitelist };
 };
 
 export const usePresaleWithdrawal = (saleId: string) => {
