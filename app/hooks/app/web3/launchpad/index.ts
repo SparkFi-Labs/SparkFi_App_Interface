@@ -8,14 +8,15 @@ import validateSchema from "@/utils/validateSchema";
 import { ethereumAddressSchema, validNumberSchema, validURISchema } from "@/schemas";
 import { useTokenDetails } from "@/hooks/contracts";
 import { formatUnits, parseUnits } from "@ethersproject/units";
-import { ceil, isNil } from "lodash";
-import { hexValue } from "@ethersproject/bytes";
+import { ceil, isEqual, isNil } from "lodash";
+import { hexStripZeros, hexValue } from "@ethersproject/bytes";
 import assert from "assert";
 import { useSingleSale } from "../../launchpad";
 import { useWeb3React } from "@web3-react/core";
 import bytecodes from "@/assets/bytecodes";
-import { _composeMerkleTree } from "@/utils/merkletree";
-import { getZKChallenge, saveWhitelist } from "@/utils/server";
+import { _composeMerkleTree, _getProofForElement } from "@/utils/merkletree";
+import { getWhitelist, getZKChallenge, saveWhitelist } from "@/utils/server";
+import { AddressZero } from "@ethersproject/constants";
 
 export const usePresaleDeploymentInitializer = (
   newOwner: string,
@@ -134,10 +135,17 @@ export const usePresaleContributor = (saleId: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const presaleContract = useContract(saleId, presaleAbi);
   const erc20Contract = useContract(data?.paymentToken.id || "", erc20Abi);
+  const { account } = useWeb3React();
 
   const contribute = useCallback(
     async (amount: number) => {
-      if (presaleContract && paymentTokenDetails && data && erc20Contract) {
+      if (
+        !isNil(presaleContract) &&
+        !isNil(paymentTokenDetails) &&
+        !isNil(data) &&
+        !isNil(erc20Contract) &&
+        !isNil(account)
+      ) {
         try {
           validateSchema(validNumberSchema("amount"), amount);
           setIsLoading(true);
@@ -152,7 +160,20 @@ export const usePresaleContributor = (saleId: string) => {
 
           await approvalTx.wait();
 
-          const contributionTx = await presaleContract.purchase(amountHex);
+          const whitelistRootHash = await presaleContract.whitelistRootHash();
+
+          let contributionTx: any;
+
+          if (isEqual(hexStripZeros(whitelistRootHash), hexStripZeros(AddressZero))) {
+            contributionTx = await presaleContract.purchase(amountHex);
+          } else {
+            const zkChallenge = await getZKChallenge();
+            const whitelistResponse = await getWhitelist(saleId, zkChallenge.result);
+            const proof = _getProofForElement(whitelistResponse.result, account);
+            console.log(proof);
+            contributionTx = await presaleContract.whitelistedPurchase(amountHex, proof);
+          }
+
           const awaitedTx = await contributionTx.wait();
 
           setIsLoading(false);
@@ -163,7 +184,7 @@ export const usePresaleContributor = (saleId: string) => {
         }
       }
     },
-    [data, erc20Contract, paymentTokenDetails, presaleContract, saleId]
+    [account, data, erc20Contract, paymentTokenDetails, presaleContract, saleId]
   );
 
   return { isLoading, contribute };
@@ -335,6 +356,31 @@ export const usePresaleEmergencyWithdrawal = (saleId: string) => {
   }, [presaleContract]);
 
   return { isLoading, emergencyWithdrawal };
+};
+
+export const useAccountAllocation = (saleId: string) => {
+  const [allocation, setAllocation] = useState(0);
+  const presaleContract = useContract(saleId, presaleAbi);
+  const { data: tokenSaleData } = useSingleSale(saleId);
+  const tokenDetails = useTokenDetails(tokenSaleData?.paymentToken.id || "");
+  const { account } = useWeb3React();
+
+  useEffect(() => {
+    if (saleId && !isNil(presaleContract) && !isNil(tokenDetails) && !isNil(account)) {
+      (async () => {
+        try {
+          const accountAllocation = await presaleContract.getPaymentAllocationForAccount(account);
+          let formatted: any = formatUnits(accountAllocation, tokenDetails.decimals);
+          formatted = parseFloat(formatted);
+          setAllocation(formatted);
+        } catch (error) {
+          console.debug(error);
+        }
+      })();
+    } else setAllocation(0);
+  }, [account, presaleContract, saleId, tokenDetails]);
+
+  return allocation;
 };
 
 export const useMyClaimableInSale = (saleId: string) => {

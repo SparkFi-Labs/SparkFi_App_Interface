@@ -351,7 +351,7 @@ export default function NewLaunch() {
                               onConfirmation={async () => {
                                 try {
                                   await projectLogoFileIPFSUploader.executeUpload();
-                                  toast("Successfully uploaded logo", { type: "success" });
+                                  toast("Successfully uploaded project logo", { type: "success" });
                                 } catch (error: any) {
                                   toast(error.message, { type: "error" });
                                 }
@@ -369,7 +369,7 @@ export default function NewLaunch() {
                               onConfirmation={async () => {
                                 try {
                                   await tokenLogoFileIPFSUploader.executeUpload();
-                                  toast("Successfully uploaded banner", { type: "success" });
+                                  toast("Successfully uploaded token logo", { type: "success" });
                                 } catch (error: any) {
                                   toast(error.message, { type: "error" });
                                 }

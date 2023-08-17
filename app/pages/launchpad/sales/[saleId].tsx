@@ -1,9 +1,9 @@
 import { useSingleSale } from "@/hooks/app/launchpad";
 import { useIPFSGetMetadata } from "@/hooks/ipfs";
 import { useRouter } from "next/router";
-import { ReactNode, useState } from "react";
-import { FaDiscord, FaGithub, FaTelegramPlane, FaTwitter } from "react-icons/fa";
-import { FiCheck, FiGlobe, FiShare2 } from "react-icons/fi";
+import { ReactNode, useRef, useState } from "react";
+import { FaDiscord, FaGithub, FaTelegramPlane, FaTwitter, FaBitcoin } from "react-icons/fa";
+import { FiCheck, FiDollarSign, FiGlobe, FiShare2 } from "react-icons/fi";
 import Link from "next/link";
 import { ThreeCircles } from "react-loader-spinner";
 import { RWebShare } from "react-web-share";
@@ -13,11 +13,17 @@ import Card from "@/components/Card";
 import { Tab, Tabs } from "@/ui/Tabs";
 import SingleSalePoolInfo from "@/screens/launchpad/SingleSalePoolInfo";
 import type { TokenSale } from "@/.graphclient";
-import { floor, isEqual, isNil, multiply } from "lodash";
+import { floor, isEqual, isNil, multiply, toLower } from "lodash";
 import { useAtomicDate } from "@/hooks/app/shared";
 import { CTAPurpleOutline } from "@/components/Button";
 import Countdown from "react-countdown";
 import WhitelistInfoView from "@/screens/launchpad/WhitelistInfoView";
+import ParticipationView from "@/screens/launchpad/ParticipationView";
+import { useAccountIsPresaleFunder } from "@/hooks/app/web3/launchpad";
+import { useContractOwner } from "@/hooks/contracts";
+import presaleAbi from "@/assets/abis/Presale.json";
+import { useWeb3React } from "@web3-react/core";
+import FundTokenSaleModal from "@/ui/Modals/FundTokenSaleModal";
 
 const Checker = ({
   isChecked = false,
@@ -49,30 +55,27 @@ const SmallLinkCard = ({ children }: any) => (
 
 export default function SingleSale() {
   const { query, asPath } = useRouter();
-  const {
-    data: singleSaleData,
-    isLoading: singleSaleLoading,
-    error: singleSaleError
-  } = useSingleSale(query.saleId as string);
-  const {
-    metadata,
-    isLoading: metadataIsLoading,
-    error: metadataError
-  } = useIPFSGetMetadata(singleSaleData?.metadataURI as string);
+  const { data: singleSaleData, isLoading: singleSaleLoading } = useSingleSale(query.saleId as string);
+  const { metadata, isLoading: metadataIsLoading } = useIPFSGetMetadata(singleSaleData?.metadataURI as string);
 
   const [activeTab, setActiveTab] = useState(0);
   const atomicDate = useAtomicDate();
+  const isFunder = useAccountIsPresaleFunder(query.saleId as string);
+  const presaleOwner = useContractOwner(query.saleId as string, presaleAbi);
+  const { account } = useWeb3React();
+
+  const fundSaleModalRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="w-screen flex flex-col justify-start items-center gap-5 lg:gap-8 my-11 px-3 lg:px-14">
-      {singleSaleLoading || metadataIsLoading ? (
+      {singleSaleLoading || metadataIsLoading || isNil(singleSaleData) || isNil(metadata) ? (
         <div className="flex justify-center items-center w-full m-auto h-screen">
           <ThreeCircles color="#fff" width={90} />
         </div>
       ) : (
         <>
-          <div className="w-full flex justify-between items-start">
-            <div className="text-xs lg:text-lg breadcrumbs">
+          <div className="w-full flex justify-between items-center overflow-auto hidden-scrollbar gap-2">
+            <div className="text-xs lg:text-lg breadcrumbs hidden-scrollbar">
               <ul>
                 <li>
                   <Link href="/" className="text-[#fff] capitalize">
@@ -91,18 +94,37 @@ export default function SingleSale() {
                 </li>
               </ul>
             </div>
-            <RWebShare
-              data={{
-                text: `Participate in ${metadata?.name}'s token sale on Sparkfi incubation pad`,
-                url: typeof window !== "undefined" ? window.location.href : asPath,
-                title: `${metadata?.name}`
-              }}
-            >
-              <button className="btn btn-ghost btn-sm flex justify-center items-center gap-2 text-xs lg:text-lg">
-                <span className="font-inter text-[#fff] capitalize">share</span>
-                <FiShare2 />
-              </button>
-            </RWebShare>
+            <div className="flex justify-start items-start gap-1 lg:gap-2">
+              <RWebShare
+                data={{
+                  text: `Participate in ${metadata?.name}'s token sale on Sparkfi incubation pad`,
+                  url: typeof window !== "undefined" ? window.location.href : asPath,
+                  title: `${metadata?.name}`
+                }}
+              >
+                <button className="btn btn-ghost btn-xs lg:btn-sm flex justify-center items-center gap-1 lg:gap-2 text-xs lg:text-lg">
+                  <span className="font-inter text-[#fff] capitalize">share</span>
+                  <FiShare2 size={18} />
+                </button>
+              </RWebShare>
+              {isFunder && (
+                <button
+                  onClick={() => {
+                    if (!isNil(fundSaleModalRef.current)) fundSaleModalRef.current.checked = true;
+                  }}
+                  className="btn btn-ghost btn-xs lg:btn-sm flex justify-center items-center gap-1 lg:gap-2 text-xs lg:text-lg"
+                >
+                  <span className="font-inter text-[#fff] capitalize">fund</span>
+                  <FiDollarSign size={18} />
+                </button>
+              )}
+              {!isNil(account) && isEqual(toLower(account), toLower(presaleOwner)) && (
+                <button className="btn btn-ghost btn-xs lg:btn-sm flex justify-center items-center gap-1 lg:gap-2 text-xs lg:text-lg">
+                  <span className="font-inter text-[#fff] capitalize">cash</span>
+                  <FaBitcoin size={18} />
+                </button>
+              )}
+            </div>
           </div>
           <div className="flex justify-start items-center w-full">
             <Checker
@@ -219,13 +241,16 @@ export default function SingleSale() {
             <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">tokens for sale</span>
               <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
-                {singleSaleData?.totalAvailableSaleTokens} {singleSaleData?.saleToken.symbol}
+                {parseFloat(singleSaleData?.totalAvailableSaleTokens).toLocaleString("en-US", { useGrouping: true })}{" "}
+                {singleSaleData?.saleToken.symbol}
               </span>
             </div>
             <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">hardcap</span>
               <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
-                {parseFloat(singleSaleData?.totalAvailableSaleTokens) * parseFloat(singleSaleData?.salePrice)}{" "}
+                {(
+                  parseFloat(singleSaleData?.totalAvailableSaleTokens) * parseFloat(singleSaleData?.salePrice)
+                ).toLocaleString("en-US", { useGrouping: true })}{" "}
                 {singleSaleData?.paymentToken.symbol}
               </span>
             </div>
@@ -358,9 +383,17 @@ export default function SingleSale() {
                     </div>
                   </Card>
                 )}
+                {activeTab === 2 && <ParticipationView sale={singleSaleData as TokenSale} />}
               </div>
             </div>
           </div>
+          <FundTokenSaleModal
+            sale={singleSaleData as TokenSale}
+            ref={fundSaleModalRef}
+            close={() => {
+              if (!isNil(fundSaleModalRef.current)) fundSaleModalRef.current.checked = false;
+            }}
+          />
         </>
       )}
     </div>

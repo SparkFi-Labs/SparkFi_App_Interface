@@ -43,7 +43,7 @@ const SetWhitelistModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, clos
               <FiX />
             </button>
           </div>
-          <div className="w-full px-2 py-2 flex flex-col justify-start items-center gap-8 overflow-auto z-30">
+          <div className="w-full px-2 py-2 flex flex-col justify-start items-center gap-8 overflow-auto">
             <div className="w-full flex flex-col justify-start items-start gap-6 rounded-[5px] px-2 py-2">
               <span className="font-[inter] font-[500] capitalize text-xs lg:text-sm">whitelist</span>
               <TextArea
@@ -61,7 +61,7 @@ const SetWhitelistModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, clos
               onPress={callSetWhitelist}
               label={
                 <div className="w-full flex justify-center items-center gap-2">
-                  <span className="text-[#fff] capitalize text-[1.2em] font-inter">submit</span>
+                  <span className="text-[#fff] capitalize text-[1.2em] font-inter font-[500]">submit</span>
                   {isLoading && <span className="loading loading-infinity loading-md text-accent"></span>}
                 </div>
               }

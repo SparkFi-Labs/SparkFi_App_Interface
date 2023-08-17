@@ -12,7 +12,7 @@ import { useWeb3React } from "@web3-react/core";
 import { floor, subtract } from "lodash";
 import { useEffect, useState } from "react";
 
-export const useUpcomingSales = (itemsPerPage: number = 3, page: number = 1) => {
+export const useUpcomingSales = (itemsPerPage: number = 2, page: number = 1) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<TokenSale[] | undefined>(undefined);
   const [error, setError] = useState<Error | undefined>(undefined);
@@ -40,7 +40,7 @@ export const useUpcomingSales = (itemsPerPage: number = 3, page: number = 1) => 
   return { data, isLoading, error };
 };
 
-export const useActiveSales = (itemsPerPage: number = 3, page: number = 1) => {
+export const useActiveSales = (itemsPerPage: number = 2, page: number = 1) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<TokenSale[] | undefined>(undefined);
   const [error, setError] = useState<Error | undefined>(undefined);
@@ -69,7 +69,7 @@ export const useActiveSales = (itemsPerPage: number = 3, page: number = 1) => {
   return { data, isLoading, error };
 };
 
-export const useCompletedSales = (itemsPerPage: number = 3, page: number = 1) => {
+export const useCompletedSales = (itemsPerPage: number = 2, page: number = 1) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<TokenSale[] | undefined>(undefined);
   const [error, setError] = useState<Error | undefined>(undefined);
