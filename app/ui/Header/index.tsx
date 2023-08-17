@@ -162,7 +162,7 @@ export default function Header() {
           <summary className="flex justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-[0.7em] lg:text-[1.2em] cursor-pointer">
             <FiUser />
           </summary>
-          <ul className="p-2 shadow-lg menu dropdown-content z-[1] bg-[#0029ff] w-52 mt-3 shadow-slate-600">
+          <ul className="p-2 shadow-lg menu dropdown-content z-[1] bg-[#0029ff] w-52 mt-3 shadow-gray-500">
             <li
               onClick={() => {
                 if (userMenuRef.current) userMenuRef.current.open = false;

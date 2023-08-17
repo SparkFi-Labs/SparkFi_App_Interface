@@ -38,8 +38,8 @@ const FundTokenSaleModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, clo
   return (
     <>
       <input type="checkbox" className="modal-toggle" id={`fund-token-sale-modal-${sale.id}`} ref={ref} />
-      <div className="modal">
-        <div className="bg-[#101221] rounded-[5px] modal-box flex flex-col justify-start items-center gap-7 w-full">
+      <div className="modal px-2">
+        <div className="bg-[#151938] rounded-[5px] modal-box flex flex-col justify-start items-center gap-7 w-full">
           <div className="flex justify-between items-center px-3 py-1 w-full">
             <span className="capitalize text-[1em] leading-6 text-[#f5f5f5] font-[500]">enter amount</span>
             <button onClick={close} className="btn btn-circle btn-ghost btn-sm text-[#fff] p-1 text-[0.95em]">
@@ -47,29 +47,29 @@ const FundTokenSaleModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, clo
             </button>
           </div>
           <div className="w-full px-2 py-2 flex flex-col justify-start items-center gap-3">
-            <div className="w-full bg-[#0c0e1e] flex flex-col justify-start items-center gap-4 rounded-[5px] px-2 py-2">
+            <div className="w-full bg-[#141a45] flex flex-col justify-start items-center gap-4 rounded-[5px] px-2 py-2">
               <div className="flex justify-between items-center w-full">
                 <input
                   type="number"
                   value={amount}
                   onChange={ev => setAmount(ev.target.valueAsNumber || undefined)}
-                  className="bg-transparent text-[#fff] outline-0 border-0"
+                  className="bg-transparent text-[#fff] outline-0 border-0 font-inter"
                   placeholder="0.00"
                 />
                 <button
                   onClick={() => setAmount(tokenBalance ?? 0)}
-                  className="btn bg-[#131735] rounded-[5px] btn-ghost uppercase text-[#fefce9]"
+                  className="btn bg-[#151938] btn-sm rounded-[5px] btn-ghost uppercase text-[#fefce9] font-inter"
                 >
                   max
                 </button>
               </div>
               <div className="flex justify-end items-center w-full">
-                <span className="capitalize text-[#d9d9d9] text-[1em]">available: {tokenBalance}</span>
+                <span className="capitalize text-[#d9d9d9] text-[1em] font-inter">available: {tokenBalance}</span>
               </div>
             </div>
             <input
               type="range"
-              className="range range-success h-1"
+              className="range range-success range-xs"
               min={0}
               max={100}
               value={multiply(amount || 0, 100) / tokenBalance || 1}
@@ -78,37 +78,37 @@ const FundTokenSaleModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, clo
             <div className="flex justify-between items-center w-full text-[#0.89em] text-[#878aa1]">
               <button
                 onClick={() => setAmount(multiply(25, tokenBalance) / 100)}
-                className="bg-[#040511] btn rounded-[5px] btn-ghost"
+                className="bg-[#040511] btn btn-sm rounded-[5px] btn-ghost font-inter"
               >
                 25%
               </button>
               <button
                 onClick={() => setAmount(multiply(50, tokenBalance) / 100)}
-                className="bg-[#040511] btn rounded-[5px] btn-ghost"
+                className="bg-[#040511] btn btn-sm rounded-[5px] btn-ghost font-inter"
               >
                 50%
               </button>
               <button
                 onClick={() => setAmount(multiply(75, tokenBalance) / 100)}
-                className="bg-[#040511] btn rounded-[5px] btn-ghost"
+                className="bg-[#040511] btn btn-sm rounded-[5px] btn-ghost font-inter"
               >
                 75%
               </button>
               <button
                 onClick={() => setAmount(multiply(100, tokenBalance) / 100)}
-                className="bg-[#040511] btn rounded-[5px] btn-ghost"
+                className="bg-[#040511] btn btn-sm rounded-[5px] btn-ghost font-inter"
               >
                 100%
               </button>
             </div>
           </div>
-          <div className="modal-action w-full border-t border-[#878aa1] py-7">
+          <div className="modal-action w-full py-2">
             <CTAPurple
               disabled={isLoading}
               onPress={callFund}
               label={
                 <div className="w-full flex justify-center items-center gap-2">
-                  <span className="text-[#fff] capitalize text-[1.2em]">fund</span>
+                  <span className="text-[#fff] capitalize text-[1.2em] font-inter font-[500]">fund</span>
                   {isLoading && <span className="loading loading-infinity loading-md text-accent"></span>}
                 </div>
               }

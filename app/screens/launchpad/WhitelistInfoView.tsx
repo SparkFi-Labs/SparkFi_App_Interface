@@ -41,7 +41,7 @@ export default function WhitelistInfoView({ data }: WhitelistInfoViewProps) {
         <div className="flex flex-col gap-4 w-full lg:w-1/3 justify-center items-center">
           {parseInt(data.whitelistStartTime) > floor(atomicDate.getTime() / 1000) ? (
             <Countdown
-              date={multiply(parseInt(data.startTime), 1000)}
+              date={multiply(parseInt(data.whitelistStartTime), 1000)}
               renderer={({ days, hours, minutes, seconds }) => (
                 <CTAPurpleOutline
                   label={

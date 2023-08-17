@@ -9,5 +9,5 @@ export function _composeMerkleTree(elements: string) {
 
 export function _getProofForElement(elements: string, element: string) {
   const mt = _composeMerkleTree(elements);
-  return mt.getHexProof(element);
+  return mt.getHexProof(keccak256(element));
 }
