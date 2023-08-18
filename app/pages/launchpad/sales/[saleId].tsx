@@ -1,7 +1,7 @@
 import { useSingleSale } from "@/hooks/app/launchpad";
 import { useIPFSGetMetadata } from "@/hooks/ipfs";
 import { useRouter } from "next/router";
-import { ReactNode, useRef, useState } from "react";
+import { MouseEventHandler, ReactNode, useRef, useState } from "react";
 import { FaDiscord, FaGithub, FaTelegramPlane, FaTwitter, FaBitcoin } from "react-icons/fa";
 import { FiCheck, FiDollarSign, FiGlobe, FiShare2 } from "react-icons/fi";
 import Link from "next/link";
@@ -24,6 +24,9 @@ import { useContractOwner } from "@/hooks/contracts";
 import presaleAbi from "@/assets/abis/Presale.json";
 import { useWeb3React } from "@web3-react/core";
 import FundTokenSaleModal from "@/ui/Modals/FundTokenSaleModal";
+import SingleSaleDescription from "@/screens/launchpad/SingleSaleDescription";
+import SingleSaleTeamInfo from "@/screens/launchpad/SingleSaleTeamInfo";
+import SingleSaleTokenomicsInfo from "@/screens/launchpad/SingleSaleTokenomics";
 
 const Checker = ({
   isChecked = false,
@@ -53,6 +56,23 @@ const SmallLinkCard = ({ children }: any) => (
   </div>
 );
 
+const SegmentLink = ({
+  label,
+  isActive,
+  onPress
+}: {
+  label: ReactNode;
+  isActive?: boolean;
+  onPress?: MouseEventHandler<HTMLAnchorElement>;
+}) => (
+  <a
+    className={`font-[400] text-sm lg:text-xl ${isActive ? "text-[#fff]" : "text-[#878aa1]"} cursor-pointer`}
+    onClick={onPress}
+  >
+    {label}
+  </a>
+);
+
 export default function SingleSale() {
   const { query, asPath } = useRouter();
   const { data: singleSaleData, isLoading: singleSaleLoading } = useSingleSale(query.saleId as string);
@@ -65,6 +85,8 @@ export default function SingleSale() {
   const { account } = useWeb3React();
 
   const fundSaleModalRef = useRef<HTMLInputElement>(null);
+
+  const [activeSegment, setActiveSegment] = useState(1);
 
   return (
     <div className="w-screen flex flex-col justify-start items-center gap-5 lg:gap-8 my-11 px-3 lg:px-14">
@@ -385,6 +407,44 @@ export default function SingleSale() {
                 )}
                 {activeTab === 2 && <ParticipationView sale={singleSaleData as TokenSale} />}
               </div>
+            </div>
+          </div>
+          <div className="w-full flex flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start gap-3">
+            <div className="w-full lg:w-1/3 py-2 px-2 flex flex-col justify-start items-start gap-3">
+              <SegmentLink
+                isActive={activeSegment === 1}
+                label={<span className="capitalize">what&apos;s {metadata.name}?</span>}
+                onPress={() => setActiveSegment(1)}
+              />
+              <SegmentLink
+                isActive={activeSegment === 2}
+                label={<span className="capitalize">team</span>}
+                onPress={() => setActiveSegment(2)}
+              />
+              <SegmentLink
+                isActive={activeSegment === 3}
+                label={<span className="capitalize">tokenomics</span>}
+                onPress={() => setActiveSegment(3)}
+              />
+              <SegmentLink
+                isActive={activeSegment === 4}
+                label={<span className="capitalize">vesting</span>}
+                onPress={() => setActiveSegment(4)}
+              />
+              <SegmentLink
+                isActive={activeSegment === 5}
+                label={<span className="capitalize">roadmap</span>}
+                onPress={() => setActiveSegment(5)}
+              />
+            </div>
+            <div className="w-full lg:w-[66%] px-2 rounded-[8px]">
+              <Card width="100%">
+                <div className="card-body w-full justify-start items-start">
+                  {activeSegment === 1 && <SingleSaleDescription data={singleSaleData as TokenSale} />}
+                  {activeSegment === 2 && <SingleSaleTeamInfo data={singleSaleData as TokenSale} />}
+                  {activeSegment === 3 && <SingleSaleTokenomicsInfo data={singleSaleData as TokenSale} />}
+                </div>
+              </Card>
             </div>
           </div>
           <FundTokenSaleModal

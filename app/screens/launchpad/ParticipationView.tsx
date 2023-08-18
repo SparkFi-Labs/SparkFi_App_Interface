@@ -12,7 +12,7 @@ import { useCallback, useMemo, useState } from "react";
 import { FiUsers } from "react-icons/fi";
 import { ThreeCircles } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
-import { VictoryPie } from "victory";
+import { VictoryPie, VictoryTheme } from "victory";
 
 const tokenImages = {
   link: "/images/link-logo.png",
@@ -79,6 +79,7 @@ export default function ParticipationView({ sale }: ParticipationViewProps) {
                 <div className="w-full flex flex-col justify-start items-center relative">
                   <svg viewBox="0 10 400 220" width="100%" height={300}>
                     <VictoryPie
+                      theme={VictoryTheme.material}
                       standalone={false}
                       width={400}
                       padAngle={2}
