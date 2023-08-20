@@ -193,7 +193,9 @@ export default function ParticipationView({ sale }: ParticipationViewProps) {
                   participants
                 </span>
               </div>
-              <span className="capitalize text-[#fff] text-xs lg:text-sm font-inter font-[700]">13,000</span>
+              <span className="capitalize text-[#fff] text-xs lg:text-sm font-inter font-[700]">
+                {sale.participants.toLocaleString("en-US", { useGrouping: true })}
+              </span>
             </div>
             <Card disabled={saleIsDisabled} width="100%" style={{ minHeight: "455px" }}>
               <div className="card-body w-full h-full justify-start items-center gap-10">

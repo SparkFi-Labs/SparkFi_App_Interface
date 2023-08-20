@@ -62,7 +62,7 @@ export default function WhitelistInfoView({ data }: WhitelistInfoViewProps) {
                   <span className="font-inter font-[400] capitalize text-[1em] lg:text-[1.3em]">
                     {!completed
                       ? `whitelist ends in ${days}D:${hours}H:${minutes}M:${seconds}S`
-                      : `whitelist ended on ${new Date(multiply(parseInt(data.endTime), 1000)).toISOString()}`}
+                      : `whitelist ended on ${new Date(multiply(parseInt(data.endTime), 1000)).toDateString()}`}
                   </span>
                 )}
               />

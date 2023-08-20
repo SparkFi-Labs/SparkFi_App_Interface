@@ -153,7 +153,7 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                               <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em]">
                                 {!completed
                                   ? `${days}D:${hours}H:${minutes}M:${seconds}S`
-                                  : new Date(multiply(parseInt(data.endTime), 1000)).toISOString()}
+                                  : new Date(multiply(parseInt(data.endTime), 1000)).toDateString()}
                               </span>
                             </div>
                           )}
