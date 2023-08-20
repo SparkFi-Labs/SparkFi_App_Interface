@@ -15,6 +15,7 @@ query IndexSingleTokenSale($id: ID!) {
     totalAvailableSaleTokens
     salePrice
     vestingType
+    participants
     linearVesting {
       id
       endTime

@@ -27,6 +27,7 @@ import FundTokenSaleModal from "@/ui/Modals/FundTokenSaleModal";
 import SingleSaleDescription from "@/screens/launchpad/SingleSaleDescription";
 import SingleSaleTeamInfo from "@/screens/launchpad/SingleSaleTeamInfo";
 import SingleSaleTokenomicsInfo from "@/screens/launchpad/SingleSaleTokenomics";
+import Head from "next/head";
 
 const Checker = ({
   isChecked = false,
@@ -96,6 +97,9 @@ export default function SingleSale() {
         </div>
       ) : (
         <>
+          <Head>
+            <title>{metadata.name} on SparkFi</title>
+          </Head>
           <div className="w-full flex justify-between items-center overflow-auto hidden-scrollbar gap-2">
             <div className="text-xs lg:text-lg breadcrumbs hidden-scrollbar">
               <ul>
@@ -373,7 +377,7 @@ export default function SingleSale() {
                                   ? `Sale closes in ${days}D:${hours}H:${minutes}M:${seconds}S`
                                   : `Sale closed on ${new Date(
                                       multiply(parseInt(singleSaleData?.endTime), 1000)
-                                    ).toISOString()}`}
+                                    ).toDateString()}`}
                               </span>
                             )}
                           />

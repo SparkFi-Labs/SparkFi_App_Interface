@@ -1,4 +1,4 @@
-query IndexUserContributionToSale($account: Bytes!, $sale: String!) {
+query IndexUserContributionToSale($account: String!, $sale: String!) {
   contributions(where: { user: $account, tokenSale: $sale }) {
     id
     amount
@@ -11,6 +11,9 @@ query IndexUserContributionToSale($account: Bytes!, $sale: String!) {
         decimals
       }
     }
-    user
+    user {
+      id
+      contributionsCount
+    }
   }
 }
