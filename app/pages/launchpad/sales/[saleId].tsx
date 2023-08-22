@@ -28,6 +28,7 @@ import SingleSaleDescription from "@/screens/launchpad/SingleSaleDescription";
 import SingleSaleTeamInfo from "@/screens/launchpad/SingleSaleTeamInfo";
 import SingleSaleTokenomicsInfo from "@/screens/launchpad/SingleSaleTokenomics";
 import Head from "next/head";
+import SingleSaleRoadmap from "@/screens/launchpad/SingleSaleRoadmap";
 
 const Checker = ({
   isChecked = false,
@@ -447,6 +448,7 @@ export default function SingleSale() {
                   {activeSegment === 1 && <SingleSaleDescription data={singleSaleData as TokenSale} />}
                   {activeSegment === 2 && <SingleSaleTeamInfo data={singleSaleData as TokenSale} />}
                   {activeSegment === 3 && <SingleSaleTokenomicsInfo data={singleSaleData as TokenSale} />}
+                  {activeSegment == 5 && <SingleSaleRoadmap data={singleSaleData as TokenSale} />}
                 </div>
               </Card>
             </div>

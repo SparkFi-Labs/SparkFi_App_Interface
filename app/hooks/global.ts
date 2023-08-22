@@ -3,6 +3,7 @@ import { AddressZero } from "@ethersproject/constants";
 import { useWeb3React } from "@web3-react/core";
 import { useMemo } from "react";
 import { isAddress } from "@ethersproject/address";
+import { isNil, trim } from "lodash";
 
 export const useContract = (
   addressOrAddressMap: string | { [chainId: number]: string },
@@ -18,7 +19,7 @@ export const useContract = (
     if (typeof addressOrAddressMap === "string") address = addressOrAddressMap;
     else address = addressOrAddressMap[chainId as number];
 
-    if (address === AddressZero || !address) return null;
+    if (address === AddressZero || isNil(address) || trim(address).length === 0) return null;
 
     if (!isAddress(address)) return null;
 
@@ -42,7 +43,7 @@ export const useContracts = (
       if (typeof addressOrAddressMap === "string") address = addressOrAddressMap;
       else address = addressOrAddressMap[chainId as number];
 
-      if (address === AddressZero || !address) return null;
+      if (address === AddressZero || isNil(address) || trim(address).length === 0) return null;
 
       if (!isAddress(address)) return null;
 
