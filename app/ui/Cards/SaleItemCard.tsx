@@ -166,7 +166,7 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                         label={
                           <div className="flex w-full justify-center items-center gap-9 group">
                             <span className="font-inter font-[500] capitalize text-[1.3em]">pool info</span>
-                            <BsArrowRight size={28} className="group-hover:translate-x-5 duration-150 ease-in-out" />
+                            <BsArrowRight size={30} className="group-hover:translate-x-5 duration-150 ease-in-out" />
                           </div>
                         }
                         width="100%"

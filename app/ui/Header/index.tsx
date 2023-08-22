@@ -37,10 +37,10 @@ export default function Header() {
         </button>
         <Link href="/" className="flex justify-center gap-1 items-center">
           <Image src="/images/logo.svg" height={30} width={30} alt="logo" />
-          <span className="text-[#fff] font-[500] text-[0.87em] lg:text-[1.5em] font-manuale">SparkFi</span>
+          <span className="text-[#fff] font-[500] text-lg lg:text-xl font-manuale">SparkFi</span>
         </Link>
       </div>
-      <div className="hidden lg:flex justify-center items-center gap-9 text-[#fff] font-[500] text-[0.95em] capitalize">
+      <div className="hidden lg:flex justify-center items-center gap-9 text-[#fff] font-[500] text-lg capitalize">
         <Link className="font-inter" href="/">
           home
         </Link>
@@ -65,7 +65,7 @@ export default function Header() {
       <input ref={sidebarRef} id="sidebar" type="checkbox" className="drawer-toggle" />
       <div className="drawer-side lg:hidden z-20 min-h-screen">
         <label htmlFor="sidebar" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-60 min-h-screen bg-[#0c0e1e] text-base-content capitalize font-[500] text-[0.95em]">
+        <ul className="menu p-4 w-60 min-h-screen bg-[#0c0e1e] text-base-content capitalize font-[500] text-sm">
           <label
             htmlFor="sidebar"
             className="btn btn-square btn-sm btn-neutral px-1 py-1 flex justify-center items-center m-4"
