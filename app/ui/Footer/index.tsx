@@ -12,14 +12,14 @@ export default function Footer() {
           </Link>
         </div>
         <div className="flex flex-col lg:flex-row justify-evenly items-start w-full gap-7 lg:gap-16">
-          <span className="text-[#fff] text-[12px] lg:text-[16px] font-[400] leading-5 font-inter w-full lg:w-1/4">
+          <span className="text-[#fff] text-xs lg:text-sm font-[400] leading-5 font-inter w-full lg:w-1/4">
             SparkFi is an ultimate platform that fuels innovation and propels startups to new heights! At SparkF our
             mission is to provide a launchpad for crypto startups, equipping them with the necessary resources,
             mentorship, and networking opportunities to thrive in today&apos;s fast-paced business landscape.
           </span>
           <div className="flex flex-col justify-start lg:justify-center items-start w-full lg:w-1/4 gap-7">
-            <span className="uppercase text-[0.95em] lg:text-[1.1em] font-[400]">information</span>
-            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-[12px] lg:text-[16px] capitalize">
+            <span className="uppercase text-lg lg:text-xl font-[400]">information</span>
+            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-sm lg:text-lg capitalize">
               <Link className="font-inter font-[400]" href="/#faq">
                 FAQ
               </Link>
@@ -35,8 +35,8 @@ export default function Footer() {
             </div>
           </div>
           <div className="flex flex-col justify-start lg:justify-center items-start w-full lg:w-1/4 gap-7">
-            <span className="uppercase text-[0.95em] lg:text-[1.1em] font-[400]">explore</span>
-            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-[12px] lg:text-[16px] capitalize">
+            <span className="uppercase text-lg lg:text-xl font-[400]">explore</span>
+            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-sm lg:text-lg capitalize">
               <Link className="font-inter" href="/launchpad">
                 pools
               </Link>
@@ -49,8 +49,8 @@ export default function Footer() {
             </div>
           </div>
           <div className="flex flex-col justify-start lg:justify-center items-start w-full lg:w-1/4 gap-7">
-            <span className="uppercase text-[0.95em] lg:text-[1.1em] font-[400]">connect</span>
-            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-[12px] lg:text-[16px] capitalize">
+            <span className="uppercase text-lg lg:text-xl font-[400]">connect</span>
+            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-sm lg:text-lg capitalize">
               <a className="font-inter" href="https://t.me/Official_SparkFi" target="_blank">
                 telegram
               </a>
@@ -71,15 +71,15 @@ export default function Footer() {
       <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-start  gap-2 lg:gap-10 px-2 lg:px-28 w-full">
         <div className="w-full lg:w-1/3">
           <div className="flex flex-col justify-start lg:justify-center items-start w-full gap-2 lg:gap-7">
-            <span className="uppercase text-[0.95em] lg:text-[1.1em] font-[400]">private investments</span>
-            <span className="font-inter font-[400] text-[12px] lg:text-[16px]">partners@sparkfi.xyz</span>
+            <span className="uppercase text-lg lg:text-xl">private investments</span>
+            <span className="font-inter font-[400] text-sm lg:text-lg">partners@sparkfi.xyz</span>
           </div>
         </div>
         <div className="flex flex-col gap-7 w-full lg:w-[90%]">
-          <span className="hidden lg:block capitalize font-inter font-[400] text-[12px] lg:text-[16px]">
+          <span className="hidden lg:block capitalize font-inter font-[400] text-sm lg:text-lg">
             copyright &copy; 2023, sparkFi. all trademarks and copyright belong to their respective owners.
           </span>
-          <div className="flex flex-col lg:flex-row justify-start gap-3 lg:gap-14 items-start lg:items-center capitalize text-[12px] lg:text-[16px]">
+          <div className="flex flex-col lg:flex-row justify-start gap-3 lg:gap-14 items-start lg:items-center capitalize text-sm lg:text-lg">
             <a className="font-inter" href="#" target="_blank">
               terms & conditions
             </a>
