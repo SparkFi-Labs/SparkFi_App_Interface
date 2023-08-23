@@ -391,7 +391,7 @@ export default function SingleSale() {
                 </div>
               </Card>
             </div>
-            <div className="lg:w-[66%] w-full flex flex-col justify-start items-start gap-4">
+            <div className="container mx-auto w-full flex flex-col justify-start items-start gap-4">
               <Tabs activeTab={activeTab}>
                 <Tab onTabSelected={() => setActiveTab(0)} label="project info" />
                 <Tab onTabSelected={() => setActiveTab(1)} label="whitelist" />
@@ -442,7 +442,7 @@ export default function SingleSale() {
                 onPress={() => setActiveSegment(5)}
               />
             </div>
-            <div className="w-full lg:w-[66%] px-2 rounded-[8px]">
+            <div className="container mx-auto px-2 rounded-[8px]">
               <Card width="100%">
                 <div className="card-body w-full justify-start items-start">
                   {activeSegment === 1 && <SingleSaleDescription data={singleSaleData as TokenSale} />}

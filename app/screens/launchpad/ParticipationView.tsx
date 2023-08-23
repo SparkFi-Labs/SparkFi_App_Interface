@@ -72,7 +72,7 @@ export default function ParticipationView({ sale }: ParticipationViewProps) {
           <ThreeCircles color="#fff" width={60} />
         </div>
       ) : (
-        <div className="flex flex-col lg:flex-row w-full justify-start gap-4 lg:justify-between items-center lg:items-start">
+        <div className="flex flex-col lg:flex-row w-full justify-start gap-4 lg:justify-between items-center lg:items-start container mx-auto">
           <div className="w-full lg:w-1/2 rounded-[8px]">
             <Card width="100%">
               <div className="card-body w-full justify-center items-center">

@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="flex justify-start w-full items-center">
           <Link href="/" className="flex justify-center gap-1 items-center">
             <Image src="/images/logo.svg" height={30} width={30} alt="logo" />
-            <span className="text-[#fff] font-[500] text-[0.87em] lg:text-[1.5em] font-manuale">SparkFi</span>
+            <span className="text-[#fff] font-[500] text-lg lg:text-2xl font-manuale">SparkFi</span>
           </Link>
         </div>
         <div className="flex flex-col lg:flex-row justify-evenly items-start w-full gap-7 lg:gap-16">
