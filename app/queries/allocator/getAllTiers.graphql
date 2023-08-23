@@ -1,0 +1,7 @@
+query IndexAllTiers {
+  tiers {
+    id
+    name
+    num
+  }
+}

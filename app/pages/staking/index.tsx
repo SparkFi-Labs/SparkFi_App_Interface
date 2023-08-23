@@ -1,11 +1,17 @@
+import type { Tier } from "@/.graphclient";
 import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
 import Card from "@/components/Card";
-import { floor, multiply, subtract } from "lodash";
+import { InputField } from "@/components/Input";
+import { useAllTiers } from "@/hooks/app/staking";
+import { floor, map, multiply, sortBy, subtract, toLower } from "lodash";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, MouseEventHandler, useState, type ReactNode, HTMLAttributes } from "react";
 import Countdown from "react-countdown";
-import { FiCheck, FiUser } from "react-icons/fi";
+import { BsMedium } from "react-icons/bs";
+import { FaTelegramPlane, FaTwitter, FaDiscord, FaGithub } from "react-icons/fa";
+import { FiCheck, FiChevronDown, FiChevronUp, FiUser } from "react-icons/fi";
+import { ThreeCircles } from "react-loader-spinner";
 import { VictoryPie, VictoryTheme } from "victory";
 
 const Checker = ({
@@ -30,14 +36,74 @@ const Checker = ({
   );
 };
 
+const TabButton = ({
+  isActive,
+  onPress,
+  label,
+  ...props
+}: {
+  isActive?: boolean;
+  onPress?: MouseEventHandler<HTMLButtonElement>;
+  label: ReactNode;
+} & ButtonHTMLAttributes<HTMLButtonElement>) => (
+  <button
+    className={`btn btn-sm lg:btn-md flex justify-center items-center text-sm lg:text-lg capitalize ${
+      isActive ? "bg-[#0029ff] text-[#d9d9d9]" : "text-[#fff] bg-[#14172e]"
+    }`}
+    onClick={onPress}
+    {...props}
+  >
+    {label}
+  </button>
+);
+
+const TierCard = ({ data, index, ...props }: { data: Tier; index: number } & HTMLAttributes<HTMLDivElement>) => (
+  <div className="card card-compact bg-[#0029ff] rounded-[8px] py-5" {...props}>
+    <div className="card-body justify-start items-start overflow-clip">
+      <span className="text-[#d9d9d9] text-xs lg:text-sm font-inter font-[500] capitalize tier">tier {index}</span>
+      <span className="text-[#fff] text-sm lg:text-lg font-inter font-[500]">
+        {parseInt(data.num).toLocaleString("en-US", { useGrouping: true })}+ SPAK
+      </span>
+      <div className="w-full flex justify-end items-center">
+        <div
+          className={`w-48 h-48 lg:w-60 lg:h-60 rounded-full ${
+            toLower(data.name) === "luna"
+              ? "bg-[linear-gradient(156deg,_#00FFF0_0%,_#00A3FF_100%)]"
+              : toLower(data.name) === "selene"
+              ? "bg-[linear-gradient(156deg,_#0075FF_0%,_#00FF38_100%)]"
+              : toLower(data.name) === "artemis"
+              ? "bg-[linear-gradient(156deg,_#FF8A00_0%,_#FF004D_100%)]"
+              : "bg-[linear-gradient(156deg,_#F00_0%,_#00A3FF_100%)]"
+          } relative -right-24 lg:-right-[40%]`}
+        ></div>
+      </div>
+      <div className="flex flex-col w-full h-11 gap-2 justify-start items-start">
+        <span className="text-sm lg:text-lg text-[#151938] font-inter font-[500] capitalize">{data.name}</span>
+        <span className="text-xs lg:text-sm text-[#151938] font-inter font-[500] capitalize">
+          {toLower(data.name) === "luna"
+            ? "1 lottery ticket"
+            : toLower(data.name) === "selene"
+            ? "100 lottery tickets"
+            : "guaranteed allocation"}
+        </span>
+      </div>
+    </div>
+  </div>
+);
+
 export default function Staking() {
   const { push } = useRouter();
+
+  const [tab, setTab] = useState(1);
+  const { isLoading: allTiersLoading, data: allTiersData } = useAllTiers();
+
+  const [newsletterChecked, setNewsletterChecked] = useState(false);
   return (
     <>
       <Head>
         <title>Staking | Allocation</title>
       </Head>
-      <div className="flex flex-col w-screen gap-20 justify-start items-start relative">
+      <div className="flex flex-col w-screen gap-20 lg:gap-28 justify-start items-start relative">
         <div className="absolute lg:w-[6.20875rem] lg:h-[6.20875rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[176.89deg] right-10 top-10"></div>
         <div className="absolute lg:w-[8.03931rem] lg:h-[8.03931rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[105.332deg] left-10 top-20"></div>
         <div className="absolute lg:w-[3.15369rem] lg:h-[3.15369rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[140.595deg] left-10 top-80"></div>
@@ -65,7 +131,7 @@ export default function Staking() {
             </div>
           </div>
         </section>
-        <section className="flex w-full flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start gap-20 lg:gap-10 px-4 lg:px-10 py-5">
+        <section className="flex w-full flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start gap-20 lg:gap-10 px-4 py-5 container mx-auto">
           <div className="w-full lg:w-1/3 h-[78px] lg:h-[106px] rounded-[8px] rotate-[13.195deg]">
             <Card width="100%" height="100%">
               <div className="card-body justify-center items-center w-full">
@@ -94,11 +160,11 @@ export default function Staking() {
           </div>
         </section>
 
-        <section className="flex w-full flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start lg:gap-20 gap-10 px-4 lg:px-10 py-5">
-          <div className="w-full lg:w-1/3 rounded-[8px] lg:min-h-[408px]">
-            <Card width="100%" style={{ minHeight: "inherit" }}>
-              <div className="card-body">
-                <div className="flex flex-col gap-6 justify-start items-start px-3 py-5">
+        <section className="flex w-full flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start lg:gap-20 gap-10 px-4 py-5 container mx-auto">
+          <div className="w-full lg:w-1/3 rounded-[8px] lg:h-[490px] lg:min-h-[490px]">
+            <Card width="100%" height="100%" style={{ minHeight: "inherit" }}>
+              <div className="card-body h-full">
+                <div className="flex flex-col gap-12 justify-start items-start px-3 py-5">
                   <span className="font-inter text-[15px] lg:text-[18px] font-[500] capitalize">staking process:</span>
                   <div className="flex flex-col gap-2">
                     <Checker
@@ -178,8 +244,8 @@ export default function Staking() {
             </Card>
           </div>
 
-          <div className="w-full lg:w-1/3 rounded-[8px] lg:min-h-[408px]">
-            <Card width="100%" style={{ minHeight: "inherit" }}>
+          <div className="w-full lg:w-1/3 rounded-[8px] lg:h-[490px] lg:min-h-[490px]">
+            <Card width="100%" height="100%" style={{ minHeight: "inherit" }}>
               <div className="card-body w-full justify-center items-center">
                 <div className="w-full flex flex-col justify-start items-center relative">
                   <svg viewBox="0 10 400 220" width="100%" height={250}>
@@ -203,7 +269,7 @@ export default function Staking() {
                   <div className="absolute flex flex-col justify-center items-center gap-1 top-[50%]">
                     <div className="avatar">
                       <div className="w-12 h-12 rounded-xl ring ring-success">
-                        <img src="/images/sparkfi_logo.svg" alt="project" />
+                        <img src="/images/sparkfi.svg" alt="project" />
                       </div>
                     </div>
                     <span className="font-inter text-xs lg:text-sm text-[#fff] font-[500] capitalize">
@@ -274,6 +340,193 @@ export default function Staking() {
                 </div>
               </div>
             </Card>
+          </div>
+
+          <div className="w-full lg:w-1/3 rounded-[8px] lg:h-[490px] lg:min-h-[490px] flex flex-col justify-start items-center gap-3">
+            <div className="w-full h-[5%] lg:h-[15%] rounded-[8px]">
+              <Card width="100%" height="100%">
+                <div className="card-body justify-center w-full items-center">
+                  <div className="w-full flex justify-center items-center gap-3">
+                    <TabButton
+                      label={<span>stake</span>}
+                      isActive={tab === 1}
+                      style={{ width: "50%" }}
+                      onPress={() => setTab(1)}
+                    />
+                    <TabButton
+                      label={<span>unstake</span>}
+                      isActive={tab === 2}
+                      style={{ width: "50%" }}
+                      onPress={() => setTab(2)}
+                    />
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            <div className="w-full lg:h-[85%] rounded-[8px]">
+              <Card width="100%" height="100%">
+                <div className="card-body justify-start items-start gap-8">
+                  <span className="text-sm lg:text-lg capitalize text-[#fff] font-inter font-[500]">
+                    manage your $SPAK token stakes
+                  </span>
+                  <div className="w-full flex rounded-[8px] bg-[#171d4c] justify-between items-center px-3 py-3 gap-1">
+                    <div className="flex flex-col justify-start items-start w-[90%] gap-3">
+                      <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">token unlock days</span>
+                      <input className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none" />
+                    </div>
+                    <div className="w-[10%] justify-start items-start gap-[0.1rem] flex flex-col h-full">
+                      <button className="btn btn-ghost btn-xs">
+                        <FiChevronUp size={24} />
+                      </button>
+                      <button className="btn btn-ghost btn-xs">
+                        <FiChevronDown size={24} />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="w-full flex rounded-[8px] bg-[#171d4c] justify-between items-center px-3 py-3 gap-1">
+                    <div className="flex flex-col justify-start items-start gap-3">
+                      <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">deposit</span>
+                      <input className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none" />
+                    </div>
+                    <div className="justify-start items-end gap-3 flex flex-col h-full">
+                      <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">balance: 10 $SPAK</span>
+                      <button className="btn btn-ghost btn-sm uppercase bg-[#0f1122] rounded-[8px]">
+                        <span className="text-[#fff] font-inter">max</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="card-actions w-full justify-center items-center">
+                    <CTAPurple width="100%" height={55} label={<span>stake $SPAK</span>} />
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </section>
+        {allTiersLoading ? (
+          <div className="container mx-auto flex justify-center items-center">
+            <ThreeCircles color="#fff" width={90} />
+          </div>
+        ) : (
+          <section className="flex w-full flex-col justify-start items-start gap-10 py-5 px-4 container mx-auto">
+            <span className="text-xl lg:text-3xl text-[#fff] font-[500] capitalize">tiers</span>
+            <div className="flex w-full flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start lg:gap-20 gap-10 py-5">
+              {map(
+                sortBy(allTiersData, tier => parseInt(tier.num)),
+                (tier, index) => (
+                  <div className="w-full lg:w-1/3" key={index}>
+                    <TierCard data={tier} index={index + 1} style={{ width: "100%" }} />
+                  </div>
+                )
+              )}
+            </div>
+          </section>
+        )}
+        <section className="w-full flex flex-col justify-start items-center gap-7 lg:gap-16 py-5 px-4 bg-transparent container mx-auto">
+          <div className="flex justify-start items-center w-full">
+            <span className="capitalize text-lg lg:text-2xl text-[#fff] font-[400]">stay updated</span>
+          </div>
+          <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start w-full gap-12 lg:h-96">
+            <div className="w-full lg:w-1/2 rounded-[8px] h-full">
+              <Card width="100%" height="100%">
+                <div className="card-body w-full justify-start items-start">
+                  <div className="flex flex-col justify-start items-start px-2 lg:px-7 py-5 gap-3 lg:gap-7 w-full lg:w-[80%]">
+                    <span className="text-[#0029ff] capitalize text-sm lg:text-lg">join the sparkFi community</span>
+                    <p className="text-[#fff] text-xs lg:text-sm font-[400] leading-5 text-justify font-inter">
+                      Are you interested in receiving updates about new projects on SparkFi? Register with your e-mail
+                      address to never miss any updates again.
+                    </p>
+                  </div>
+                  <div className="flex flex-col w-full lg:w-[70%] gap-2 justify-start items-start px-2 lg:px-7">
+                    <InputField placeholder="Your Email" width="100%" height={50} />
+                    <div className="form-control w-full">
+                      <label onClick={() => setNewsletterChecked(c => !c)} className="label cursor-pointer gap-4">
+                        <div className="bg-[#0f1122] rounded-[8px] w-[33px] h-[1.5rem] flex justify-center items-center">
+                          {newsletterChecked && <FiCheck />}
+                        </div>
+                        <span className="text-[#fff] font-[400] leading-5 text-justify font-inter text-xs lg:text-sm">
+                          I agree to receive newsletters and promotional emails from SparkFi (you can unsubscribe at any
+                          time).
+                        </span>
+                      </label>
+                    </div>
+                    <div className="w-full lg:w-1/3">
+                      <CTAPurple
+                        label={<span className="uppercase text-xs lg:text-sm text-[#fff]">sign up now!</span>}
+                        width="100%"
+                        height={52}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+            <div className="w-full lg:w-1/2 flex flex-col text-[#0029ff]">
+              <div className="flex justify-center gap-7 lg:gap-24 items-center w-full -mb-5">
+                <div className="w-[120px] h-[108px] lg:w-[161px] lg:h-[145px] rounded-[8px]">
+                  <Card
+                    width="100%"
+                    height="100%"
+                    onPress={() => window.open("https://t.me/Official_SparkFi", "_blank")}
+                  >
+                    <div className="card-body justify-center items-center">
+                      <FaTelegramPlane className="text-[1.3em]" />
+                    </div>
+                  </Card>
+                </div>
+                <div className="w-[120px] h-[108px] lg:w-[161px] lg:h-[145px] rounded-[8px]">
+                  <Card
+                    width="100%"
+                    height="100%"
+                    onPress={() => window.open("https://twitter.com/sparkfi_xyz", "_blank")}
+                  >
+                    <div className="card-body justify-center items-center">
+                      <FaTwitter className="text-[1.3em]" />
+                    </div>
+                  </Card>
+                </div>
+              </div>
+              <div className="flex justify-center items-center">
+                <div className="w-[120px] h-[108px] lg:w-[161px] lg:h-[145px] rounded-[8px]">
+                  <Card
+                    width="100%"
+                    height="100%"
+                    onPress={() => window.open("https://discord.com/invite/WtBvqvuaTu", "_blank")}
+                  >
+                    <div className="card-body justify-center items-center">
+                      <FaDiscord className="text-[1.3em]" />
+                    </div>
+                  </Card>
+                </div>
+              </div>
+              <div className="flex justify-center gap-7 lg:gap-24 items-center w-full -mt-5">
+                <div className="w-[120px] h-[108px] lg:w-[161px] lg:h-[145px] rounded-[8px]">
+                  <Card
+                    width="100%"
+                    height="100%"
+                    onPress={() => window.open("https://github.com/SparkFi-Labs", "_blank")}
+                  >
+                    <div className="card-body justify-center items-center">
+                      <FaGithub className="text-[1.3em]" />
+                    </div>
+                  </Card>
+                </div>
+                <div className="w-[120px] h-[108px] lg:w-[161px] lg:h-[145px] rounded-[8px]">
+                  <Card
+                    width="100%"
+                    height="100%"
+                    onPress={() => window.open("https://sparkfi-xyz.medium.com/", "_blank")}
+                  >
+                    <div className="card-body justify-center items-center">
+                      <BsMedium className="text-[1.3em]" />
+                    </div>
+                  </Card>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>

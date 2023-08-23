@@ -58,17 +58,15 @@ export default function Launchpad() {
         </section>
         <section className="w-full flex flex-col justify-start items-center gap-7 lg:gap-16 py-3 lg:py-12 bg-transparent container mx-auto">
           <div className="flex justify-start items-center w-full px-3 lg:px-5">
-            <span className="capitalize text-[1.4em] lg:text-[30px] text-[#fff] font-[400]">stay updated</span>
+            <span className="capitalize text-lg lg:text-2xl text-[#fff] font-[400]">stay updated</span>
           </div>
           <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center lg:items-start w-full gap-12 px-3 lg:px-5 lg:h-96">
             <div className="w-full lg:w-1/2 rounded-[8px] h-full">
               <Card width="100%" height="100%">
                 <div className="card-body w-full justify-start items-start">
                   <div className="flex flex-col justify-start items-start px-2 lg:px-7 py-5 gap-3 lg:gap-7 w-full lg:w-[80%]">
-                    <span className="text-[#0029ff] capitalize text-[1.2em] lg:text-[1.7em]">
-                      join the sparkFi community
-                    </span>
-                    <p className="text-[#fff] text-[0.82rem] lg:text-[0.875rem] font-[400] leading-5 text-justify font-inter">
+                    <span className="text-[#0029ff] capitalize text-sm lg:text-lg">join the sparkFi community</span>
+                    <p className="text-[#fff] text-xs lg:text-sm font-[400] leading-5 text-justify font-inter">
                       Are you interested in receiving updates about new projects on SparkFi? Register with your e-mail
                       address to never miss any updates again.
                     </p>
@@ -80,7 +78,7 @@ export default function Launchpad() {
                         <div className="bg-[#0f1122] rounded-[8px] w-[33px] h-[1.5rem] flex justify-center items-center">
                           {newsletterChecked && <FiCheck />}
                         </div>
-                        <span className="text-[#fff] font-[400] leading-5 text-justify font-inter text-[0.76rem] lg:text-[0.8rem]">
+                        <span className="text-[#fff] font-[400] leading-5 text-justify font-inter text-xs lg:text-sm">
                           I agree to receive newsletters and promotional emails from SparkFi (you can unsubscribe at any
                           time).
                         </span>
@@ -88,7 +86,7 @@ export default function Launchpad() {
                     </div>
                     <div className="w-full lg:w-1/3">
                       <CTAPurple
-                        label={<span className="uppercase text-[1.2em] text-[#fff]">sign up now!</span>}
+                        label={<span className="uppercase text-xs lg:text-sm text-[#fff]">sign up now!</span>}
                         width="100%"
                         height={52}
                       />
