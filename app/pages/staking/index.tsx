@@ -1,17 +1,21 @@
 import type { Tier } from "@/.graphclient";
+import { sparkFiTokenContracts } from "@/assets/contracts";
 import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
 import Card from "@/components/Card";
 import { InputField } from "@/components/Input";
-import { useAllTiers } from "@/hooks/app/staking";
-import { floor, map, multiply, sortBy, subtract, toLower } from "lodash";
+import { useAccountAllocationInfo, useAllTiers, useAllocatorInfo } from "@/hooks/app/staking";
+import { useAccountReward, useAccountTier, useAllocatorStaking } from "@/hooks/app/web3/staking";
+import { useMyTokenBalance } from "@/hooks/wallet";
+import { add, floor, isNil, map, multiply, sortBy, subtract, toLower } from "lodash";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ButtonHTMLAttributes, MouseEventHandler, useState, type ReactNode, HTMLAttributes } from "react";
+import { ButtonHTMLAttributes, MouseEventHandler, useState, type ReactNode, HTMLAttributes, useCallback } from "react";
 import Countdown from "react-countdown";
 import { BsMedium } from "react-icons/bs";
 import { FaTelegramPlane, FaTwitter, FaDiscord, FaGithub } from "react-icons/fa";
 import { FiCheck, FiChevronDown, FiChevronUp, FiUser } from "react-icons/fi";
 import { ThreeCircles } from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
 import { VictoryPie, VictoryTheme } from "victory";
 
 const Checker = ({
@@ -92,12 +96,38 @@ const TierCard = ({ data, index, ...props }: { data: Tier; index: number } & HTM
 );
 
 export default function Staking() {
-  const { push } = useRouter();
+  const { push, reload } = useRouter();
 
   const [tab, setTab] = useState(1);
   const { isLoading: allTiersLoading, data: allTiersData } = useAllTiers();
+  const { isLoading: allocatorInfoLoading, data: allocatorInfoData } = useAllocatorInfo();
+  const { isLoading: accountAllocationInfoLoading, data: accountAllocationData } = useAccountAllocationInfo();
 
   const [newsletterChecked, setNewsletterChecked] = useState(false);
+
+  const [amount, setAmount] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  const { isLoading: stakingLoading, stake } = useAllocatorStaking(amount, duration);
+  const myTier = useAccountTier();
+  const myReward = useAccountReward();
+  const tokenBalance = useMyTokenBalance(sparkFiTokenContracts);
+
+  const initStake = useCallback(async () => {
+    try {
+      toast("Preparing to stake", { type: "info" });
+
+      await stake();
+
+      toast("Successfully staked $SPAK", { type: "success" });
+
+      reload();
+    } catch (error: any) {
+      toast(error.message, {
+        type: "error"
+      });
+    }
+  }, [reload, stake]);
   return (
     <>
       <Head>
@@ -136,7 +166,15 @@ export default function Staking() {
             <Card width="100%" height="100%">
               <div className="card-body justify-center items-center w-full">
                 <span className="text-sm lg:text-lg text-[#fff] font-[400] capitalize">number of stakers</span>
-                <span className="text-xs lg:text-sm text-[#0029ff] font-[500] capitalize font-inter">2,646</span>
+                {allocatorInfoLoading ? (
+                  <div className="flex justify-center items-center py-1">
+                    <ThreeCircles color="#fff" width={10} />
+                  </div>
+                ) : (
+                  <span className="text-xs lg:text-sm text-[#0029ff] font-[500] capitalize font-inter">
+                    {allocatorInfoData?.totalStakers.toLocaleString("en-US", { useGrouping: true })}
+                  </span>
+                )}
               </div>
             </Card>
           </div>
@@ -145,7 +183,15 @@ export default function Staking() {
             <Card width="100%" height="100%">
               <div className="card-body justify-center items-center w-full">
                 <span className="text-sm lg:text-lg text-[#fff] font-[400] capitalize">total $SPAK staked</span>
-                <span className="text-xs lg:text-sm text-[#0029ff] font-[500] capitalize font-inter">50,723,388</span>
+                {allocatorInfoLoading ? (
+                  <div className="flex justify-center items-center py-1">
+                    <ThreeCircles color="#fff" width={10} />
+                  </div>
+                ) : (
+                  <span className="text-xs lg:text-sm text-[#0029ff] font-[500] capitalize font-inter">
+                    {parseFloat(allocatorInfoData?.totalTokensStaked).toLocaleString("en-US", { useGrouping: true })}
+                  </span>
+                )}
               </div>
             </Card>
           </div>
@@ -154,7 +200,9 @@ export default function Staking() {
             <Card width="100%" height="100%">
               <div className="card-body justify-center items-center w-full">
                 <span className="text-sm lg:text-lg text-[#fff] font-[400] uppercase">apr</span>
-                <span className="text-xs lg:text-sm text-[#0029ff] font-[500] capitalize font-inter">150.34%</span>
+                <span className="text-xs lg:text-sm text-[#0029ff] font-[500] capitalize font-inter">
+                  {allocatorInfoData?.apr}%
+                </span>
               </div>
             </Card>
           </div>
@@ -227,14 +275,22 @@ export default function Staking() {
                 <div className="card-actions w-full">
                   <CTAPurpleOutline
                     label={
-                      <Countdown
-                        date={100999888999378}
-                        renderer={({ days, hours, minutes, seconds }) => (
-                          <span className="font-inter font-[500] text-[1em] lg:text-[1.3em] text-[#d9d9d9]">
-                            Tokens unlocked in {days}D:{hours}H:{minutes}M:{seconds}S
-                          </span>
+                      <>
+                        {!isNil(accountAllocationData) && (
+                          <Countdown
+                            date={multiply(
+                              parseInt(accountAllocationData.firstStakeTimestamp) +
+                                parseInt(accountAllocationData.firstStakeLockPeriod),
+                              1000
+                            )}
+                            renderer={({ days, hours, minutes, seconds }) => (
+                              <span className="font-inter font-[500] text-[1em] lg:text-[1.3em] text-[#d9d9d9]">
+                                Tokens unlocked in {days}D:{hours}H:{minutes}M:{seconds}S
+                              </span>
+                            )}
+                          />
                         )}
-                      />
+                      </>
                     }
                     width="100%"
                     height={55}
@@ -258,8 +314,13 @@ export default function Staking() {
                       endAngle={-99}
                       labels={() => null}
                       data={[
-                        { x: "", y: 130 },
-                        { x: "", y: 400 }
+                        {
+                          x: "",
+                          y:
+                            parseFloat(allocatorInfoData?.totalTokensStaked || "0") -
+                            parseFloat(accountAllocationData?.amountStaked || "0")
+                        },
+                        { x: "", y: parseFloat(accountAllocationData?.amountStaked || "0") }
                       ]}
                       colorScale={["#ff004d", "#0ccbf4"]}
                       innerRadius={136}
@@ -275,7 +336,16 @@ export default function Staking() {
                     <span className="font-inter text-xs lg:text-sm text-[#fff] font-[500] capitalize">
                       your rewards
                     </span>
-                    <span className="text-lg lg:text-xl text-[#0029ff] font-[400]">0.00</span>
+                    <span className="text-lg lg:text-xl text-[#0029ff] font-[400]">
+                      {(
+                        multiply(parseFloat(accountAllocationData?.amountStaked || "0"), myReward) -
+                        parseFloat(accountAllocationData?.amountStaked || "0")
+                      ).toLocaleString("en-US", {
+                        useGrouping: true,
+                        minimumSignificantDigits: 3,
+                        maximumSignificantDigits: 3
+                      })}
+                    </span>
                   </div>
                 </div>
                 <div className="bg-[#141a45] w-full rounded-[8px] justify-center items-start min-h-[176px] card-actions px-3 py-3">
@@ -284,21 +354,25 @@ export default function Staking() {
                       <div className="flex justify-center items-center gap-2">
                         <span className="w-3 h-3 lg:w-4 lg:h-4 bg-[#4cc9ff]"></span>
                         <span className="capitalize text-[#fff] text-xs lg:text-sm font-inter font-[500]">
-                          total staked
+                          stake allocation
                         </span>
                       </div>
 
                       <div className="flex justify-center items-center gap-2">
                         <span className="w-3 h-3 lg:w-4 lg:h-4 bg-[#ff004d]"></span>
                         <span className="capitalize text-[#fff] text-xs lg:text-sm font-inter font-[500]">
-                          your staked tokens
+                          remaining
                         </span>
                       </div>
                     </div>
                     <div className="flex justify-between items-start w-full">
                       <div className="flex flex-col justify-start items-start gap-2">
                         <span className="text-[#4cc9ff] font-[700] font-inter uppercase text-xs lg:text-sm">
-                          {(4000).toLocaleString("en-US", { useGrouping: true })} $SPAK
+                          {!accountAllocationInfoLoading &&
+                            parseFloat(accountAllocationData?.amountStaked || "0").toLocaleString("en-US", {
+                              useGrouping: true
+                            })}{" "}
+                          $SPAK
                         </span>
                         <span className="text-[#878aa1] font-[700] font-inter uppercase text-[10px] lg:text-[12px]">
                           $
@@ -309,7 +383,13 @@ export default function Staking() {
                       </div>
                       <div className="flex flex-col justify-start items-end gap-2">
                         <span className="text-[#ff004d] font-[700] font-inter uppercase text-xs lg:text-sm">
-                          {(4000).toLocaleString("en-US", { useGrouping: true })} $SPAK
+                          {(
+                            parseFloat(allocatorInfoData?.totalTokensStaked || "0") -
+                            parseFloat(accountAllocationData?.amountStaked || "0")
+                          ).toLocaleString("en-US", {
+                            useGrouping: true
+                          })}{" "}
+                          $SPAK
                         </span>
                         <span className="text-[#878aa1] font-[700] font-inter uppercase text-[10px] lg:text-[12px]">
                           ${(6000).toLocaleString("en-US", { useGrouping: true })}{" "}
@@ -328,7 +408,7 @@ export default function Staking() {
                             your tier
                           </span>
                           <span className="bg-[linear-gradient(90deg,_#00FFF0_0%,_#0029FF_100%)] font-[500] font-inter capitalize text-[10px] lg:text-[12px] bg-clip-text text-[transparent]">
-                            luna
+                            {myTier}
                           </span>
                         </div>
                       </div>
@@ -373,13 +453,21 @@ export default function Staking() {
                   <div className="w-full flex rounded-[8px] bg-[#171d4c] justify-between items-center px-3 py-3 gap-1">
                     <div className="flex flex-col justify-start items-start w-[90%] gap-3">
                       <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">token unlock days</span>
-                      <input className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none" />
+                      <input
+                        value={duration}
+                        type="number"
+                        onChange={e => setDuration(e.target.valueAsNumber)}
+                        className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none"
+                      />
                     </div>
                     <div className="w-[10%] justify-start items-start gap-[0.1rem] flex flex-col h-full">
-                      <button className="btn btn-ghost btn-xs">
+                      <button onClick={() => setDuration(d => add(d, 1))} className="btn btn-ghost btn-xs">
                         <FiChevronUp size={24} />
                       </button>
-                      <button className="btn btn-ghost btn-xs">
+                      <button
+                        onClick={() => setDuration(d => (!isNil(d) && d > 0 ? subtract(d, 1) : 0))}
+                        className="btn btn-ghost btn-xs"
+                      >
                         <FiChevronDown size={24} />
                       </button>
                     </div>
@@ -388,18 +476,39 @@ export default function Staking() {
                   <div className="w-full flex rounded-[8px] bg-[#171d4c] justify-between items-center px-3 py-3 gap-1">
                     <div className="flex flex-col justify-start items-start gap-3">
                       <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">deposit</span>
-                      <input className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none" />
+                      <input
+                        value={amount}
+                        type="number"
+                        onChange={e => setAmount(e.target.valueAsNumber)}
+                        className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none"
+                      />
                     </div>
                     <div className="justify-start items-end gap-3 flex flex-col h-full">
-                      <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">balance: 10 $SPAK</span>
-                      <button className="btn btn-ghost btn-sm uppercase bg-[#0f1122] rounded-[8px]">
+                      <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">
+                        balance: {tokenBalance.toFixed(3)} $SPAK
+                      </span>
+                      <button
+                        onClick={() => setAmount(tokenBalance)}
+                        className="btn btn-ghost btn-sm uppercase bg-[#0f1122] rounded-[8px]"
+                      >
                         <span className="text-[#fff] font-inter">max</span>
                       </button>
                     </div>
                   </div>
 
                   <div className="card-actions w-full justify-center items-center">
-                    <CTAPurple width="100%" height={55} label={<span>stake $SPAK</span>} />
+                    <CTAPurple
+                      width="100%"
+                      height={55}
+                      onPress={initStake}
+                      disabled={amount <= 0 || duration <= 0 || stakingLoading}
+                      label={
+                        <div className="flex justify-center items-center gap-2 w-full">
+                          <span className="font-inter font-[500] text-sm capitalize">stake $SPAK</span>
+                          {stakingLoading && <span className="loading loading-infinity loading-md text-accent"></span>}
+                        </div>
+                      }
+                    />
                   </div>
                 </div>
               </Card>
@@ -529,6 +638,7 @@ export default function Staking() {
             </div>
           </div>
         </section>
+        <ToastContainer position="top-right" autoClose={5000} theme="dark" pauseOnFocusLoss />
       </div>
     </>
   );

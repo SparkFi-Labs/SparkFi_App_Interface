@@ -32,6 +32,16 @@
     background: #0029ff;
   }
 
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
   /* input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;

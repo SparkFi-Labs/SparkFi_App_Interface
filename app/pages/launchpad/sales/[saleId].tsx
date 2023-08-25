@@ -1,7 +1,7 @@
 import { useSingleSale } from "@/hooks/app/launchpad";
 import { useIPFSGetMetadata } from "@/hooks/ipfs";
 import { useRouter } from "next/router";
-import { MouseEventHandler, ReactNode, useRef, useState } from "react";
+import { MouseEventHandler, type ReactNode, useRef, useState } from "react";
 import { FaDiscord, FaGithub, FaTelegramPlane, FaTwitter, FaBitcoin } from "react-icons/fa";
 import { FiCheck, FiDollarSign, FiGlobe, FiShare2 } from "react-icons/fi";
 import Link from "next/link";
