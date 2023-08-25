@@ -1,7 +1,6 @@
 query IndexAccountInfo($id: ID!) {
   account(id: $id) {
     id
-    id
     amountStaked
     firstStakeTimestamp
     firstStakeLockPeriod

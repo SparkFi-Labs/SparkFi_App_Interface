@@ -19,7 +19,7 @@ export default function SingleSaleDescription({ data }: SingleSaleDescriptionPro
         <>
           <span className="font-[400] text-sm lg:text-xl capitalize">what&apos;s {metadata?.name}?</span>
           <article
-            className="prose w-full max-w-none prose-slate lg:prose-lg prose-sm break-all prose-a:break-all prose-a:text-[#0029ff] text-[#d9d9d9]"
+            className="prose w-full max-w-none prose-slate lg:prose-lg prose-sm prose-a:break-all prose-a:text-[#0029ff] text-[#d9d9d9] font-inter prose-p:font-inter"
             dangerouslySetInnerHTML={{
               __html: metadata?.description || ""
             }}
