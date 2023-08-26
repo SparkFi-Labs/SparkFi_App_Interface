@@ -30,7 +30,7 @@ export const usePresaleDeploymentInitializer = (
   minTotalPayment: number,
   maxTotalPayment: number,
   withdrawalDelay: number,
-  presaleType: 1 | 2
+  presaleType: 0 | 1
 ) => {
   const factoryContract = useContract(presaleFactoryContracts, presaleFactoryAbi);
   const paymentTokenDetails = useTokenDetails(paymentToken);
@@ -76,7 +76,7 @@ export const usePresaleDeploymentInitializer = (
             )
           );
           const withdrawalDelayHex = hexValue(withdrawalDelay);
-          const creationCode = presaleType === 1 ? bytecodes.regularSale : bytecodes.allocationSale;
+          const creationCode = presaleType === 0 ? bytecodes.regularSale : bytecodes.allocationSale;
 
           const tx = await factoryContract.deploySale(
             creationCode,

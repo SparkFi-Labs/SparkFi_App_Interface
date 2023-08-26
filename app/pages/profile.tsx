@@ -12,12 +12,12 @@ export default function Profile() {
   const tokenDetails = useTokenDetails(sparkFiTokenContracts);
   return (
     <div className="flex flex-col gap-7 justify-start items-center w-screen bg-[#101221]">
-      <div className=" w-full bg-[url('/images/profile_overview.png')] bg-no-repeat bg-cover flex justify-between items-start px-14">
+      <div className=" w-full bg-[url('/images/profile_overview.png')] bg-no-repeat bg-cover flex justify-between items-start px-14 lg:min-h-[20rem]">
         <div className="flex justify-center items-end h-[6rem] lg:h-[12rem]">
           <span className="text-[#fff] capitalize font-[700]">account overview</span>
         </div>
         <div className="hidden lg:flex flex-col justify-center items-center h-[12rem]">
-          <div className="bg-[#000] rounded-[0.3125rem] flex justify-start items-center px-1 py-1 gap-2">
+          <div className="bg-[#151938] rounded-[0.3125rem] flex justify-start items-center px-1 py-1 gap-2 h-10">
             <div className="bg-[#14172e] rounded-[0.3125rem] px-1 py-1">
               <FaWallet className="text-[1.2em]" />
             </div>

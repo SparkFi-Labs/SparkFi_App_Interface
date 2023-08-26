@@ -47,6 +47,33 @@ export const useAllocatorStaking = (amount: number, lockDurationInDays: number) 
   return { isLoading, stake };
 };
 
+export const useAllocatorUnstaking = () => {
+  const stakingContract = useContract(allocatorContracts, allocatorAbi);
+  const sparkfiTokenContract = useContract(sparkFiTokenContracts, erc20Abi);
+  const sparkfiTokenDetails = useTokenDetails(sparkFiTokenContracts);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const unstake = useCallback(async () => {
+    if (!isNil(stakingContract) && !isNil(sparkfiTokenContract) && !isNil(sparkfiTokenDetails)) {
+      try {
+        setIsLoading(true);
+
+        const unstakeTx = await stakingContract.unstake();
+        const awaitedTx = await unstakeTx.wait();
+
+        setIsLoading(false);
+
+        return awaitedTx;
+      } catch (error: any) {
+        setIsLoading(false);
+        return Promise.reject(error);
+      }
+    }
+  }, [sparkfiTokenContract, sparkfiTokenDetails, stakingContract]);
+
+  return { isLoading, unstake };
+};
+
 export const useAccountTier = () => {
   const [tier, setTier] = useState("");
   const { account } = useWeb3React();

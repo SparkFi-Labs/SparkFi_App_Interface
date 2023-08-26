@@ -7,7 +7,7 @@ interface PaymentTokens {
 }
 
 export const presaleFactoryContracts: ChainContracts = {
-  84531: "0xd926DB96cc973D775353FcFeee3cf3EcCb1699Bf"
+  84531: "0xBe0C7950a8912756a8E61fC39D6B1D1Df8B378c4"
 };
 export const sparkFiTokenContracts: ChainContracts = {
   84531: "0xf6a6a429a0b9676293Df0E3616A6a33cA673b5C3"
