@@ -46,7 +46,7 @@ export default function NewLaunch() {
   const [salePrice, setSalePrice] = useState<number | undefined>(0);
 
   const [team, setTeam] = useState<{ [name: string]: { role: string; description: string } }>({});
-  const [presaleType, setPresaleType] = useState<1 | 2>(1);
+  const [presaleType, setPresaleType] = useState<0 | 1>(1);
 
   const projectLogoFileIPFSUploader = useIPFSUpload(projectLogoFile, process.env.NEXT_PUBLIC_IPFS_ENDPOINT, res =>
     setProjectMetadata(md => {
@@ -239,14 +239,14 @@ export default function NewLaunch() {
                           <span className="text-[1rem] text-[#fff] font-[600] capitalize">sale type</span>
                           <div className="flex flex-col justify-start items-start gap-2">
                             <div className="flex justify-center items-center gap-2">
-                              <CheckButton checked={presaleType === 1} onCheckPressed={() => setPresaleType(1)} />
+                              <CheckButton checked={presaleType === 0} onCheckPressed={() => setPresaleType(0)} />
                               <span className="text-[1rem] text-[#0029ff] font-[600] uppercase font-inter">
                                 regular
                               </span>
                             </div>
 
                             <div className="flex justify-center items-center gap-2">
-                              <CheckButton checked={presaleType === 2} onCheckPressed={() => setPresaleType(2)} />
+                              <CheckButton checked={presaleType === 1} onCheckPressed={() => setPresaleType(1)} />
                               <span className="text-[1rem] text-[#0029ff] font-[600] uppercase font-inter">
                                 allocation
                               </span>

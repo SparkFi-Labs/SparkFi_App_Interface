@@ -3,8 +3,9 @@ import { sparkFiTokenContracts } from "@/assets/contracts";
 import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
 import Card from "@/components/Card";
 import { InputField } from "@/components/Input";
+import { useAtomicDate } from "@/hooks/app/shared";
 import { useAccountAllocationInfo, useAllTiers, useAllocatorInfo } from "@/hooks/app/staking";
-import { useAccountReward, useAccountTier, useAllocatorStaking } from "@/hooks/app/web3/staking";
+import { useAccountReward, useAccountTier, useAllocatorStaking, useAllocatorUnstaking } from "@/hooks/app/web3/staking";
 import { useMyTokenBalance } from "@/hooks/wallet";
 import { add, floor, isNil, map, multiply, sortBy, subtract, toLower } from "lodash";
 import Head from "next/head";
@@ -109,9 +110,12 @@ export default function Staking() {
   const [duration, setDuration] = useState(0);
 
   const { isLoading: stakingLoading, stake } = useAllocatorStaking(amount, duration);
+  const { isLoading: unstakingLoading, unstake } = useAllocatorUnstaking();
   const myTier = useAccountTier();
   const myReward = useAccountReward();
   const tokenBalance = useMyTokenBalance(sparkFiTokenContracts);
+
+  const atomicDate = useAtomicDate();
 
   const initStake = useCallback(async () => {
     try {
@@ -128,6 +132,22 @@ export default function Staking() {
       });
     }
   }, [reload, stake]);
+
+  const initUnstake = useCallback(async () => {
+    try {
+      toast("Preparing to unstake", { type: "info" });
+
+      await unstake();
+
+      toast("Successfully unstaked $SPAK", { type: "success" });
+
+      reload();
+    } catch (error: any) {
+      toast(error.message, {
+        type: "error"
+      });
+    }
+  }, [reload, unstake]);
   return (
     <>
       <Head>
@@ -276,7 +296,7 @@ export default function Staking() {
                   <CTAPurpleOutline
                     label={
                       <>
-                        {!isNil(accountAllocationData) && (
+                        {!isNil(accountAllocationData) ? (
                           <Countdown
                             date={multiply(
                               parseInt(accountAllocationData.firstStakeTimestamp) +
@@ -289,6 +309,10 @@ export default function Staking() {
                               </span>
                             )}
                           />
+                        ) : (
+                          <span className="font-inter font-[500] text-[1em] lg:text-[1.3em] text-[#d9d9d9]">
+                            You have no allocation
+                          </span>
                         )}
                       </>
                     }
@@ -450,66 +474,143 @@ export default function Staking() {
                   <span className="text-sm lg:text-lg capitalize text-[#fff] font-inter font-[500]">
                     manage your $SPAK token stakes
                   </span>
-                  <div className="w-full flex rounded-[8px] bg-[#171d4c] justify-between items-center px-3 py-3 gap-1">
-                    <div className="flex flex-col justify-start items-start w-[90%] gap-3">
-                      <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">token unlock days</span>
-                      <input
-                        value={duration}
-                        type="number"
-                        onChange={e => setDuration(e.target.valueAsNumber)}
-                        className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none"
-                      />
-                    </div>
-                    <div className="w-[10%] justify-start items-start gap-[0.1rem] flex flex-col h-full">
-                      <button onClick={() => setDuration(d => add(d, 1))} className="btn btn-ghost btn-xs">
-                        <FiChevronUp size={24} />
-                      </button>
-                      <button
-                        onClick={() => setDuration(d => (!isNil(d) && d > 0 ? subtract(d, 1) : 0))}
-                        className="btn btn-ghost btn-xs"
-                      >
-                        <FiChevronDown size={24} />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="w-full flex rounded-[8px] bg-[#171d4c] justify-between items-center px-3 py-3 gap-1">
-                    <div className="flex flex-col justify-start items-start gap-3">
-                      <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">deposit</span>
-                      <input
-                        value={amount}
-                        type="number"
-                        onChange={e => setAmount(e.target.valueAsNumber)}
-                        className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none"
-                      />
-                    </div>
-                    <div className="justify-start items-end gap-3 flex flex-col h-full">
-                      <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">
-                        balance: {tokenBalance.toFixed(3)} $SPAK
-                      </span>
-                      <button
-                        onClick={() => setAmount(tokenBalance)}
-                        className="btn btn-ghost btn-sm uppercase bg-[#0f1122] rounded-[8px]"
-                      >
-                        <span className="text-[#fff] font-inter">max</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="card-actions w-full justify-center items-center">
-                    <CTAPurple
-                      width="100%"
-                      height={55}
-                      onPress={initStake}
-                      disabled={amount <= 0 || duration <= 0 || stakingLoading}
-                      label={
-                        <div className="flex justify-center items-center gap-2 w-full">
-                          <span className="font-inter font-[500] text-sm capitalize">stake $SPAK</span>
-                          {stakingLoading && <span className="loading loading-infinity loading-md text-accent"></span>}
+                  {tab === 1 ? (
+                    <>
+                      <div className="w-full flex rounded-[8px] bg-[#171d4c] justify-between items-center px-3 py-3 gap-1">
+                        <div className="flex flex-col justify-start items-start w-[90%] gap-3">
+                          <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">
+                            token unlock days
+                          </span>
+                          <input
+                            value={duration}
+                            type="number"
+                            onChange={e => setDuration(e.target.valueAsNumber)}
+                            className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none"
+                          />
                         </div>
-                      }
-                    />
-                  </div>
+                        <div className="w-[10%] justify-start items-start gap-[0.1rem] flex flex-col h-full">
+                          <button onClick={() => setDuration(d => add(d, 1))} className="btn btn-ghost btn-xs">
+                            <FiChevronUp size={24} />
+                          </button>
+                          <button
+                            onClick={() => setDuration(d => (!isNil(d) && d > 0 ? subtract(d, 1) : 0))}
+                            className="btn btn-ghost btn-xs"
+                          >
+                            <FiChevronDown size={24} />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="w-full flex rounded-[8px] bg-[#171d4c] justify-between items-center px-3 py-3 gap-1">
+                        <div className="flex flex-col justify-start items-start gap-3">
+                          <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">deposit</span>
+                          <input
+                            value={amount}
+                            type="number"
+                            onChange={e => setAmount(e.target.valueAsNumber)}
+                            className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none"
+                          />
+                        </div>
+                        <div className="justify-start items-end gap-3 flex flex-col h-full">
+                          <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">
+                            balance: {tokenBalance.toFixed(3)} $SPAK
+                          </span>
+                          <button
+                            onClick={() => setAmount(tokenBalance)}
+                            className="btn btn-ghost btn-sm uppercase bg-[#0f1122] rounded-[8px]"
+                          >
+                            <span className="text-[#fff] font-inter">max</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="card-actions w-full justify-center items-center">
+                        <CTAPurple
+                          width="100%"
+                          height={50}
+                          onPress={initStake}
+                          disabled={amount <= 0 || duration <= 0 || stakingLoading}
+                          label={
+                            <div className="flex justify-center items-center gap-2 w-full">
+                              <span className="font-inter font-[500] text-sm capitalize">stake $SPAK</span>
+                              {stakingLoading && (
+                                <span className="loading loading-infinity loading-md text-accent"></span>
+                              )}
+                            </div>
+                          }
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-full flex rounded-[8px] bg-[#171d4c] justify-start items-center px-3 py-3 gap-1">
+                        <div className="flex flex-col justify-start items-start w-[90%] gap-3">
+                          <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">
+                            token unlock in:
+                          </span>
+                          {!isNil(accountAllocationData) ? (
+                            <Countdown
+                              date={multiply(
+                                parseInt(accountAllocationData.firstStakeTimestamp) +
+                                  parseInt(accountAllocationData.firstStakeLockPeriod),
+                                1000
+                              )}
+                              renderer={({ days, hours, minutes, seconds }) => (
+                                <span className="font-inter font-[500] text-sm lg:text-lg text-[#d9d9d9]">
+                                  {days}D:{hours}H:{minutes}M:{seconds}S
+                                </span>
+                              )}
+                            />
+                          ) : (
+                            <span className="font-inter font-[500] text-[1em] lg:text-[1.3em] text-[#d9d9d9]">
+                              You have no allocation
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="w-full flex rounded-[8px] bg-[#171d4c] justify-between items-center px-3 py-3 gap-1">
+                        <div className="flex flex-col justify-start items-start gap-3">
+                          <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">withdraw</span>
+                          <input
+                            value={multiply(parseFloat(accountAllocationData?.amountStaked || "0"), myReward)}
+                            type="number"
+                            disabled
+                            className="w-full text-left text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none"
+                          />
+                        </div>
+                        <div className="justify-start items-end gap-3 flex flex-col h-full">
+                          <span className="capitalize text-[#878aa1] font-inter text-xs lg:text-sm">reward</span>
+                          <input
+                            value={`${myReward}x`}
+                            type="text"
+                            disabled
+                            className="w-full text-right text-sm lg:text-lg text-[#fff] font-inter px-1 py-1 bg-transparent outline-none"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="card-actions w-full justify-center items-center">
+                        <CTAPurple
+                          width="100%"
+                          height={50}
+                          onPress={initUnstake}
+                          disabled={
+                            floor(atomicDate.getTime() / 1000) <
+                              parseInt(accountAllocationData?.firstStakeTimestamp) +
+                                parseInt(accountAllocationData?.firstStakeLockPeriod) || unstakingLoading
+                          }
+                          label={
+                            <div className="flex justify-center items-center gap-2 w-full">
+                              <span className="font-inter font-[500] text-sm capitalize">unstake $SPAK</span>
+                              {unstakingLoading && (
+                                <span className="loading loading-infinity loading-md text-accent"></span>
+                              )}
+                            </div>
+                          }
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
               </Card>
             </div>

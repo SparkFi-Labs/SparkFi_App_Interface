@@ -223,7 +223,7 @@ export default function ParticipationView({ sale }: ParticipationViewProps) {
                     <span className="text-[#d9d9d9] font-[700] font-inter capitalize text-[10px] lg:text-[12px]">
                       allocation:{" "}
                       {sale.saleType === "ALLOCATION"
-                        ? `${myAllocation} ${sale.paymentToken.symbol}`
+                        ? `${myAllocation.toFixed(3)} ${sale.paymentToken.symbol}`
                         : "not an allocation sale"}
                     </span>
                   </div>
