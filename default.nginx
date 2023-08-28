@@ -21,6 +21,10 @@ server {
     proxy_pass         http://client:38322/;
   }
 
+  location /app-server/ {
+    proxy_pass http://server:9700/;
+  }
+
   location /ipfs-gateway {
     rewrite            ^/ipfs-gateway/(.*) /$1 break;
     proxy_set_header   Host $host;
