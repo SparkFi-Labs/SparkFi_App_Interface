@@ -48,8 +48,8 @@ const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, 
   return (
     <>
       <input type="checkbox" className="modal-toggle" id="connect-wallet-modal" ref={ref} />
-      <div className="modal">
-        <div className="bg-[#000] rounded-[5px] modal-box flex flex-col justify-start items-center gap-7">
+      <div className="modal z-20">
+        <div className="bg-[#000] rounded-[5px] modal-box flex flex-col justify-start items-center gap-7 z-20">
           <div className="flex justify-between items-center px-3 py-1 w-full">
             <div className="flex flex-col justify-start gap-2 items-start">
               <span className="capitalize text-[1em] leading-6 text-[#f5f5f5] font-[500] font-inter">

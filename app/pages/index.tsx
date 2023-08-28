@@ -6,14 +6,12 @@ import { InputField } from "@/components/Input";
 import UpcomingSalesView from "@/screens/home/UpcomingProjectsView";
 import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { BsMedium } from "react-icons/bs";
 import { FaDiscord, FaGithub, FaTelegramPlane, FaTwitter } from "react-icons/fa";
 import { FiCheck } from "react-icons/fi";
 
 export default function Home() {
-  const { push } = useRouter();
   const [newsletterChecked, setNewsletterChecked] = useState(false);
   return (
     <>
@@ -21,25 +19,32 @@ export default function Home() {
         <title>SparkFi | Incubation Hub</title>
       </Head>
       <div className="flex flex-col w-screen gap-12 justify-start items-start relative">
-        <div className="absolute lg:w-[6.20875rem] lg:h-[6.20875rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[176.89deg] right-10 top-10"></div>
-        <div className="absolute lg:w-[8.03931rem] lg:h-[8.03931rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[105.332deg] left-10 top-20"></div>
-        <div className="absolute lg:w-[3.15369rem] lg:h-[3.15369rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[140.595deg] left-10 top-80"></div>
-        <div className="absolute lg:w-[4.791rem] lg:h-[4.791rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[176.89deg] right-10 top-80"></div>
-        <section className="py-12 px-3 w-full flex justify-center items-center">
-          <div className="flex flex-col justify-start items-center w-full lg:w-1/3 gap-6 relative lg:py-[6rem]">
-            {/* <div className="absolute lg:-top-[8rem] rounded-[1000px]">
-            <Image src="/images/ellipse_top.svg" width={1400} height={1000} alt="ellipse" />
-            </div> */}
+        <div className="absolute -left-64 lg:-left-44 -top-10">
+          <img
+            src="/images/vr_wearer_1.png"
+            className="lg:w-[906px] lg:h-[789px] w-[421px] h-[367px]"
+            alt="vr_wearer"
+          />
+        </div>
 
-            <span className="text-[#fff] text-[1.4rem] lg:text-[3.125rem] capitalize font-[400] text-center">
+        <div className="absolute -right-64 lg:-right-44 -top-24">
+          <img
+            src="/images/vr_wearer_2.png"
+            className="lg:w-[906px] lg:h-[789px] w-[421px] h-[367px]"
+            alt="vr_wearer"
+          />
+        </div>
+        <section className="py-12 px-3 w-full flex justify-center items-center gap-3">
+          <div className="flex flex-col justify-start items-center w-full lg:w-1/3 gap-6 relative lg:py-[6rem]">
+            <span className="text-[#fff] text-2xl lg:text-4xl capitalize font-[400] text-center">
               ignite your startup&apos;s success
             </span>
-            <span className="text-[#aaa] text-[16px] lg:text-[18px] font-[500] leading-5 text-center font-inter">
+            <span className="text-[#aaa] lg:text-lg text-sm font-[500] leading-5 text-center font-inter">
               An innovative solution for token launches, supporting new projects and fostering liquidity provisioning on
               Base Network
             </span>
             <div className="w-full lg:w-1/2 flex justify-center items-center gap-3 lg:gap-7 px-3">
-              <CTAPurple label="Enter App" width="50%" height={50} onPress={() => push("/launchpad")} />
+              <CTAPurple label="Buy $SPAK" width="50%" height={50} />
               <CTAPurpleOutline
                 label="Read Docs"
                 width="50%"
@@ -49,7 +54,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 pt-20 pb-6 lg:pb-48">
+        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 lg:mt-12 pt-20 pb-6 lg:pb-48">
           <div className="flex flex-col-reverse lg:flex-row justify-start items-center lg:justify-around gap-10 lg:items-start w-full container mx-auto">
             <div className="flex justify-center items-center relative w-full lg:w-1/2 text-center">
               <img src="/images/cubes.svg" className="w-full h-full m-auto" alt="cubes" />

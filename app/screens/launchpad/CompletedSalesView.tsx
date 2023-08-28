@@ -29,6 +29,12 @@ export default function CompletedSalesView() {
                       width="90%"
                       height={55}
                       label={<span className="font-inter font-[500] text-[1.1em] capitalize">submit your project</span>}
+                      onPress={() =>
+                        window.open(
+                          "https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0",
+                          "_blank"
+                        )
+                      }
                     />
                   </div>
                 </div>
@@ -54,6 +60,12 @@ export default function CompletedSalesView() {
                         <CTAPurple
                           width="90%"
                           height={55}
+                          onPress={() =>
+                            window.open(
+                              "https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0",
+                              "_blank"
+                            )
+                          }
                           label={
                             <span className="font-inter font-[500] text-[1.1em] capitalize">submit your project</span>
                           }

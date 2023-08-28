@@ -119,7 +119,7 @@ export default function ContributionListItem({ data }: ContributionListItemProps
         </div>
       </div>
       {showVesting && !isNil(data.tokenSale.vestingType) && (
-        <div className="w-full flex flex-col justify-start items-center bg-[#151938] rounded-[8px]">
+        <div className="w-full flex flex-col justify-start items-center bg-[#151938] rounded-[8px] px-2 py-2">
           {data.tokenSale.vestingType === "LINEAR" ? (
             <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center w-full gap-4 lg:gap-28 px-3 py-3">
               <div className="flex justify-between w-full lg:w-1/3 items-center">
@@ -173,7 +173,9 @@ export default function ContributionListItem({ data }: ContributionListItemProps
               {map(data.tokenSale.cliffPeriod, (cliff, index) => (
                 <div
                   key={cliff.id}
-                  className="flex flex-col lg:flex-row justify-start lg:justify-between items-center w-full gap-4 lg:gap-28 px-3 py-3"
+                  className={`flex flex-col lg:flex-row justify-start lg:justify-between items-center w-full gap-4 lg:gap-28 px-3 py-3 ${
+                    index > 0 && "border-t border-[#878aa1]"
+                  }`}
                 >
                   <div className="flex justify-between w-full lg:w-1/3 items-center">
                     <div className="flex flex-col gap-2 justify-start items-start">
