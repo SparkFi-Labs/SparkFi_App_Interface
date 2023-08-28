@@ -1,0 +1,8 @@
+query IndexAccountOverview($id: ID!) {
+  contributions(where: { user_: { id: $id } }) {
+    user {
+      id
+      contributionsCount
+    }
+  }
+}

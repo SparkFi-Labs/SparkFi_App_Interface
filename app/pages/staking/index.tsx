@@ -127,7 +127,7 @@ export default function Staking() {
 
       reload();
     } catch (error: any) {
-      toast(error.message, {
+      toast(error.reason || error.message, {
         type: "error"
       });
     }
@@ -143,7 +143,7 @@ export default function Staking() {
 
       reload();
     } catch (error: any) {
-      toast(error.message, {
+      toast(error.reason || error.message, {
         type: "error"
       });
     }
@@ -188,7 +188,7 @@ export default function Staking() {
                 <span className="text-sm lg:text-lg text-[#fff] font-[400] capitalize">number of stakers</span>
                 {allocatorInfoLoading ? (
                   <div className="flex justify-center items-center py-1">
-                    <ThreeCircles color="#fff" width={10} />
+                    <ThreeCircles color="#fff" width={10} height={10} />
                   </div>
                 ) : (
                   <span className="text-xs lg:text-sm text-[#0029ff] font-[500] capitalize font-inter">
@@ -205,7 +205,7 @@ export default function Staking() {
                 <span className="text-sm lg:text-lg text-[#fff] font-[400] capitalize">total $SPAK staked</span>
                 {allocatorInfoLoading ? (
                   <div className="flex justify-center items-center py-1">
-                    <ThreeCircles color="#fff" width={10} />
+                    <ThreeCircles color="#fff" width={10} height={10} />
                   </div>
                 ) : (
                   <span className="text-xs lg:text-sm text-[#0029ff] font-[500] capitalize font-inter">

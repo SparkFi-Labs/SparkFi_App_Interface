@@ -61,7 +61,7 @@ export default function ParticipationView({ sale }: ParticipationViewProps) {
 
       reload();
     } catch (error: any) {
-      toast(error.message, { type: "error", autoClose: 5000 });
+      toast(error.reason || error.message, { type: "error", autoClose: 5000 });
     }
   }, [contribute, contributionAmount, reload]);
 

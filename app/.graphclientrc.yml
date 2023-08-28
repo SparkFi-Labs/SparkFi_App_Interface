@@ -8,4 +8,5 @@ sources:
       graphql:
         endpoint: ${NEXT_PUBLIC_ALLOCATOR_GRAPH_ENDPOINT}
 documents:
-  - queries/**/*.graphql
+  - queries/presales/*.graphql
+  - queries/allocator/*.graphql

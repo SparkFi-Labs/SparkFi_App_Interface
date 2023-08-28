@@ -1,15 +1,19 @@
 import {
-  Contribution,
+  type Contribution,
   IndexCompletedTokenSalesDocument,
   IndexOnGoingTokenSalesDocument,
   IndexSingleTokenSaleDocument,
   IndexUpcomingTokenSalesDocument,
-  IndexUserContributionToSaleDocument,
+  IndexUserContributionToSalesDocument,
   TokenSale,
-  execute
+  execute,
+  IndexAccountOverviewDocument,
+  type PresaleFactory,
+  IndexPresaleFactoryOverviewDocument
 } from "@/.graphclient";
+import type { PresaleFactoryTypes } from "@/.graphclient/sources/PresaleFactory/types";
 import { useWeb3React } from "@web3-react/core";
-import { floor, subtract } from "lodash";
+import { floor, isNil, subtract, toLower } from "lodash";
 import { useEffect, useState } from "react";
 
 export const useUpcomingSales = (itemsPerPage: number = 2, page: number = 1) => {
@@ -124,29 +128,78 @@ export const useSingleSale = (id: string) => {
   return { data, isLoading, error };
 };
 
-export const useMyContributions = (sale: string) => {
+export const useMyContributions = (itemsPerPage: number = 15, page: number = 1) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<Contribution[]>([]);
-  const [error, setError] = useState<Error | undefined>(undefined);
   const { account } = useWeb3React();
 
   useEffect(() => {
-    if (account && sale) {
+    if (!isNil(account)) {
       (async () => {
         try {
           setIsLoading(true);
 
-          const result = await execute(IndexUserContributionToSaleDocument, { sale, account });
+          const result = await execute(IndexUserContributionToSalesDocument, {
+            account: toLower(account),
+            first: itemsPerPage,
+            skip: subtract(page, 1)
+          });
           setData(result.data?.contributions || []);
           setIsLoading(false);
         } catch (error: any) {
           setIsLoading(false);
-          setError(error);
           console.debug(error);
         }
       })();
     } else setData([]);
-  }, [account, sale]);
+  }, [account, itemsPerPage, page]);
 
-  return { isLoading, data, error };
+  return { isLoading, data };
+};
+
+export const useMyAccountOverview = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<PresaleFactoryTypes.Account | undefined>(undefined);
+  const { account } = useWeb3React();
+
+  useEffect(() => {
+    if (!isNil(account)) {
+      (async () => {
+        try {
+          setIsLoading(true);
+
+          const result = await execute(IndexAccountOverviewDocument, { id: toLower(account) });
+          setData(result.data.contributions[0]?.user);
+          setIsLoading(false);
+        } catch (error: any) {
+          setIsLoading(false);
+          console.debug(error);
+        }
+      })();
+    } else setData(undefined);
+  }, [account]);
+
+  return { isLoading, data };
+};
+
+export const usePresaleFactoryOverview = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<PresaleFactory | undefined>(undefined);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setIsLoading(true);
+
+        const result = await execute(IndexPresaleFactoryOverviewDocument, {});
+        setData(result.data.presaleFactory);
+        setIsLoading(false);
+      } catch (error: any) {
+        setIsLoading(false);
+        console.debug(error);
+      }
+    })();
+  }, []);
+
+  return { isLoading, data };
 };

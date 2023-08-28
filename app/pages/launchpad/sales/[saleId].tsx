@@ -3,7 +3,7 @@ import { useIPFSGetMetadata } from "@/hooks/ipfs";
 import { useRouter } from "next/router";
 import { MouseEventHandler, type ReactNode, useRef, useState } from "react";
 import { FaDiscord, FaGithub, FaTelegramPlane, FaTwitter, FaBitcoin } from "react-icons/fa";
-import { FiCheck, FiDollarSign, FiGlobe, FiShare2 } from "react-icons/fi";
+import { FiCheck, FiDollarSign, FiGlobe, FiShare2, FiShield } from "react-icons/fi";
 import Link from "next/link";
 import { ThreeCircles } from "react-loader-spinner";
 import { RWebShare } from "react-web-share";
@@ -29,6 +29,9 @@ import SingleSaleTeamInfo from "@/screens/launchpad/SingleSaleTeamInfo";
 import SingleSaleTokenomicsInfo from "@/screens/launchpad/SingleSaleTokenomics";
 import Head from "next/head";
 import SingleSaleRoadmap from "@/screens/launchpad/SingleSaleRoadmap";
+import CashModal from "@/ui/Modals/CashModal";
+import SetVestingModal from "@/ui/Modals/SetVestingModal";
+import SingleSaleVestingInfo from "@/screens/launchpad/SingleSaleVesting";
 
 const Checker = ({
   isChecked = false,
@@ -53,7 +56,7 @@ const Checker = ({
 };
 
 const SmallLinkCard = ({ children }: any) => (
-  <div className="bg-[#151938] rounded-[2.808px] lg:rounded-[8px] w-6 h-5 lg:w-10 lg:h-9 flex justify-center items-center px-1 py-1 text-[#0029ff] text-[8px] lg:text-[20px]">
+  <div className="bg-[#151938] rounded-[2.808px] lg:rounded-[8px] w-6 h-5 lg:w-10 lg:h-9 flex justify-center items-center px-1 py-1 text-[#0029ff] text-sm lg:text-lg">
     {children}
   </div>
 );
@@ -87,6 +90,8 @@ export default function SingleSale() {
   const { account } = useWeb3React();
 
   const fundSaleModalRef = useRef<HTMLInputElement>(null);
+  const cashSaleModalRef = useRef<HTMLInputElement>(null);
+  const vestingModalRef = useRef<HTMLInputElement>(null);
 
   const [activeSegment, setActiveSegment] = useState(1);
 
@@ -146,9 +151,25 @@ export default function SingleSale() {
                 </button>
               )}
               {!isNil(account) && isEqual(toLower(account), toLower(presaleOwner)) && (
-                <button className="btn btn-ghost btn-xs lg:btn-sm flex justify-center items-center gap-1 lg:gap-2 text-xs lg:text-lg">
+                <button
+                  onClick={() => {
+                    if (!isNil(cashSaleModalRef.current)) cashSaleModalRef.current.checked = true;
+                  }}
+                  className="btn btn-ghost btn-xs lg:btn-sm flex justify-center items-center gap-1 lg:gap-2 text-xs lg:text-lg"
+                >
                   <span className="font-inter text-[#fff] capitalize">cash</span>
                   <FaBitcoin size={18} />
+                </button>
+              )}
+              {!isNil(account) && isEqual(toLower(account), toLower(presaleOwner)) && (
+                <button
+                  onClick={() => {
+                    if (!isNil(vestingModalRef.current)) vestingModalRef.current.checked = true;
+                  }}
+                  className="btn btn-ghost btn-xs lg:btn-sm flex justify-center items-center gap-1 lg:gap-2 text-xs lg:text-lg"
+                >
+                  <span className="font-inter text-[#fff] capitalize">vesting</span>
+                  <FiShield size={18} />
                 </button>
               )}
             </div>
@@ -195,12 +216,12 @@ export default function SingleSale() {
                     className="rounded-full border-2 border-[#0029ff]"
                     alt="base"
                   />
-                  <span className="font-inter capitalize lg:text-[15px] text-[12px]">base</span>
+                  <span className="font-inter capitalize lg:text-sm text-xs">base</span>
                 </label>
               </div>
             </div>
             <div className="h-full flex flex-col justify-end items-end">
-              <div className="flex justify-center items-center gap-1 lg:gap-3">
+              <div className="flex justify-center items-center gap-1 lg:gap-3 self-end">
                 {metadata?.links.website && (
                   <a href={metadata.links.website} target="_blank">
                     <SmallLinkCard>
@@ -448,6 +469,7 @@ export default function SingleSale() {
                   {activeSegment === 1 && <SingleSaleDescription data={singleSaleData as TokenSale} />}
                   {activeSegment === 2 && <SingleSaleTeamInfo data={singleSaleData as TokenSale} />}
                   {activeSegment === 3 && <SingleSaleTokenomicsInfo data={singleSaleData as TokenSale} />}
+                  {activeSegment === 4 && <SingleSaleVestingInfo data={singleSaleData as TokenSale} />}
                   {activeSegment == 5 && <SingleSaleRoadmap data={singleSaleData as TokenSale} />}
                 </div>
               </Card>
@@ -458,6 +480,20 @@ export default function SingleSale() {
             ref={fundSaleModalRef}
             close={() => {
               if (!isNil(fundSaleModalRef.current)) fundSaleModalRef.current.checked = false;
+            }}
+          />
+          <CashModal
+            sale={singleSaleData as TokenSale}
+            ref={cashSaleModalRef}
+            close={() => {
+              if (!isNil(cashSaleModalRef.current)) cashSaleModalRef.current.checked = false;
+            }}
+          />
+          <SetVestingModal
+            sale={singleSaleData as TokenSale}
+            ref={vestingModalRef}
+            close={() => {
+              if (!isNil(vestingModalRef.current)) vestingModalRef.current.checked = false;
             }}
           />
         </>

@@ -8,7 +8,7 @@ import validateSchema from "@/utils/validateSchema";
 import { ethereumAddressSchema, validNumberSchema, validURISchema } from "@/schemas";
 import { useTokenDetails } from "@/hooks/contracts";
 import { formatUnits, parseUnits } from "@ethersproject/units";
-import { ceil, isEqual, isNil } from "lodash";
+import { ceil, isEqual, isNil, map } from "lodash";
 import { hexStripZeros, hexValue } from "@ethersproject/bytes";
 import assert from "assert";
 import { useSingleSale } from "../../launchpad";
@@ -356,6 +356,59 @@ export const usePresaleEmergencyWithdrawal = (saleId: string) => {
   }, [presaleContract]);
 
   return { isLoading, emergencyWithdrawal };
+};
+
+export const usePresaleSetLinearVesting = (saleId: string) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const presaleContract = useContract(saleId, presaleAbi);
+
+  const setLinearVesting = useCallback(
+    async (endTime: number) => {
+      if (!isNil(presaleContract)) {
+        try {
+          setIsLoading(true);
+          const endTimeHex = hexValue(endTime);
+          const vestingTx = await presaleContract.setLinearVestingEndTime(endTimeHex);
+          const awaitedTx = await vestingTx.wait();
+
+          setIsLoading(false);
+          return awaitedTx;
+        } catch (error: any) {
+          setIsLoading(false);
+          return Promise.reject(error);
+        }
+      }
+    },
+    [presaleContract]
+  );
+  return { isLoading, setLinearVesting };
+};
+
+export const usePresaleSetCliffVesting = (saleId: string) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const presaleContract = useContract(saleId, presaleAbi);
+
+  const setCliffs = useCallback(
+    async (claimTimes: number[], percentages: number[]) => {
+      if (!isNil(presaleContract)) {
+        try {
+          setIsLoading(true);
+          const claimTimesHexes = map(claimTimes, claimTime => hexValue(claimTime));
+          const percentagesHexes = map(percentages, percentage => hexValue(percentage));
+          const vestingTx = await presaleContract.setCliffPeriod(claimTimesHexes, percentagesHexes);
+          const awaitedTx = await vestingTx.wait();
+
+          setIsLoading(false);
+          return awaitedTx;
+        } catch (error: any) {
+          setIsLoading(false);
+          return Promise.reject(error);
+        }
+      }
+    },
+    [presaleContract]
+  );
+  return { isLoading, setCliffs };
 };
 
 export const useAccountAllocation = (saleId: string) => {
