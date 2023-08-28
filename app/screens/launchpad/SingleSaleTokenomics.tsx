@@ -2,16 +2,16 @@ import type { TokenSale } from "@/.graphclient";
 import { useIPFSGetMetadata } from "@/hooks/ipfs";
 import { assign, ceil, floor, isNil, map } from "lodash";
 import { ThreeCircles } from "react-loader-spinner";
-import { VictoryLabel, VictoryPie, VictoryTheme } from "victory";
+import { VictoryChart, VictoryLabel, VictoryLegend, VictoryPie, VictoryTheme } from "victory";
 
 interface SingleSaleTokenomicsProps {
   data: TokenSale;
 }
 
 const randomRGB = (index: number, length: number) => {
-  const r = (index % 200) * floor(Math.sqrt(255 / length) * (index % 255));
-  const g = floor(40 * (index % 200)) * ceil(index / length);
-  const b = ceil(40 * (index % 200)) * (index % 200);
+  const r = (index % 100) * floor(Math.sqrt(155 / length) * (index % 255));
+  const g = floor(40 * (index % 240)) * ceil(index / length);
+  const b = ceil(40 * (index % 100)) * (index % 200);
   return `rgb(${r}, ${g}, ${b})`;
 };
 
@@ -28,55 +28,13 @@ export default function SingleSaleTokenomicsInfo({ data }: SingleSaleTokenomicsP
           <span className="font-[400] text-sm lg:text-xl capitalize">tokenomics</span>
           <div className="w-full flex justify-center items-center flex-col gap-4">
             {!isNil(metadata) && (
-              <svg viewBox="0 0 400 400" width="100%" height={500}>
+              <svg viewBox="0 0" width={300} height={300}>
                 <VictoryPie
-                  events={[
-                    {
-                      target: "data",
-                      eventHandlers: {
-                        onMouseOver: () => {
-                          return [
-                            {
-                              target: "data",
-                              mutation: ({ ...props }) => {
-                                return assign(
-                                  { ...props },
-                                  {
-                                    padAngle: 10
-                                  }
-                                );
-                              }
-                            }
-                          ];
-                        },
-                        onMouseLeave: () => {
-                          return [
-                            {
-                              target: "data",
-                              mutation: () => {
-                                return null;
-                              }
-                            }
-                          ];
-                        }
-                      }
-                    }
-                  ]}
+                  innerRadius={90}
+                  labelComponent={<VictoryLabel style={{ fill: "#fff", fontWeight: 500, fontSize: 10 }} />}
                   theme={VictoryTheme.material}
-                  labelComponent={
-                    <VictoryLabel
-                      style={[
-                        {
-                          fill: "#7f00ff"
-                        },
-                        {
-                          fill: "#fff"
-                        }
-                      ]}
-                    />
-                  }
                   standalone={false}
-                  width={400}
+                  labelRadius={100}
                   labels={({ datum }) => [datum.name, `${datum.y}%`]}
                   colorScale={map(metadata.tokenomics, (m, index: number) =>
                     randomRGB(index + 1, metadata.tokenomics.length)
@@ -89,19 +47,6 @@ export default function SingleSaleTokenomicsInfo({ data }: SingleSaleTokenomicsP
                 />
               </svg>
             )}
-            <article className="prose w-full max-w-none prose-slate lg:prose-lg prose-sm prose-a:break-all prose-a:text-[#0029ff] text-[#d9d9d9] font-inter flex justify-center items-center">
-              {!isNil(metadata) && (
-                <ul className="w-full flex flex-col justify-start items-start">
-                  {map(metadata.tokenomics, (member, index) => (
-                    <li key={index}>
-                      <span className="font-inter text-sm lg:text-lg">
-                        {member.value}% {member.name} - {member.description}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </article>
           </div>
         </>
       )}

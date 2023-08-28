@@ -35,7 +35,7 @@ const StartWhitelistCountdownModal = forwardRef<HTMLInputElement, ModalProps>(({
 
       reload();
     } catch (error: any) {
-      toast(error.message, { type: "error", autoClose: 5000 });
+      toast(error.reason || error.message, { type: "error", autoClose: 5000 });
     }
   }, [reload, startWhitelistCountdown]);
 

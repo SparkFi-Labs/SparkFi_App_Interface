@@ -45,7 +45,6 @@ export default function NewLaunch() {
   const [withdrawalDelay, setWithdrawalDelay] = useState<number | undefined>(0);
   const [salePrice, setSalePrice] = useState<number | undefined>(0);
 
-  const [team, setTeam] = useState<{ [name: string]: { role: string; description: string } }>({});
   const [presaleType, setPresaleType] = useState<0 | 1>(1);
 
   const projectLogoFileIPFSUploader = useIPFSUpload(projectLogoFile, process.env.NEXT_PUBLIC_IPFS_ENDPOINT, res =>
@@ -106,22 +105,13 @@ export default function NewLaunch() {
       toast.update(toastId2, { render: "Successfully deployed", type: "success", autoClose: 5000 });
       await replace("/launchpad");
     } catch (error: any) {
-      toast(error.message, { type: "error" });
+      toast(error.error?.data?.message || error.message, { type: "error" });
     }
   }, [metadataIPFSUploader, presaleInitializer, projectMetadata, replace]);
 
   useEffect(() => {
     if (tokenAddresses && tokenAddresses.length) setSelectedPaymentTokenAddress(toLower(tokenAddresses[0]));
   }, [tokenAddresses]);
-
-  useEffect(() => {
-    if (keys(team).length) {
-      setProjectMetadata(metadata => ({
-        ...metadata,
-        team: keys(team).map(name => ({ name, role: team[name].role, description: team[name].description }))
-      }));
-    }
-  }, [team]);
 
   return (
     <div className="flex flex-col gap-24 justify-center items-center py-24 lg:px-24 px-3 w-screen">
