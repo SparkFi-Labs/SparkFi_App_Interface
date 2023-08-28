@@ -1,10 +1,10 @@
 {
-  "theme_color": "#0c0e1e",
-  "background_color": "#0029ff",
+  "theme_color": "#0029ff",
+  "background_color": "#000",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "Sparkle Finance",
+  "name": "SparkFi",
   "short_name": "SparkFi",
   "description": "A pioneering GameFi designed launchpad that serves as the ultimate incubator for high-quality projects on the Base chain and beyond.",
   "icons": [

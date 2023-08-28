@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0029ff] w-full flex flex-col justify-start lg:justify-center items-start lg:items-center gap-7 py-4">
+    <footer className="bg-[#0029ff] w-full flex flex-col justify-start lg:justify-center items-start lg:items-center gap-7 py-4 z-20 mt-10">
       <div className="flex flex-col justify-start lg:justify-center items-start lg:items-center py-14 px-2 lg:px-28 gap-8 lg:gap-12">
         <div className="flex justify-start w-full items-center">
           <Link href="/" className="flex justify-center gap-1 items-center">
@@ -13,9 +13,9 @@ export default function Footer() {
         </div>
         <div className="flex flex-col lg:flex-row justify-evenly items-start w-full gap-7 lg:gap-16">
           <span className="text-[#fff] text-xs lg:text-sm font-[400] leading-5 font-inter w-full lg:w-1/4">
-            SparkFi is an ultimate platform that fuels innovation and propels startups to new heights! At SparkF our
-            mission is to provide a launchpad for crypto startups, equipping them with the necessary resources,
-            mentorship, and networking opportunities to thrive in today&apos;s fast-paced business landscape.
+            SparkFi is a pioneering, force-driving innovation in the world of cryptocurrency, and proudly, the very
+            first IDO launchpad on Base Chain. We&apos;re more than just a launchpad; we&apos;re the launching point for
+            exceptional ideas, the catalyst for transformative projects, and the bridge between vision and reality.
           </span>
           <div className="flex flex-col justify-start lg:justify-center items-start w-full lg:w-1/4 gap-7">
             <span className="uppercase text-lg lg:text-xl font-[400]">information</span>

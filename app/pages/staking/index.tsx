@@ -97,7 +97,7 @@ const TierCard = ({ data, index, ...props }: { data: Tier; index: number } & HTM
 );
 
 export default function Staking() {
-  const { push, reload } = useRouter();
+  const { reload } = useRouter();
 
   const [tab, setTab] = useState(1);
   const { isLoading: allTiersLoading, data: allTiersData } = useAllTiers();
@@ -154,24 +154,35 @@ export default function Staking() {
         <title>Staking | Allocation</title>
       </Head>
       <div className="flex flex-col w-screen gap-20 lg:gap-28 justify-start items-start relative">
-        <div className="absolute lg:w-[6.20875rem] lg:h-[6.20875rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[176.89deg] right-10 top-10"></div>
-        <div className="absolute lg:w-[8.03931rem] lg:h-[8.03931rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[105.332deg] left-10 top-20"></div>
-        <div className="absolute lg:w-[3.15369rem] lg:h-[3.15369rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[140.595deg] left-10 top-80"></div>
-        <div className="absolute lg:w-[4.791rem] lg:h-[4.791rem] rounded-[50%] bg-[radial-gradient(115.01%_115.01%_at_24.60%_19.00%,_#0F1122_0%,_#0F1122_65.18%,_#FFF_94.37%)] -rotate-[176.89deg] right-10 top-80"></div>
+        <div className="absolute -left-64 lg:-left-44 -top-10">
+          <img
+            src="/images/vr_wearer_1.png"
+            className="lg:w-[906px] lg:h-[789px] w-[421px] h-[367px]"
+            alt="vr_wearer"
+          />
+        </div>
+
+        <div className="absolute -right-64 lg:-right-44 -top-24">
+          <img
+            src="/images/vr_wearer_2.png"
+            className="lg:w-[906px] lg:h-[789px] w-[421px] h-[367px]"
+            alt="vr_wearer"
+          />
+        </div>
         <section className="py-12 px-3 w-full flex justify-center items-center">
           <div className="flex flex-col justify-start items-center w-full lg:w-1/3 gap-6 relative lg:py-[6rem]">
             {/* <div className="absolute lg:-top-[8rem] rounded-[1000px]">
             <Image src="/images/ellipse_top.svg" width={1400} height={1000} alt="ellipse" />
             </div> */}
 
-            <span className="text-[#fff] text-[1.4rem] lg:text-[3.125rem] capitalize font-[400] text-center">
-              stake your $SPAK tokens today
+            <span className="text-[#fff] text-2xl lg:text-4xl capitalize font-[400] text-center">
+              stake your $SPAK tokens to be eligible for upcoming IDOs
             </span>
-            <span className="text-[#aaa] text-[16px] lg:text-[18px] font-[500] leading-5 text-center font-inter">
+            <span className="text-[#aaa] lg:text-lg text-sm font-[500] leading-5 text-center font-inter">
               Together, we can unlock limitless potential and create lasting value for all stakeholders involved.
             </span>
             <div className="w-full lg:w-1/2 flex justify-center items-center gap-3 lg:gap-7 px-3">
-              <CTAPurple label="Enter App" width="50%" height={50} onPress={() => push("/launchpad")} />
+              <CTAPurple label="Buy $SPAK" width="50%" height={50} />
               <CTAPurpleOutline
                 label="Read Docs"
                 width="50%"

@@ -1,0 +1,60 @@
+query IndexContributedTokenSalesMatchingSearchParams($tokenName: String!, $account: String!) {
+  tokenSales(where: { saleToken_: { name_contains_nocase: $tokenName }, contributions_: { user: $account } }) {
+    id
+    metadataURI
+    presaleId
+    startTime
+    endTime
+    minTotalPayment
+    maxTotalPayment
+    totalAvailableSaleTokens
+    totalPaymentMade
+    salePrice
+    paymentToken {
+      symbol
+      id
+    }
+    saleToken {
+      symbol
+      id
+    }
+    contributions {
+      id
+      amount
+      tokenSale {
+        id
+        saleType
+        salePrice
+        metadataURI
+        endTime
+        withdrawDelay
+        vestingType
+        linearVesting {
+          id
+          endTime
+        }
+        cliffPeriod {
+          id
+          claimTime
+          percentage
+        }
+        paymentToken {
+          id
+          name
+          symbol
+          decimals
+        }
+        saleToken {
+          id
+          name
+          symbol
+          decimals
+        }
+      }
+      user {
+        id
+        contributionsCount
+      }
+    }
+  }
+}

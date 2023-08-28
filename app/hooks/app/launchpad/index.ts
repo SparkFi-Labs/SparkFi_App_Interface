@@ -9,11 +9,12 @@ import {
   execute,
   IndexAccountOverviewDocument,
   type PresaleFactory,
-  IndexPresaleFactoryOverviewDocument
+  IndexPresaleFactoryOverviewDocument,
+  IndexContributedTokenSalesMatchingSearchParamsDocument
 } from "@/.graphclient";
 import type { PresaleFactoryTypes } from "@/.graphclient/sources/PresaleFactory/types";
 import { useWeb3React } from "@web3-react/core";
-import { floor, isNil, subtract, toLower } from "lodash";
+import { flatMap, floor, isNil, map, subtract, toLower, trim } from "lodash";
 import { useEffect, useState } from "react";
 
 export const useUpcomingSales = (itemsPerPage: number = 2, page: number = 1) => {
@@ -126,6 +127,36 @@ export const useSingleSale = (id: string) => {
   }, [id]);
 
   return { data, isLoading, error };
+};
+
+export const useMyContributionsMatchingSearchParams = (tokenName: string) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<Contribution[]>([]);
+  const { account } = useWeb3React();
+
+  useEffect(() => {
+    if (!isNil(account) && trim(tokenName).length > 0) {
+      (async () => {
+        try {
+          setIsLoading(true);
+
+          const result = await execute(IndexContributedTokenSalesMatchingSearchParamsDocument, {
+            account: toLower(account),
+            tokenName
+          });
+
+          const fMap = flatMap(map(result.data.tokenSales, t => t.contributions));
+
+          setData(fMap);
+          setIsLoading(false);
+        } catch (error: any) {
+          setIsLoading(false);
+          console.debug(error);
+        }
+      })();
+    }
+  }, [account, tokenName]);
+  return { isLoading, data };
 };
 
 export const useMyContributions = (itemsPerPage: number = 15, page: number = 1) => {

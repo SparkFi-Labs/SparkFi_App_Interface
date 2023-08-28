@@ -25,17 +25,17 @@ export default function Header() {
   const isFactoryAdmin = useAccountIsPresaleFactoryAdmin();
 
   return (
-    <div className="flex justify-between items-center w-full px-5 py-4 bg-[#0c0e1e]/50 lg:bg-[#0c0e1e]">
-      <div className="flex justify-center items-center gap-3">
+    <div className="flex justify-between items-start w-full px-5 py-5 bg-[#0c0e1e]/50 lg:bg-[#0c0e1e] z-20">
+      <div className="flex justify-center items-start gap-3">
         <button
           onClick={() => {
             if (sidebarRef.current) sidebarRef.current.checked = true;
           }}
-          className="flex lg:hidden justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-[1.1em]"
+          className="flex lg:hidden justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-lg z-20"
         >
           <FiMenu />
         </button>
-        <Link href="/" className="flex justify-center gap-1 items-center">
+        <Link href="/" className="flex justify-center gap-1 items-start">
           <Image src="/images/logo.svg" height={30} width={30} alt="logo" />
           <span className="text-[#fff] font-[500] text-lg lg:text-2xl font-manuale">SparkFi</span>
         </Link>
@@ -50,9 +50,9 @@ export default function Header() {
         <Link className="font-inter" href="/staking">
           staking
         </Link>
-        <Link className="font-inter" href="/">
+        {/* <Link className="font-inter" href="/">
           contact us
-        </Link>
+        </Link> */}
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0"
           target="_blank"
@@ -105,7 +105,7 @@ export default function Header() {
               staking
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               className="font-inter"
               onClick={() => {
@@ -115,7 +115,7 @@ export default function Header() {
             >
               contact us
             </Link>
-          </li>
+          </li> */}
           <li>
             <a
               className="font-inter"
@@ -131,7 +131,7 @@ export default function Header() {
           </li>
         </ul>
       </div>
-      <div className="flex justify-center items-start gap-5">
+      <div className="flex justify-center items-start gap-5 z-20">
         {!isActive ? (
           <CTAPurple
             label="Connect Wallet"
@@ -152,14 +152,14 @@ export default function Header() {
               >
                 <FaWallet className="text-green-500 text-[1em]" />
               </div>
-              <div className="px-5 py-1 text-[#fff] uppercase font-inter text-[0.7em] lg:text-[1em]">
+              <div className="px-5 py-1 text-[#fff] uppercase font-inter text-sm lg:text-lg">
                 {millify(etherBalance, { precision: 3 })} eth
               </div>
             </button>
           </div>
         )}
-        <details ref={userMenuRef} className="dropdown dropdown-end mb-1">
-          <summary className="flex justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-[0.7em] lg:text-[1.2em] cursor-pointer">
+        <details ref={userMenuRef} className="dropdown dropdown-end mb-1 z-20">
+          <summary className="flex justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-lg cursor-pointer">
             <FiUser />
           </summary>
           <ul className="p-2 shadow-lg menu dropdown-content z-[1] bg-[#0029ff] w-52 mt-3 shadow-gray-500">

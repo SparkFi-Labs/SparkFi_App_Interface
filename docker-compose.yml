@@ -10,6 +10,16 @@ services:
       - sparkfi_pad
     extra_hosts:
       - host.docker.internal:host-gateway
+  server:
+    container_name: sparkfi_server
+    hostname: server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    networks:
+      - sparkfi_pad
+    volumes:
+      - serverdata:/app
   ipfs:
     container_name: sparkfi_ipfs_daemon
     hostname: ipfs
@@ -40,4 +50,6 @@ networks:
     external: false
 volumes:
   ipfsdata:
+    external: false
+  serverdata:
     external: false
