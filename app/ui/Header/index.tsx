@@ -40,7 +40,7 @@ export default function Header() {
           <span className="text-[#fff] font-[500] text-lg lg:text-2xl font-manuale">SparkFi</span>
         </Link>
       </div>
-      <div className="hidden lg:flex justify-center items-center gap-9 text-[#fff] font-[500] text-lg capitalize">
+      <div className="hidden lg:flex justify-center items-start gap-9 text-[#fff] font-[500] text-lg capitalize">
         <Link className="font-inter" href="/">
           home
         </Link>

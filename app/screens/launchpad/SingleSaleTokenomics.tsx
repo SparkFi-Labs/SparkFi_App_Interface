@@ -9,10 +9,10 @@ interface SingleSaleTokenomicsProps {
 }
 
 const randomRGB = (index: number, length: number) => {
-  const r = floor(40 * (index % 140)) * ceil(index / length) + Math.sqrt(100 / 25);
-  const g = (index % 100) * floor(Math.sqrt(255 / length) * (index % 155));
-  const b = ceil(40 * (index % 100)) * (index % 100);
-  return `rgb(${r}, ${g}, ${b})`;
+  const r = floor(40 * (index % 250)) * ceil(index / length) + Math.sqrt(255 / 25);
+  const g = (index % 200) * floor(Math.sqrt(255 / length) * (index % 155));
+  const b = ceil(40 * (index % 250)) * (index % 200);
+  return `rgba(${r}, ${g}, ${b}, 0.76)`;
 };
 
 export default function SingleSaleTokenomicsInfo({ data }: SingleSaleTokenomicsProps) {
@@ -29,15 +29,15 @@ export default function SingleSaleTokenomicsInfo({ data }: SingleSaleTokenomicsP
           <div className="w-full flex justify-center items-center flex-col gap-2 overflow-auto hidden-scrollbar">
             {!isNil(metadata) && (
               <>
-                <svg viewBox="0 0 400 400" width="400" height="400">
+                <svg viewBox="0 0 350 350" width="350" height="350">
                   <VictoryPie
                     innerRadius={80}
                     labelComponent={<VictoryLabel style={{ fill: "#fff", fontWeight: 500, fontSize: 12 }} />}
                     theme={VictoryTheme.material}
                     standalone={false}
-                    width={400}
-                    height={400}
-                    labelRadius={110}
+                    width={350}
+                    height={350}
+                    labelRadius={97}
                     labels={({ datum }) => `${datum.y}%`}
                     colorScale={map(metadata.tokenomics, (m, index: number) =>
                       randomRGB(index + 1, metadata.tokenomics.length)
@@ -49,26 +49,14 @@ export default function SingleSaleTokenomicsInfo({ data }: SingleSaleTokenomicsP
                     }))}
                   />
                 </svg>
-                <svg viewBox="0 0 700 100" width="700" height="100" className="overflow-x-auto">
-                  <VictoryLegend
-                    symbolSpacer={5}
-                    theme={VictoryTheme.material}
-                    gutter={20}
-                    width={700}
-                    height={100}
-                    standalone={false}
-                    x={190}
-                    y={50}
-                    orientation="horizontal"
-                    style={{ labels: { fontSize: 12 } }}
-                    centerTitle
-                    data={map(metadata.tokenomics, (member, index: number) => ({
-                      labels: { fill: "#fff" },
-                      symbol: { fill: randomRGB(index + 1, metadata.tokenomics.length) },
-                      name: member.name
-                    }))}
-                  />
-                </svg>
+                <div className="w-full lg:w-1/3 flex justify-center items-center gap-2 flex-wrap">
+                  {map(metadata.tokenomics, (member, index: number) => (
+                    <div className="flex justify-start gap-1 items-center">
+                      <span className="w-4 h-4 rounded-full" style={{ backgroundColor: randomRGB(index + 1, metadata.tokenomics.length)}}></span>
+                      <span className="text-xs lg:text-sm text-[#fff] font-inter">{member.name}</span>
+                    </div>
+                  ))}
+                </div>
               </>
             )}
           </div>

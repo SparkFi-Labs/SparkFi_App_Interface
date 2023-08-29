@@ -1,9 +1,8 @@
 import type { Contribution } from "@/.graphclient";
 import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
-import Card from "@/components/Card";
 import { usePresaleWithdrawal } from "@/hooks/app/web3/launchpad";
 import { useIPFSGetMetadata } from "@/hooks/ipfs";
-import { isNil, map, multiply, toLower } from "lodash";
+import { divide, isNil, map, multiply, toLower } from "lodash";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import Countdown from "react-countdown";
@@ -143,7 +142,7 @@ export default function ContributionListItem({ data }: ContributionListItemProps
                 <div className="flex flex-col gap-2 justify-start items-end lg:items-start">
                   <span className="text-xs lg:text-sm font-inter capitalize text-[#878aa1]">amount</span>
                   <span className="text-[#fff] font-[500] text-xs lg:text-sm font-inter">
-                    {multiply(parseFloat(data.amount), parseFloat(data.tokenSale.salePrice)).toLocaleString("en-US", {
+                    {divide(parseFloat(data.amount), parseFloat(data.tokenSale.salePrice)).toLocaleString("en-US", {
                       maximumFractionDigits: 3,
                       useGrouping: true
                     })}{" "}
@@ -200,7 +199,7 @@ export default function ContributionListItem({ data }: ContributionListItemProps
                       <span className="text-[#fff] font-[500] text-xs lg:text-sm font-inter">
                         {(
                           (cliff.percentage / 100) *
-                          multiply(parseFloat(data.amount), parseFloat(data.tokenSale.salePrice))
+                          divide(parseFloat(data.amount), parseFloat(data.tokenSale.salePrice))
                         ).toLocaleString("en-US", {
                           maximumFractionDigits: 3,
                           useGrouping: true
