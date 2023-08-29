@@ -7,13 +7,13 @@ interface PaymentTokens {
 }
 
 export const presaleFactoryContracts: ChainContracts = {
-  84531: "0x1C8900E931A76bEa06eaecf1017d3e356F9eA816"
+  84531: "0x8919e33AEB5B06d127B737Deb89182930B9F43e8"
 };
 export const sparkFiTokenContracts: ChainContracts = {
-  84531: "0xf6a6a429a0b9676293Df0E3616A6a33cA673b5C3"
+  84531: "0x1c6a839b617ecF785A6aD702B1FAACcD5e4ccaaC"
 };
 export const allocatorContracts: ChainContracts = {
-  84531: "0x71B1f5225c16455011D26c588EDAb2A89D0d6862"
+  84531: "0xF2fE2EF1865789E352D4140D98f99486e2e75E76"
 };
 export const launchpadPaymentTokens: PaymentTokens = {
   84531: [
