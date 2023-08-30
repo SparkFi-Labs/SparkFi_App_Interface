@@ -52,7 +52,10 @@ export default function SingleSaleTokenomicsInfo({ data }: SingleSaleTokenomicsP
                 <div className="w-full lg:w-1/3 flex justify-center items-center gap-2 flex-wrap">
                   {map(metadata.tokenomics, (member, index: number) => (
                     <div className="flex justify-start gap-1 items-center">
-                      <span className="w-4 h-4 rounded-full" style={{ backgroundColor: randomRGB(index + 1, metadata.tokenomics.length)}}></span>
+                      <span
+                        className="w-4 h-4 rounded-full"
+                        style={{ backgroundColor: randomRGB(index + 1, metadata.tokenomics.length) }}
+                      ></span>
                       <span className="text-xs lg:text-sm text-[#fff] font-inter">{member.name}</span>
                     </div>
                   ))}

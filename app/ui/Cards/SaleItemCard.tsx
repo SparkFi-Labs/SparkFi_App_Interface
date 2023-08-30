@@ -58,7 +58,7 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                       className="absolute -top-32 left-[73%] lg:left-[63%] bg-[radial-gradient(36.16%_25.08%_at_51.95%_75.00%,_rgba(103,_121,_255,_0.50)_0%,_rgba(9,_15,_58,_0.00)_100%)]"
                     />
                     <div className="flex justify-between items-start w-full">
-                      <span className="font-inter font-[600] text-[1em] lg:text-[2em]">{metadata.name}</span>
+                      <span className="font-inter font-[600] text-xl lg:text-4xl">{metadata.name}</span>
                       <span className="capitalize flex justify-center items-center px-1 py-1 bg-[#101121] text-[#ffe603] font-inter font-[400] text-sm lg:text-lg min-w-[93px] rounded-sm z-10">
                         {label}
                       </span>
@@ -73,9 +73,7 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                           alt={metadata.name}
                           className="rounded-full"
                         />
-                        <span className="text-[#fff] font-[500] text-[1.5em] lg:text-[2em] font-manuale">
-                          {metadata.name}
-                        </span>
+                        <span className="text-[#fff] font-[500] text-lg lg:text-3xl font-manuale">{metadata.name}</span>
                       </div>
                       <Image
                         src={metadata.tokenLogoURI}
@@ -86,7 +84,7 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                       />
                     </div>
                     <div className="flex justify-start items-start w-full">
-                      <span className="capitalize flex justify-center items-center px-1 py-1 bg-[#0f1122] rounded-[8px] text-[#fff] font-inter text-[1rem]">
+                      <span className="capitalize flex justify-center items-center px-1 py-1 bg-[#0f1122] rounded-[8px] text-[#fff] font-inter text-sm lg:text-lg">
                         {metadata.genre}
                       </span>
                     </div>
@@ -95,24 +93,20 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                   <div className="w-full card-body">
                     <div className="w-full flex justify-between items-start gap-3">
                       <div className="flex flex-col w-1/2 lg:w-1/3 justify-start items-start gap-3">
-                        <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">price</span>
-                        <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+                        <span className="font-inter font-[500] capitalize text-xl lg:text-2xl">price</span>
+                        <span className="font-inter font-[400] uppercase text-lg lg:text-xl text-[#d9d9d9]">
                           {data.salePrice} {data.paymentToken.symbol}
                         </span>
                       </div>
                       <div className="flex flex-col w-1/2 lg:w-1/3 justify-start items-start gap-3">
-                        <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">
-                          min. allocation
-                        </span>
-                        <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+                        <span className="font-inter font-[500] capitalize text-xl lg:text-2xl">min. allocation</span>
+                        <span className="font-inter font-[400] uppercase text-lg lg:text-xl text-[#d9d9d9]">
                           {data.minTotalPayment} {data.paymentToken.symbol}
                         </span>
                       </div>
                       <div className="hidden lg:flex flex-col w-1/2 lg:w-1/3 justify-start items-start gap-3">
-                        <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">
-                          max. allocation
-                        </span>
-                        <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+                        <span className="font-inter font-[500] capitalize text-xl lg:text-2xl">max. allocation</span>
+                        <span className="font-inter font-[400] uppercase text-lg lg:text-xl text-[#d9d9d9]">
                           {data.maxTotalPayment} {data.paymentToken.symbol}
                         </span>
                       </div>
@@ -121,10 +115,8 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                   <div className="card-actions p-[var(--padding-card,_1rem)] border-t border-t-[#0029ff]/20 w-full flex-col lg:flex-row justify-start lg:justify-between gap-5">
                     <div className="flex justify-between items-start w-full lg:w-1/2">
                       <div className="flex lg:hidden flex-col w-1/2 lg:w-1/3 justify-start items-start gap-3">
-                        <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">
-                          max. allocation
-                        </span>
-                        <span className="font-inter font-[400] uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+                        <span className="font-inter font-[500] capitalize text-xl lg:text-2xl">max. allocation</span>
+                        <span className="font-inter font-[400] uppercase text-lg lg:text-xl text-[#d9d9d9]">
                           {data.maxTotalPayment} {data.paymentToken.symbol}
                         </span>
                       </div>
@@ -133,10 +125,10 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                           date={multiply(parseInt(data.startTime), 1000)}
                           renderer={({ days, hours, minutes, seconds }) => (
                             <div className="flex flex-col w-1/2 lg:w-1/2 justify-start items-start gap-3">
-                              <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">
+                              <span className="font-inter font-[500] capitalize text-xl lg:text-2xl">
                                 sale starts in
                               </span>
-                              <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+                              <span className="font-inter uppercase text-lg lg:text-xl text-[#d9d9d9]">
                                 {days}D:{hours}H:{minutes}M:{seconds}S
                               </span>
                             </div>
@@ -147,10 +139,10 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                           date={multiply(parseInt(data.endTime), 1000)}
                           renderer={({ days, hours, minutes, seconds, completed }) => (
                             <div className="flex flex-col w-1/2 lg:w-1/2 justify-start items-start gap-3">
-                              <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">
+                              <span className="font-inter font-[500] capitalize text-xl lg:text-2xl">
                                 {!completed ? "sale closes in" : "sale closed on"}
                               </span>
-                              <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em]">
+                              <span className="font-inter uppercase text-lg lg:text-xl">
                                 {!completed
                                   ? `${days}D:${hours}H:${minutes}M:${seconds}S`
                                   : new Date(multiply(parseInt(data.endTime), 1000)).toDateString()}
@@ -164,8 +156,8 @@ export default function SaleItemCard({ data, label = "upcoming", ...props }: ISa
                       <CTAPurple
                         onPress={() => push(`/launchpad/sales/${data.id}`)}
                         label={
-                          <div className="flex w-full justify-center items-center gap-9 group">
-                            <span className="font-inter font-[500] capitalize text-[1.3em]">pool info</span>
+                          <div className="flex w-full justify-center items-center gap-9 group text-xl lg:text-2xl">
+                            <span className="font-inter font-[500] capitalize">pool info</span>
                             <BsArrowRight size={30} className="group-hover:translate-x-5 duration-150 ease-in-out" />
                           </div>
                         }
