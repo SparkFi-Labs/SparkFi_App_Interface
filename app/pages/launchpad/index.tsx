@@ -5,6 +5,7 @@ import ActiveSalesView from "@/screens/launchpad/ActiveSalesView";
 import CompletedSalesView from "@/screens/launchpad/CompletedSalesView";
 import UpcomingSalesView from "@/screens/launchpad/UpcomingSalesView";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { BsMedium } from "react-icons/bs";
 import { FaTelegramPlane, FaTwitter, FaDiscord, FaGithub } from "react-icons/fa";
@@ -12,6 +13,8 @@ import { FiCheck } from "react-icons/fi";
 
 export default function Launchpad() {
   const [newsletterChecked, setNewsletterChecked] = useState(false);
+
+  const { push } = useRouter();
   return (
     <>
       <Head>
@@ -47,7 +50,7 @@ export default function Launchpad() {
               Powered by Base network
             </span>
             <div className="w-full lg:w-1/2 flex justify-center items-center gap-3 lg:gap-7 px-3">
-              <CTAPurple label="Buy $SPAK" width="50%" height={50} />
+              <CTAPurple label="Launchpad" width="50%" height={50} onPress={() => push("/launchpad")} />
               <CTAPurpleOutline
                 label="Read Docs"
                 width="50%"
@@ -85,7 +88,7 @@ export default function Launchpad() {
                     <InputField placeholder="Your Email" width="100%" height={50} />
                     <div className="form-control w-full">
                       <label onClick={() => setNewsletterChecked(c => !c)} className="label cursor-pointer gap-4">
-                        <div className="bg-[#0f1122] rounded-[8px] w-[33px] h-[1.5rem] flex justify-center items-center">
+                        <div className="bg-[#0f1122] rounded-[8px] w-[2.5rem] h-[1.5rem] flex justify-center items-center">
                           {newsletterChecked && <FiCheck />}
                         </div>
                         <span className="text-[#fff] font-[400] leading-5 text-justify font-inter text-xs lg:text-sm">

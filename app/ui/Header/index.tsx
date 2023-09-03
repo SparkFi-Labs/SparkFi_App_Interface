@@ -25,7 +25,7 @@ export default function Header() {
   const isFactoryAdmin = useAccountIsPresaleFactoryAdmin();
 
   return (
-    <div className="flex justify-between items-start w-full px-5 py-5 bg-[#0c0e1e]/50 lg:bg-[#0c0e1e] z-20">
+    <div className="flex justify-between items-start w-full px-5 py-5 bg-[#0c0e1e]/50 z-20">
       <div className="flex justify-center items-start gap-3">
         <button
           onClick={() => {

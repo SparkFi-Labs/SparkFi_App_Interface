@@ -7,6 +7,7 @@ sources:
     handler:
       graphql:
         endpoint: ${NEXT_PUBLIC_ALLOCATOR_GRAPH_ENDPOINT}
+
 documents:
   - queries/presales/*.graphql
   - queries/allocator/*.graphql

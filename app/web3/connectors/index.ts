@@ -11,7 +11,7 @@ export const [coinbase, coinbaseHooks] = initializeConnector<CoinbaseWallet>(
     new CoinbaseWallet({
       actions,
       options: {
-        url: URLS[84531][0],
+        url: URLS[8453][0],
         appName: "sparkfi.xyz"
       }
     })

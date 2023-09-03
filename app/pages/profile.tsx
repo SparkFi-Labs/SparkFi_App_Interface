@@ -1,7 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import { FaWallet } from "react-icons/fa";
 import { CTAPurple } from "@/components/Button";
-import { useMyTokenBalance } from "@/hooks/wallet";
+import { useMyEtherBalance, useMyTokenBalance } from "@/hooks/wallet";
 import { sparkFiTokenContracts } from "@/assets/contracts";
 import { useAllocatorInfo, useAccountAllocationInfo } from "@/hooks/app/staking";
 import Card from "@/components/Card";
@@ -23,6 +23,7 @@ import { useState } from "react";
 export default function Profile() {
   const { isActive, account } = useWeb3React();
   const tokenBalance = useMyTokenBalance(sparkFiTokenContracts);
+  const etherBalance = useMyEtherBalance();
   const { data: allocatorInfoData } = useAllocatorInfo();
   const { isLoading: accountAllocationInfoLoading, data: accountAllocationData } = useAccountAllocationInfo();
   const [searchValue, setSearchValue] = useState("");
@@ -246,12 +247,16 @@ export default function Profile() {
                   <div className="card-body">
                     <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-start lg:items-center w-full px-2 py-3 gap-3">
                       <div className="flex flex-col justify-start items-start w-full lg:w-1/3 gap-12">
-                        <span className="text-[#c1c9ff] uppercase font-inter font-[400] text-xs lg:text-sm">kyc</span>
-                        <span className="text-[#fff] text-sm lg:text-lg font-[400] uppercase">not yet approved</span>
+                        <span className="text-[#c1c9ff] capitalize font-inter font-[400] text-xs lg:text-sm">
+                          eTH balance
+                        </span>
+                        <span className="text-[#fff] text-sm lg:text-lg font-[400] uppercase">
+                          {parseFloat(etherBalance.toFixed(5)).toLocaleString("en-US", { useGrouping: true })}
+                        </span>
                       </div>
                       <div className="w-full lg:w-1/3">
                         <CTAPurple
-                          label={<span className="text-sm lg:text-lg uppercase font-[400] font-inter">kyc now!</span>}
+                          label={<span className="text-sm lg:text-lg uppercase font-[400] font-inter">buy eth!</span>}
                           width="100%"
                           height={60}
                         />

@@ -26,7 +26,20 @@ export const TESTNET_CHAINS: ChainConfig = {
   }
 };
 
-export const CHAINS: ChainConfig = { ...TESTNET_CHAINS };
+export const MAINNET_CHAINS: ChainConfig = {
+  8453: {
+    urls: ["https://mainnet.base.org"],
+    name: "Base",
+    blockExplorerUrls: ["https://basescan.org"],
+    nativeCurrency: {
+      name: "Base",
+      decimals: 18,
+      symbol: "ETH"
+    }
+  }
+};
+
+export const CHAINS: ChainConfig = { ...TESTNET_CHAINS, ...MAINNET_CHAINS };
 
 const isExtendedChainInformation = (chainInformation: BasicChainInformation | ExtendedChainInformation) =>
   !isEqual((chainInformation as ExtendedChainInformation).nativeCurrency, undefined) &&

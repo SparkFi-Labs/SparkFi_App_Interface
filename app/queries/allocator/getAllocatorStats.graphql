@@ -1,5 +1,5 @@
 query IndexAllocatorInfo {
-  allocator(id: "0xF2fE2EF1865789E352D4140D98f99486e2e75E76") {
+  allocator(id: "0x2e19f01b81628ccd8cfce9f7d9f2facc77343b7c") {
     id
     totalStakers
     totalTokensStaked
