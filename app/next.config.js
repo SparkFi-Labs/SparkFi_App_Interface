@@ -1,4 +1,5 @@
 const runtimeCaching = require("next-pwa/cache");
+const withTM = require("next-transpile-modules")(["gsap"]);
 
 const withPWA = require("next-pwa")({
   dest: "public",
@@ -9,6 +10,7 @@ const withPWA = require("next-pwa")({
 });
 
 module.exports = withPWA({
+  ...withTM(),
   reactStrictMode: true,
   images: {
     domains: ["sparkfi.xyz"],

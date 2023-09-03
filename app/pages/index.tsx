@@ -6,13 +6,86 @@ import { InputField } from "@/components/Input";
 import UpcomingSalesView from "@/screens/home/UpcomingProjectsView";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { BsMedium } from "react-icons/bs";
 import { FaDiscord, FaGithub, FaTelegramPlane, FaTwitter } from "react-icons/fa";
 import { FiCheck } from "react-icons/fi";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CSSPlugin } from "gsap/CSSPlugin";
+import { useRouter } from "next/router";
+
+gsap.registerPlugin(ScrollTrigger, CSSPlugin);
 
 export default function Home() {
   const [newsletterChecked, setNewsletterChecked] = useState(false);
+
+  // About refs for animations
+  const aboutSectionRef = useRef<HTMLElement>(null);
+
+  // Difference refs for animations
+  const differenceSectionRef = useRef<HTMLElement>(null);
+
+  // FAQ refs for animations
+  const faqSectionRef = useRef<HTMLElement>(null);
+  const faqTextRef = useRef<HTMLSpanElement>(null);
+  const accordionFlexRef = useRef<HTMLDivElement>(null);
+
+  const { push } = useRouter();
+
+  useLayoutEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: aboutSectionRef.current
+      }
+    });
+
+    const targets = Array.from(aboutSectionRef.current?.childNodes || []);
+
+    tl.to(targets, {
+      opacity: 1,
+      duration: 2,
+      ease: "bounce",
+      y: 0
+    });
+
+    return () => {
+      tl.clear();
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: differenceSectionRef.current
+      }
+    });
+
+    const targets = Array.from(differenceSectionRef.current?.childNodes || []);
+
+    tl.to(targets, { opacity: 1, duration: 0.7, delay: 0.7, x: 0, ease: "sine.in" });
+
+    return () => {
+      tl.clear();
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: faqSectionRef.current
+      }
+    });
+
+    const targets = [...Array.from(accordionFlexRef.current?.childNodes || []), faqTextRef.current];
+
+    tl.to(targets, { opacity: 1, duration: 0.7, delay: 0.7, x: 0, ease: "bounce" });
+
+    return () => {
+      tl.clear();
+    };
+  }, []);
+
   return (
     <>
       <Head>
@@ -44,7 +117,7 @@ export default function Home() {
               Base Network
             </span>
             <div className="w-full lg:w-1/2 flex justify-center items-center gap-3 lg:gap-7 px-3">
-              <CTAPurple label="Buy $SPAK" width="50%" height={50} />
+              <CTAPurple label="Launchpad" width="50%" height={50} onPress={() => push("/launchpad")} />
               <CTAPurpleOutline
                 label="Read Docs"
                 width="50%"
@@ -54,8 +127,14 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 lg:mt-12 pt-20 pb-6 lg:pb-48">
-          <div className="flex flex-col-reverse lg:flex-row justify-start items-center lg:justify-around gap-10 lg:items-start w-full container mx-auto">
+        <section
+          className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 lg:mt-12 pt-20 pb-6 lg:pb-48"
+          ref={aboutSectionRef}
+        >
+          <div
+            className="flex flex-col-reverse lg:flex-row justify-start items-center lg:justify-around gap-10 lg:items-start w-full container mx-auto"
+            style={{ opacity: 0, transform: "translateY(400px)" }}
+          >
             <div className="flex justify-center items-center relative w-full lg:w-1/2 text-center">
               <img src="/images/cubes.svg" className="w-full h-full m-auto" alt="cubes" />
               <Image
@@ -100,11 +179,20 @@ export default function Home() {
         <section className="w-full flex flex-col justify-start items-center gap-4 px-3 lg:px-8 py-12 bg-transparent">
           <UpcomingSalesView />
         </section>
-        <section className="bg-[#101221] w-full flex flex-col justify-start items-center gap-9 lg:gap-12 py-12 flex-1">
-          <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
+        <section
+          className="bg-[#101221] w-full flex flex-col justify-start items-center gap-9 lg:gap-12 py-12 flex-1"
+          ref={differenceSectionRef}
+        >
+          <span
+            className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9"
+            style={{ transform: "translateX(200px)", opacity: 0 }}
+          >
             what makes us different
           </span>
-          <div className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full mx-auto relative container">
+          <div
+            className="flex flex-col lg:flex-row justify-start lg:justify-between gap-7 lg:gap-10 items-center lg:items-start w-full mx-auto relative container"
+            style={{ transform: "translateX(200px)", opacity: 0 }}
+          >
             <div className="flex flex-col gap-8 lg:gap-14 w-full lg:w-1/3">
               <div className="flex flex-col justify-start items-center lg:items-start w-full gap-5 px-2 lg:px-8">
                 <Image src="/images/shopping_cart.svg" width={70} height={70} alt="shopping_cart" />
@@ -159,12 +247,20 @@ export default function Home() {
         <section
           id="faq"
           className="w-full flex flex-col justify-start items-start lg:items-center gap-7 lg:gap-16 px-3 lg:px-10 py-3 lg:py-12 bg-transparent"
+          ref={faqSectionRef}
         >
-          <span className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9">
+          <span
+            className="capitalize text-[#fff] font-[400] text-[1.4em] lg:text-[30px] leading-9"
+            style={{ opacity: 0, transform: "translateX(200px)" }}
+            ref={faqTextRef}
+          >
             frequently asked questions
           </span>
-          <div className="flex flex-col lg:flex-row justify-start lg:justify-center items-center lg:items-start w-full gap-7 container mx-auto">
-            <div className="w-full lg:w-1/2">
+          <div
+            className="flex flex-col lg:flex-row justify-start lg:justify-center items-center lg:items-start w-full gap-7 container mx-auto"
+            ref={accordionFlexRef}
+          >
+            <div className="w-full lg:w-1/2" style={{ transform: "translateX(200px)", opacity: 0 }}>
               <Accordion>
                 <AccordionItem title="What is SparkFi?">
                   <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
@@ -193,7 +289,7 @@ export default function Home() {
                 </AccordionItem>
               </Accordion>
             </div>
-            <div className="w-full lg:w-1/2 lg:px-12">
+            <div className="w-full lg:w-1/2 lg:px-12" style={{ transform: "translateX(200px)", opacity: 0 }}>
               <Accordion>
                 <AccordionItem title="When can we claim the IDO tokens?">
                   <span className="font-[500] text-[0.95em] lg:text-[1em] text-[#fff] leading-5 font-inter">
@@ -239,7 +335,7 @@ export default function Home() {
                     <InputField placeholder="Your Email" width="100%" height={50} />
                     <div className="form-control w-full">
                       <label onClick={() => setNewsletterChecked(c => !c)} className="label cursor-pointer gap-4">
-                        <div className="bg-[#0f1122] rounded-[8px] w-[33px] h-[1.5rem] flex justify-center items-center">
+                        <div className="bg-[#0f1122] rounded-[8px] w-[2.5rem] h-[1.5rem] flex justify-center items-center">
                           {newsletterChecked && <FiCheck />}
                         </div>
                         <span className="text-[#fff] font-[400] leading-5 text-justify font-inter text-xs lg:text-sm">

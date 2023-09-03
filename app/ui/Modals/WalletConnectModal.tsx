@@ -3,6 +3,7 @@ import Image from "next/image";
 import { forwardRef, useCallback } from "react";
 import { FiEye, FiHelpCircle, FiX } from "react-icons/fi";
 import { metamask, walletconnect, coinbase, trustwallet } from "@/web3/connectors";
+import { getAddChainParameter } from "@/web3/chains";
 
 interface ModalProps {
   close?: () => any;
@@ -11,7 +12,7 @@ interface ModalProps {
 const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, ref) => {
   const connectMetamask = useCallback(async () => {
     try {
-      await metamask.activate();
+      await metamask.activate(getAddChainParameter(8453));
       if (close) close();
     } catch (error: any) {
       console.debug(error.message);
@@ -20,7 +21,7 @@ const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, 
 
   const connectCoinbase = useCallback(async () => {
     try {
-      await coinbase.activate();
+      await coinbase.activate(getAddChainParameter(8453));
       if (close) close();
     } catch (error: any) {
       console.debug(error.message);
@@ -29,7 +30,7 @@ const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, 
 
   const connectWalletConnect = useCallback(async () => {
     try {
-      await walletconnect.activate();
+      await walletconnect.activate(8453);
       if (close) close();
     } catch (error: any) {
       console.debug(error.message);
@@ -38,7 +39,7 @@ const WalletConnectModal = forwardRef<HTMLInputElement, ModalProps>(({ close }, 
 
   const connectTrustWallet = useCallback(async () => {
     try {
-      await trustwallet.activate();
+      await trustwallet.activate(getAddChainParameter(8453));
       if (close) close();
     } catch (error: any) {
       console.debug(error.message);

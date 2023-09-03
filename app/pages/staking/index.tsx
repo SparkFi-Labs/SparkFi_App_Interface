@@ -117,6 +117,8 @@ export default function Staking() {
 
   const atomicDate = useAtomicDate();
 
+  const { push } = useRouter();
+
   const initStake = useCallback(async () => {
     try {
       toast("Preparing to stake", { type: "info" });
@@ -182,7 +184,7 @@ export default function Staking() {
               Together, we can unlock limitless potential and create lasting value for all stakeholders involved.
             </span>
             <div className="w-full lg:w-1/2 flex justify-center items-center gap-3 lg:gap-7 px-3">
-              <CTAPurple label="Buy $SPAK" width="50%" height={50} />
+              <CTAPurple label="Launchpad" width="50%" height={50} onPress={() => push("/launchpad")} />
               <CTAPurpleOutline
                 label="Read Docs"
                 width="50%"
@@ -665,7 +667,7 @@ export default function Staking() {
                     <InputField placeholder="Your Email" width="100%" height={50} />
                     <div className="form-control w-full">
                       <label onClick={() => setNewsletterChecked(c => !c)} className="label cursor-pointer gap-4">
-                        <div className="bg-[#0f1122] rounded-[8px] w-[33px] h-[1.5rem] flex justify-center items-center">
+                        <div className="bg-[#0f1122] rounded-[8px] w-[2.5rem] h-[1.5rem] flex justify-center items-center">
                           {newsletterChecked && <FiCheck />}
                         </div>
                         <span className="text-[#fff] font-[400] leading-5 text-justify font-inter text-xs lg:text-sm">

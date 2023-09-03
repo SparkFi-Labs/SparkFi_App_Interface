@@ -1,5 +1,5 @@
 query IndexPresaleFactoryOverview {
-  presaleFactory(id: "0x8919e33AEB5B06d127B737Deb89182930B9F43e8") {
+  presaleFactory(id: "0xf886abace837e5ec0cf7037b4d2198f7a1bf35b5") {
     id
     salesCount
   }

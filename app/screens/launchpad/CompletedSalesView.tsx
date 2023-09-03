@@ -22,7 +22,7 @@ export default function CompletedSalesView() {
                 <div className="card-body w-full justify-center items-center">
                   <div className="flex flex-col w-full justify-center items-center gap-10 py-6 px-3 lg:px-7">
                     <span className="font-[400] capitalize text-xl lg:text-2xl text-center">
-                      no active projects at the moment
+                      no completed projects at the moment
                     </span>
                     <span className="font-[500] capitalize text-lg lg:text-xl font-inter">apply for launch</span>
                     <CTAPurple
