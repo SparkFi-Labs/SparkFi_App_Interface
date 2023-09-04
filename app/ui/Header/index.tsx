@@ -1,4 +1,4 @@
-import { CTAPurple } from "@/components/Button";
+import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
 import { FiLogOut, FiMenu, FiUser, FiX } from "react-icons/fi";
 import { MdAccountCircle, MdRocketLaunch } from "react-icons/md";
 import Image from "next/image";
@@ -7,12 +7,13 @@ import { Fragment, useRef } from "react";
 import WalletConnectModal from "../Modals/WalletConnectModal";
 import { useMyEtherBalance } from "@/hooks/wallet";
 import { useWeb3React } from "@web3-react/core";
-import millify from "millify";
+import { formatEthAddress } from "eth-address";
 import { FaWallet } from "react-icons/fa";
 import presaleFactoryAbi from "@/assets/abis/PresaleFactory.json";
 import { presaleFactoryContracts } from "@/assets/contracts";
 import { useContractOwner } from "@/hooks/contracts";
 import { useAccountIsPresaleFactoryAdmin } from "@/hooks/app/web3/launchpad";
+import { isNil } from "lodash";
 
 export default function Header() {
   const sidebarRef = useRef<HTMLInputElement>(null);
@@ -132,7 +133,7 @@ export default function Header() {
         </ul>
       </div>
       <div className="flex justify-center items-start gap-5 z-20">
-        {!isActive ? (
+        {!isActive || isNil(account) ? (
           <CTAPurple
             label="Connect Wallet"
             onPress={() => {
@@ -140,23 +141,15 @@ export default function Header() {
             }}
           />
         ) : (
-          <div className="flex justify-center items-center gap-4">
-            <button className="border border-[#0029ff] rounded-lg flex justify-start items-center p-0">
-              <div
-                onClick={async () => {
-                  if (connector && connector.deactivate) {
-                    await connector.deactivate();
-                  }
-                }}
-                className="border-r border-[#0029ff] bg-[#131735] px-2 py-1 flex justify-center items-center h-full cursor-pointer"
-              >
-                <FaWallet className="text-green-500 text-[1em]" />
+          <CTAPurpleOutline
+            label={
+              <div className="flex justify-start items-center gap-2 w-full py-1 px-1">
+                <FaWallet size={20} />
+                <span className="text-sm lg:text-lg font-[500] font-inter">{formatEthAddress(account, 5)}</span>
               </div>
-              <div className="px-5 py-1 text-[#fff] uppercase font-inter text-sm lg:text-lg">
-                {millify(etherBalance, { precision: 3 })} eth
-              </div>
-            </button>
-          </div>
+            }
+            onPress={async () => !isNil(connector.deactivate) && (await connector.deactivate())}
+          />
         )}
         <details ref={userMenuRef} className="dropdown dropdown-end mb-1 z-20">
           <summary className="flex justify-center items-center gap-2 bg-[#131735] border-0 outline-0 h-full px-2 py-2 text-[#fff] rounded-[7px] text-lg cursor-pointer">
