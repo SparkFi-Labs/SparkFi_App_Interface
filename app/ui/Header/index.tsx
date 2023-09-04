@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useRef } from "react";
 import WalletConnectModal from "../Modals/WalletConnectModal";
-import { useMyEtherBalance } from "@/hooks/wallet";
 import { useWeb3React } from "@web3-react/core";
 import { formatEthAddress } from "eth-address";
 import { FaWallet } from "react-icons/fa";
@@ -21,7 +20,6 @@ export default function Header() {
   const userMenuRef = useRef<HTMLDetailsElement>(null);
 
   const { isActive, connector, account } = useWeb3React();
-  const etherBalance = useMyEtherBalance();
   const factoryOwner = useContractOwner(presaleFactoryContracts, presaleFactoryAbi);
   const isFactoryAdmin = useAccountIsPresaleFactoryAdmin();
 
