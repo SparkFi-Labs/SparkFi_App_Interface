@@ -19,7 +19,7 @@ services:
     networks:
       - sparkfi_pad
     volumes:
-      - serverdata:/src
+      - servervolume:/src
   ipfs:
     container_name: sparkfi_ipfs_daemon
     hostname: ipfs
@@ -51,5 +51,5 @@ networks:
 volumes:
   ipfsdata:
     external: false
-  serverdata:
+  servervolume:
     external: false
