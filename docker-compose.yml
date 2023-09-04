@@ -19,7 +19,7 @@ services:
     networks:
       - sparkfi_pad
     volumes:
-      - serverdata:/.
+      - serverdata:/home
   ipfs:
     container_name: sparkfi_ipfs_daemon
     hostname: ipfs
@@ -31,7 +31,7 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     volumes:
-      - ipfsdata:/.
+      - ipfsdata:/home
   proxy:
     container_name: sparkfi_proxy
     hostname: proxy
