@@ -142,8 +142,8 @@ export default function Header() {
           <CTAPurpleOutline
             label={
               <div className="flex justify-start items-center gap-2 w-full py-1 px-1">
-                <FaWallet size={20} />
-                <span className="text-sm lg:text-lg font-[500] font-inter">{formatEthAddress(account, 5)}</span>
+                <FaWallet size={14} />
+                <span className="text-sm lg:text-lg font-[500] font-inter">{formatEthAddress(account, 4)}</span>
               </div>
             }
             onPress={async () => !isNil(connector.deactivate) && (await connector.deactivate())}
