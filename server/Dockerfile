@@ -1,5 +1,5 @@
 FROM node:16-alpine
-WORKDIR /app
+WORKDIR /src
 COPY package.json /src
 COPY .env /src
 COPY index.js /src
