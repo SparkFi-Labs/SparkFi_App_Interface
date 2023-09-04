@@ -19,7 +19,7 @@ services:
     networks:
       - sparkfi_pad
     volumes:
-      - serverdata:/app
+      - serverdata:/*
   ipfs:
     container_name: sparkfi_ipfs_daemon
     hostname: ipfs
