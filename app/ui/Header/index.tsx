@@ -7,7 +7,6 @@ import { Fragment, useRef } from "react";
 import WalletConnectModal from "../Modals/WalletConnectModal";
 import { useWeb3React } from "@web3-react/core";
 import { formatEthAddress } from "eth-address";
-import { FaWallet } from "react-icons/fa";
 import presaleFactoryAbi from "@/assets/abis/PresaleFactory.json";
 import { presaleFactoryContracts } from "@/assets/contracts";
 import { useContractOwner } from "@/hooks/contracts";
@@ -140,12 +139,7 @@ export default function Header() {
           />
         ) : (
           <CTAPurpleOutline
-            label={
-              <div className="flex justify-start items-center gap-2 w-full py-1 px-1">
-                <FaWallet size={14} />
-                <span className="text-sm lg:text-lg font-[500] font-inter">{formatEthAddress(account, 4)}</span>
-              </div>
-            }
+            label={formatEthAddress(account, 4)}
             onPress={async () => !isNil(connector.deactivate) && (await connector.deactivate())}
           />
         )}
