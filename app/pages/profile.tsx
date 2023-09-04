@@ -256,6 +256,12 @@ export default function Profile() {
                       </div>
                       <div className="w-full lg:w-1/3">
                         <CTAPurple
+                          onPress={() =>
+                            window.open(
+                              "https://www.dackieswap.xyz/swap?chain=base&outputCurrency=ETH&inputCurrency=0x4200000000000000000000000000000000000006",
+                              "_blank"
+                            )
+                          }
                           label={<span className="text-sm lg:text-lg uppercase font-[400] font-inter">buy eth!</span>}
                           width="100%"
                           height={60}
