@@ -31,7 +31,7 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     volumes:
-      - ipfsdata:/root
+      - ipfsdata:/
   proxy:
     container_name: sparkfi_proxy
     hostname: proxy
