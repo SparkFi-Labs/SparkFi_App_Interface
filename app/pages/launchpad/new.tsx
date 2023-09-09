@@ -4,7 +4,7 @@ import { Steps, Step } from "@/ui/Steps";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { launchpadPaymentTokens } from "@/assets/contracts";
-import { assign, floor, isNil, keys, map, multiply, toLower } from "lodash";
+import { assign, floor, isNil, map, multiply, toLower } from "lodash";
 import { AiOutlineDisconnect } from "react-icons/ai";
 import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
