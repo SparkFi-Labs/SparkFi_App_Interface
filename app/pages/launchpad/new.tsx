@@ -243,6 +243,16 @@ export default function NewLaunch() {
                             </div>
                           </div>
                         </div>
+                        <div className="flex flex-col justify-start items-start w-full gap-3">
+                          <span className="text-[1rem] text-[#fff] font-[600] capitalize">soft cap</span>
+                          <InputField
+                            value={projectMetadata.softcap}
+                            onTextChange={ev => setProjectMetadata(d => ({ ...d, softcap: ev.target.valueAsNumber }))}
+                            type="number"
+                            width="100%"
+                            height="3.25rem"
+                          />
+                        </div>
                       </div>
 
                       <div className="flex flex-col justify-start items-start w-full lg:w-[48%] gap-4">

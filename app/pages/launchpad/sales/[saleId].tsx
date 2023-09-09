@@ -293,6 +293,14 @@ export default function SingleSale() {
                 {singleSaleData?.saleToken.symbol}
               </span>
             </div>
+            {!isNil(metadata) && !isNil(metadata.softcap) && (
+              <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
+                <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">softcap</span>
+                <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">
+                  {metadata.softcap} {singleSaleData?.paymentToken.symbol}
+                </span>
+              </div>
+            )}
             <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
               <span className="font-inter font-[500] capitalize text-[1em] lg:text-[1.3em]">hardcap</span>
               <span className="font-inter uppercase text-[0.92em] lg:text-[1.2em] text-[#d9d9d9]">

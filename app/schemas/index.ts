@@ -55,5 +55,6 @@ export const saleIPFSMetadataSchema = Joi.object({
       })
     )
     .required(),
-  roadmap: Joi.string().required()
+  roadmap: Joi.string().required(),
+  softcap: Joi.number().optional()
 });
