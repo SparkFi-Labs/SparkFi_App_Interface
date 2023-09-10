@@ -267,7 +267,7 @@ export default function SingleSale() {
               </div>
             </div>
           </div>
-          <div className="w-full bg-[#151938] min-h-[152px] flex justify-between gap-6 items-center flex-wrap lg:flex-nowrap rounded-[8px] px-3 lg:px-6 py-2">
+          <div className="w-full bg-[#151938] min-h-[152px] flex justify-between items-center flex-wrap lg:flex-nowrap rounded-[8px] px-3 lg:px-6 py-2">
             <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
               <span className="font-inter font-[500] capitalize text-lg lg:text-xl">price</span>
               <span className="font-inter uppercase text-sm lg:text-lg text-[#d9d9d9]">
