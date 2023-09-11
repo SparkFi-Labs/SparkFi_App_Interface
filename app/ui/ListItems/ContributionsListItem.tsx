@@ -1,6 +1,6 @@
 import type { Contribution } from "@/.graphclient";
 import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
-import { usePresaleWithdrawal } from "@/hooks/app/web3/launchpad";
+import { usePresaleEmergencyWithdrawal, usePresaleWithdrawal } from "@/hooks/app/web3/launchpad";
 import { useIPFSGetMetadata } from "@/hooks/ipfs";
 import { divide, isNil, map, multiply, toLower } from "lodash";
 import { useRouter } from "next/router";
@@ -26,6 +26,9 @@ export default function ContributionListItem({ data }: ContributionListItemProps
   const [showVesting, setShowVesting] = useState(false);
 
   const { isLoading: presaleWithdrawalLoading, withdrawal } = usePresaleWithdrawal(data.tokenSale.id);
+  const { isLoading: emergencyWithdrawalLoading, emergencyWithdrawal } = usePresaleEmergencyWithdrawal(
+    data.tokenSale.id
+  );
   const { reload } = useRouter();
 
   const initWithdrawal = useCallback(async () => {
@@ -40,6 +43,20 @@ export default function ContributionListItem({ data }: ContributionListItemProps
       toast.update(toastId, { type: "error", autoClose: 5000, render: error.reason || error.message });
     }
   }, [reload, withdrawal]);
+
+  const initEmergencyWithdrawal = useCallback(async () => {
+    const toastId = toast("Now attempting emergency withdrawal", { type: "info", autoClose: 15000 });
+
+    try {
+      await emergencyWithdrawal();
+
+      toast.update(toastId, { type: "success", autoClose: 5000, render: "Successfully withdrawn " });
+
+      reload();
+    } catch (error: any) {
+      toast.update(toastId, { type: "error", autoClose: 5000, render: error.reason || error.message });
+    }
+  }, [emergencyWithdrawal, reload]);
 
   return (
     <div className="w-full flex flex-col justify-start items-center gap-2">
@@ -107,6 +124,20 @@ export default function ContributionListItem({ data }: ContributionListItemProps
                 <div className="flex justify-center items-center gap-2 w-full">
                   <span className="font-inter font-[500] text-sm capitalize">claim available</span>
                   {presaleWithdrawalLoading && (
+                    <span className="loading loading-infinity loading-md text-accent"></span>
+                  )}
+                </div>
+              }
+              width="100%"
+              height={45}
+            />
+            <CTAPurpleOutline
+              onPress={initEmergencyWithdrawal}
+              disabled={emergencyWithdrawalLoading}
+              label={
+                <div className="flex justify-center items-center gap-2 w-full">
+                  <span className="font-inter font-[500] text-sm capitalize">emergency withdrawal</span>
+                  {emergencyWithdrawalLoading && (
                     <span className="loading loading-infinity loading-md text-accent"></span>
                   )}
                 </div>

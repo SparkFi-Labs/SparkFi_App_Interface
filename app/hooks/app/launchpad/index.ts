@@ -14,8 +14,9 @@ import {
 } from "@/.graphclient";
 import type { PresaleFactoryTypes } from "@/.graphclient/sources/PresaleFactory/types";
 import { useWeb3React } from "@web3-react/core";
-import { flatMap, floor, isNil, map, subtract, toLower, trim } from "lodash";
+import { flatMap, floor, includes, isNil, map, subtract, toLower, trim } from "lodash";
 import { useEffect, useState } from "react";
+import blacklist from "@/assets/blacklist.json";
 
 export const useUpcomingSales = (itemsPerPage: number = 2, page: number = 1) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +33,7 @@ export const useUpcomingSales = (itemsPerPage: number = 2, page: number = 1) => 
           startTime: floor(Date.now() / 1000)
         });
 
-        setData(result.data.tokenSales);
+        setData(result.data.tokenSales.filter((x: any) => !includes(blacklist, x.id)));
         setIsLoading(false);
       } catch (error: any) {
         setIsLoading(false);
@@ -61,7 +62,7 @@ export const useActiveSales = (itemsPerPage: number = 2, page: number = 1) => {
           endTime: floor(Date.now() / 1000)
         });
 
-        setData(result.data.tokenSales);
+        setData(result.data.tokenSales.filter((x: any) => !includes(blacklist, x.id)));
         setIsLoading(false);
       } catch (error: any) {
         setIsLoading(false);
@@ -89,7 +90,7 @@ export const useCompletedSales = (itemsPerPage: number = 2, page: number = 1) =>
           endTime: floor(Date.now() / 1000)
         });
 
-        setData(result.data.tokenSales);
+        setData(result.data.tokenSales.filter((x: any) => !includes(blacklist, x.id)));
         setIsLoading(false);
       } catch (error: any) {
         setIsLoading(false);
