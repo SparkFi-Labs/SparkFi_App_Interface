@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="flex flex-col min-h-screen w-screen justify-start items-center">
         <Header />
-        <div className="w-full self-stretch">{children}</div>
+        <div className="flex-1">{children}</div>
       </body>
     </html>
   );
