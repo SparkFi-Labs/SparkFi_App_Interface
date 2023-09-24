@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { inter, manuale } from "@/fonts";
 import { FaDiscord } from "react-icons/fa";
+import { RiMenu3Line } from "react-icons/ri";
 import { SkewedButtonPrimary } from "@/components/Button";
 
 export default function Header() {
@@ -31,6 +32,9 @@ export default function Header() {
         <div className="hidden md:block w-40 h-10">
           <SkewedButtonPrimary width="100%" height="100%" label="Connect" />
         </div>
+        <button className="btn md:hidden btn-ghost btn-square btn-sm text-[#000] font-[800]">
+          <RiMenu3Line size={28} />
+        </button>
       </div>
     </header>
   );

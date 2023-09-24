@@ -15,6 +15,6 @@ export const SkewedButtonPrimary: React.FC<CustomButtonProps> = ({ label, onPres
     style={{ width, height }}
     {...props}
   >
-    {label}
+    <div className="text-center w-full skew-x-[0.312rad]">{label}</div>
   </button>
 );
