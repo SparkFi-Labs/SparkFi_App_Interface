@@ -66,13 +66,13 @@ export const usePresaleDeploymentInitializer = (
           const hardCapHex = hexValue(
             parseUnits(
               maxTotalPayment.toLocaleString("fullwide", { useGrouping: false, maximumSignificantDigits: 12 }),
-              saleTokenDetails.decimals
+              paymentTokenDetails.decimals
             )
           );
           const softCapHex = hexValue(
             parseUnits(
               minTotalPayment.toLocaleString("fullwide", { useGrouping: false, maximumSignificantDigits: 12 }),
-              saleTokenDetails.decimals
+              paymentTokenDetails.decimals
             )
           );
           const withdrawalDelayHex = hexValue(withdrawalDelay);

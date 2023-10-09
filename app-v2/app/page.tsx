@@ -1,4 +1,4 @@
-import { SkewedButtonPrimary } from "@/components/Button";
+import { SkewedButtonPrimary, SkewedButtonSecondary } from "@/components/Button";
 import { inter, monda } from "@/fonts";
 import FeaturedPools from "@/views/Home/FeaturedPools";
 
@@ -75,6 +75,42 @@ export default function Home() {
       </div>
 
       <FeaturedPools />
+
+      <div className="w-full flex flex-col md:flex-row justify-center items-center md:items-start md:justify-start">
+        <div className="w-full md:w-1/2 bg-[#f2f7ff] px-4 md:px-12 py-4 md:py-9 md:h-full flex justify-start items-start flex-col gap-12">
+          <div className=" flex flex-col gap-4">
+            <h3 className={`${monda.className} font-[700] text-2xl md:text-4xl capitalize`}>about sparkFi</h3>
+
+            <p className={`${inter.className} text-[#828282] font-[400] text-sm md:text-lg text-justify`}>
+              SparkFi is a pioneering force driving innovation in the world of cryptocurrency, and proudly, the very
+              first IDO launchpad on Base Chain. We&apos;re more than just a launchpad; we&apos;re the launching point
+              for exceptional ideas, the catalyst for transformative projects, and the bridge between vision and
+              reality.
+            </p>
+          </div>
+
+          <div className="w-full md:w-1/3">
+            <SkewedButtonPrimary label="Learn More" width="100%" height={50} />
+          </div>
+        </div>
+
+        <div className="w-full md:w-1/2 bg-[#000] px-4 md:px-12 py-4 md:py-9 md:h-full flex justify-start items-start flex-col gap-12 md:-skew-x-[0.06turn]">
+          <div className=" flex flex-col gap-4">
+            <h3 className={`${monda.className} font-[700] text-2xl md:text-4xl capitalize text-[#fff]`}>our mission</h3>
+
+            <p className={`${inter.className} text-[#efefef] font-[400] text-sm md:text-lg text-justify`}>
+              At SparkFi, our mission is clear: to empower the crypto community by providing a seamless and dynamic
+              platform for Initial DEX Offerings (IDOs) on Base Chain. We&apos;re committed to democratizing access to
+              cutting-edge projects, amplifying the potential for growth, and fostering a vibrant ecosystem where
+              creators, investors, and innovators can thrive.
+            </p>
+          </div>
+
+          <div className="w-full md:w-1/3">
+            <SkewedButtonSecondary label="Learn More" width="100%" height={50} />
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

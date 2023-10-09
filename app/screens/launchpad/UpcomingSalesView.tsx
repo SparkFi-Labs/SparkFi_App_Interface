@@ -44,7 +44,7 @@ export default function UpcomingSalesView() {
             </div>
           ) : (
             <div
-              className={`flex flex-col lg:flex-row justify-start lg:justify-center items-center w-full gap-8 lg:h-[34rem] overflow-auto`}
+              className={`flex flex-col lg:flex-row justify-start lg:justify-center items-center w-full gap-8 lg:min-h-[34rem] overflow-auto`}
             >
               {data &&
                 data.length &&
