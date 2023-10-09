@@ -1,102 +1,115 @@
-import Image from "next/image";
+import { SkewedButtonPrimary, SkewedButtonSecondary } from "@/components/Button";
+import { inter, monda } from "@/fonts";
+import FeaturedPools from "@/views/Home/FeaturedPools";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By <Image src="/vercel.svg" alt="Vercel Logo" className="dark:invert" width={100} height={24} priority />
-          </a>
+    <main className="flex flex-col w-screen items-center justify-between py-12 md:py-24 min-h-full gap-12 overflow-x-hidden">
+      <div className="flex flex-col w-full md:w-1/3 justify-center items-center gap-12 px-3">
+        <div className="flex flex-col w-full justify-center items-center gap-3">
+          <span className={`${monda.className} text-[#828282] capitalize font-[700] text-lg md:text-xl`}>sparkFi</span>
+          <span className={`${monda.className} text-[#000] capitalize font-[700] text-xl md:text-4xl text-center`}>
+            the first launchpad on base
+          </span>
+          <span className={`${inter.className} text-[#828282] font-[500] text-sm md:text-lg text-center`}>
+            Welcome to SparkFi, the launching point for exceptional ideas and the bridge between vision and reality.
+            Powered by Base network
+          </span>
+        </div>
+
+        <div className="w-[80%] md:w-1/3">
+          <SkewedButtonPrimary label="View Pools" width="100%" height={50} />
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="w-full bg-[#f2f7ff] md:min-h-[212px] px-3 md:px-7 py-3 md:py-7">
+        <div className="hidden md:flex justify-evenly items-center w-full">
+          <div className="flex-col flex justify-start items-start border-r border-r-[#828282] w-1/5 min-h-[126px] gap-4">
+            <span className={`text-5xl font-[700] ${monda.className} text-[#000]`}>$300K+</span>
+            <span className={`text-lg ${inter.className} font-[700] text-[#828282] capitalize`}>funds raised</span>
+          </div>
+
+          <div className="flex-col flex justify-start items-start border-r border-r-[#828282] w-1/5 min-h-[126px] gap-4">
+            <span className={`text-5xl font-[700] ${monda.className} text-[#000]`}>2K+</span>
+            <span className={`text-lg ${inter.className} font-[700] text-[#828282] capitalize`}>
+              unique participants
+            </span>
+          </div>
+
+          <div className="flex-col flex justify-start items-start border-r border-r-[#828282] w-1/5 min-h-[126px] gap-4">
+            <span className={`text-5xl font-[700] ${monda.className} text-[#000]`}>700M</span>
+            <span className={`text-lg ${inter.className} font-[700] text-[#828282] capitalize`}>sPAK staked</span>
+          </div>
+
+          <div className="flex-col flex justify-start items-start w-1/5 min-h-[126px] gap-4">
+            <span className={`text-5xl font-[700] ${monda.className} text-[#000]`}>2350</span>
+            <span className={`text-lg ${inter.className} font-[700] text-[#828282] capitalize`}>unique stakers</span>
+          </div>
+        </div>
+
+        <div className="md:hidden w-full flex flex-col justify-center items-center">
+          <div className="flex w-full justify-between items-center gap-2">
+            <div className="flex-col flex justify-start items-start border-r border-r-[#828282] w-1/2 gap-1">
+              <span className={`text-xl font-[700] ${monda.className} text-[#000]`}>$300K+</span>
+              <span className={`text-xs ${inter.className} font-[700] text-[#828282] capitalize`}>funds raised</span>
+            </div>
+            <div className="flex-col flex justify-start items-end w-1/2 gap-1 self-end">
+              <span className={`text-xl font-[700] ${monda.className} text-[#000]`}>700M</span>
+              <span className={`text-xs ${inter.className} font-[700] text-[#828282] capitalize`}>sPAK staked</span>
+            </div>
+          </div>
+          <div className="divider"></div>
+          <div className="flex w-full justify-between items-center gap-2">
+            <div className="flex-col flex justify-start items-start border-r border-r-[#828282] w-1/2 gap-1">
+              <span className={`text-xl font-[700] ${monda.className} text-[#000]`}>2K+</span>
+              <span className={`text-xs ${inter.className} font-[700] text-[#828282] capitalize`}>
+                unique participants
+              </span>
+            </div>
+            <div className="flex-col flex justify-start items-end w-1/2 gap-1 self-end">
+              <span className={`text-xl font-[700] ${monda.className} text-[#000]`}>2350</span>
+              <span className={`text-xs ${inter.className} font-[700] text-[#828282] capitalize`}>unique stakers</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+      <FeaturedPools />
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+      <div className="w-full flex flex-col md:flex-row justify-center items-center md:items-start md:justify-start">
+        <div className="w-full md:w-1/2 bg-[#f2f7ff] px-4 md:px-12 py-4 md:py-9 md:h-full flex justify-start items-start flex-col gap-12">
+          <div className=" flex flex-col gap-4">
+            <h3 className={`${monda.className} font-[700] text-2xl md:text-4xl capitalize`}>about sparkFi</h3>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Explore the Next.js 13 playground.</p>
-        </a>
+            <p className={`${inter.className} text-[#828282] font-[400] text-sm md:text-lg text-justify`}>
+              SparkFi is a pioneering force driving innovation in the world of cryptocurrency, and proudly, the very
+              first IDO launchpad on Base Chain. We&apos;re more than just a launchpad; we&apos;re the launching point
+              for exceptional ideas, the catalyst for transformative projects, and the bridge between vision and
+              reality.
+            </p>
+          </div>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          <div className="w-full md:w-1/3">
+            <SkewedButtonPrimary label="Learn More" width="100%" height={50} />
+          </div>
+        </div>
+
+        <div className="w-full md:w-1/2 bg-[#000] px-4 md:px-12 py-4 md:py-9 md:h-full flex justify-start items-start flex-col gap-12 md:-skew-x-[0.06turn]">
+          <div className=" flex flex-col gap-4">
+            <h3 className={`${monda.className} font-[700] text-2xl md:text-4xl capitalize text-[#fff]`}>our mission</h3>
+
+            <p className={`${inter.className} text-[#efefef] font-[400] text-sm md:text-lg text-justify`}>
+              At SparkFi, our mission is clear: to empower the crypto community by providing a seamless and dynamic
+              platform for Initial DEX Offerings (IDOs) on Base Chain. We&apos;re committed to democratizing access to
+              cutting-edge projects, amplifying the potential for growth, and fostering a vibrant ecosystem where
+              creators, investors, and innovators can thrive.
+            </p>
+          </div>
+
+          <div className="w-full md:w-1/3">
+            <SkewedButtonSecondary label="Learn More" width="100%" height={50} />
+          </div>
+        </div>
       </div>
     </main>
   );

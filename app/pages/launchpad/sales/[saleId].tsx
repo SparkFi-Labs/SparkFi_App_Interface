@@ -293,7 +293,7 @@ export default function SingleSale() {
                 {singleSaleData?.saleToken.symbol}
               </span>
             </div>
-            <div className="flex flex-col w-1/2 lg:w-1/5 justify-start items-start gap-3 py-1">
+            <div className="flex flex-col w-1/2 lg:w-auto justify-start items-start gap-3 py-1">
               <span className="font-inter font-[500] capitalize text-lg lg:text-xl">hardcap</span>
               <span className="font-inter uppercase text-sm lg:text-lg text-[#d9d9d9]">
                 {(

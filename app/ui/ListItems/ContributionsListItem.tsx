@@ -14,7 +14,8 @@ const tokenImages = {
   link: "/images/link-logo.png",
   weth: "/images/ethereum-logo.png",
   usdc: "/images/usdc-logo.png",
-  testusdc: "/images/usdc-logo.png"
+  testusdc: "/images/usdc-logo.png",
+  usdbc: "/images/usdc-logo.png"
 };
 
 interface ContributionListItemProps {
