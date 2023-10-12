@@ -54,7 +54,7 @@ export default function CompletedSalesView() {
                   </div>
                 ))}
               {data && data.length === 1 && (
-                <div className="border border-dashed border-[#0029ff] w-full lg:w-1/2 rounded-[8px] h-full">
+                <div className="border border-dashed border-[#0029ff] w-full lg:w-1/2 rounded-[8px] lg:self-stretch">
                   <Card width="100%" height="100%">
                     <div className="card-body w-full justify-center items-center h-full">
                       <div className="flex flex-col w-full justify-center items-center gap-10 py-6 px-3 lg:px-7">

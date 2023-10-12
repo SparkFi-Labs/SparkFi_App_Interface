@@ -79,8 +79,8 @@ export default function UpcomingSalesView() {
                   </div>
                 ))}
               {data && data.length === 1 && (
-                <div className="border border-dashed border-[#0029ff] w-full lg:w-1/2 rounded-[8px] h-full">
-                  <Card width="100%" height="100%">
+                <div className="border border-dashed border-[#0029ff] w-full lg:w-1/2 rounded-[8px] lg:self-stretch">
+                  <Card width="100%" height="100%" style={{ flex: "1 1 auto" }}>
                     <div className="card-body w-full justify-center items-center h-full">
                       <div className="flex flex-col w-full justify-center items-center gap-10 py-6 px-3 lg:px-7">
                         <span className="font-[500] capitalize text-lg lg:text-xl font-inter">apply for launch</span>
