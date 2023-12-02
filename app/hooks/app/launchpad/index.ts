@@ -27,11 +27,11 @@ export const useUpcomingSales = (itemsPerPage: number = 2, page: number = 1) => 
       try {
         setIsLoading(true);
 
-        const result = await execute(IndexUpcomingTokenSalesDocument, {
-          first: itemsPerPage,
-          skip: subtract(page, 1),
-          startTime: floor(Date.now() / 1000)
-        });
+        const first = itemsPerPage;
+        const skip = subtract(page, 1);
+        const startTime = Math.floor(Date.now() / 1000);
+
+        const result = await execute(IndexUpcomingTokenSalesDocument, { first, skip, startTime });
 
         setData(result.data.tokenSales.filter((x: any) => !includes(blacklist, x.id)));
         setIsLoading(false);
@@ -55,12 +55,12 @@ export const useActiveSales = (itemsPerPage: number = 2, page: number = 1) => {
       try {
         setIsLoading(true);
 
-        const result = await execute(IndexOnGoingTokenSalesDocument, {
-          first: itemsPerPage,
-          skip: subtract(page, 1),
-          startTime: floor(Date.now() / 1000),
-          endTime: floor(Date.now() / 1000)
-        });
+        const first = itemsPerPage;
+        const skip = subtract(page, 1);
+        const startTime = Math.floor(Date.now() / 1000);
+        const endTime = Math.floor(Date.now() / 1000);
+
+        const result = await execute(IndexOnGoingTokenSalesDocument, { first, skip, startTime, endTime });
 
         setData(result.data.tokenSales.filter((x: any) => !includes(blacklist, x.id)));
         setIsLoading(false);

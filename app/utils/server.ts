@@ -1,3 +1,4 @@
+import { hexValue } from "@ethersproject/bytes";
 import axios from "axios";
 import bigInt from "big-integer";
 
@@ -51,6 +52,15 @@ export async function saveWhitelist(presaleId: string, whitelist: string, zkchal
   return new Promise<{ result: string }>((resolve, reject) => {
     baseClient
       .post("/update-whitelist", { presaleId, whitelist }, { headers })
+      .then(({ data }) => resolve(data))
+      .catch(reject);
+  });
+}
+
+export async function getTokenList(chainId: number) {
+  return new Promise<{ result: any[] }>((resolve, reject) => {
+    baseClient
+      .get(`/tokenlist/${hexValue(chainId)}`)
       .then(({ data }) => resolve(data))
       .catch(reject);
   });

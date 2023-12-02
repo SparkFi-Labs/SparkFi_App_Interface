@@ -40,6 +40,11 @@ function zkMiddleware(req, res, next) {
   }
 }
 
+const tokenList = {
+  84531: require("./swap/base-goerli-tokenlist.json"),
+  8453: require("./swap/base-mainnet-tokenlist.json")
+};
+
 app.use(express.json());
 app.use(require("morgan")("combined"));
 app.use((req, res, next) => {
@@ -53,6 +58,19 @@ app.get("/challenge", (req, res) => {
   try {
     const e = _computeZKChallenge();
     const result = "0x".concat(e.toString(16));
+    return res.status(200).json({ result });
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message
+    });
+  }
+});
+
+app.get("/tokenlist/:chainId", (req, res) => {
+  try {
+    const { chainId } = req.params;
+    const parsedChainId = chainId.startsWith("0x") ? parseInt(chainId, 16) : parseInt(chainId);
+    const result = tokenList[parsedChainId];
     return res.status(200).json({ result });
   } catch (error) {
     return res.status(500).json({

@@ -6,7 +6,7 @@ import { InputField } from "@/components/Input";
 import UpcomingSalesView from "@/screens/home/UpcomingProjectsView";
 import Head from "next/head";
 import Image from "next/image";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsMedium } from "react-icons/bs";
 import { FaDiscord, FaGithub, FaTelegramPlane, FaTwitter } from "react-icons/fa";
 import { FiCheck } from "react-icons/fi";
@@ -33,7 +33,7 @@ export default function Home() {
 
   const { push } = useRouter();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: aboutSectionRef.current
@@ -54,7 +54,7 @@ export default function Home() {
     };
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: differenceSectionRef.current
@@ -70,7 +70,7 @@ export default function Home() {
     };
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: faqSectionRef.current
@@ -128,7 +128,7 @@ export default function Home() {
           </div>
         </section>
         <section
-          className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 lg:mt-12 pt-20 pb-6 lg:pb-48"
+          className="bg-[#101221] w-full flex flex-col justify-start items-center gap-7 md:mt-20 pt-20 pb-6 lg:pb-48"
           ref={aboutSectionRef}
         >
           <div

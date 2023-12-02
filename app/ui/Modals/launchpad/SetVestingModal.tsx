@@ -1,12 +1,12 @@
 /* eslint-disable react/display-name */
 import type { TokenSale } from "@/.graphclient";
 import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
-import { usePresaleCasher, usePresaleSetCliffVesting, usePresaleSetLinearVesting } from "@/hooks/app/web3/launchpad";
+import { usePresaleSetCliffVesting, usePresaleSetLinearVesting } from "@/hooks/app/web3/launchpad";
 import { useRouter } from "next/router";
 import { forwardRef, useCallback, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { toast, ToastContainer } from "react-toastify";
-import { Tab, Tabs } from "../Tabs";
+import { Tab, Tabs } from "../../Tabs";
 import { DateField, InputField } from "@/components/Input";
 import { add, floor, keys, map, values } from "lodash";
 
@@ -64,7 +64,7 @@ const SetVestingModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, close 
   return (
     <>
       <input type="checkbox" className="modal-toggle" id={`set-whitelist-${sale.id}`} ref={ref} />
-      <div className="modal px-2">
+      <div className="modal px-2" role="dialog">
         <div className="bg-[#151938] rounded-[5px] modal-box flex flex-col justify-start items-center gap-7 w-full container mx-auto">
           <div className="flex justify-between items-center px-3 py-1 w-full">
             <span className="capitalize text-sm lg:text-lg leading-6 text-[#f5f5f5] font-[500]">set vesting</span>

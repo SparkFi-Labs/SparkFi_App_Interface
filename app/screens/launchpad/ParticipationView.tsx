@@ -5,9 +5,8 @@ import Card from "@/components/Card";
 import { useAtomicDate } from "@/hooks/app/shared";
 import { useAccountAllocation, usePresaleContributor } from "@/hooks/app/web3/launchpad";
 import { useIPFSGetMetadata } from "@/hooks/ipfs";
-import { useMyTokenBalance } from "@/hooks/wallet";
+import { useERC20Balance } from "@/hooks/wallet";
 import { divide, floor, multiply, subtract, toLower } from "lodash";
-import { useRouter } from "next/router";
 import { useCallback, useMemo, useState } from "react";
 import { FiUsers } from "react-icons/fi";
 import { ThreeCircles } from "react-loader-spinner";
@@ -40,7 +39,7 @@ export default function ParticipationView({ sale }: ParticipationViewProps) {
 
   const [contributionAmount, setContributionAmount] = useState<number>(0);
 
-  const tokenBalance = useMyTokenBalance(sale.paymentToken.id);
+  const tokenBalance = useERC20Balance(sale.paymentToken.id);
   const { isLoading, contribute } = usePresaleContributor(sale.id);
   const atomicDate = useAtomicDate();
 
@@ -51,20 +50,16 @@ export default function ParticipationView({ sale }: ParticipationViewProps) {
     [atomicDate, sale.endTime, sale.startTime]
   );
 
-  const { reload } = useRouter();
-
   const callContribute = useCallback(async () => {
     try {
       const toastId = toast("Now contributing", { type: "info", autoClose: 10000 });
       await contribute(contributionAmount);
 
       toast.update(toastId, { render: "Successfully contributed", type: "success", autoClose: 5000 });
-
-      reload();
     } catch (error: any) {
       toast(error.reason || error.message, { type: "error", autoClose: 5000 });
     }
-  }, [contribute, contributionAmount, reload]);
+  }, [contribute, contributionAmount]);
 
   return (
     <>

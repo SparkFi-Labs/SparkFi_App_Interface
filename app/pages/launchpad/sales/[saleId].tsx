@@ -23,14 +23,14 @@ import { useAccountIsPresaleFunder } from "@/hooks/app/web3/launchpad";
 import { useContractOwner } from "@/hooks/contracts";
 import presaleAbi from "@/assets/abis/Presale.json";
 import { useWeb3React } from "@web3-react/core";
-import FundTokenSaleModal from "@/ui/Modals/FundTokenSaleModal";
+import FundTokenSaleModal from "@/ui/Modals/launchpad/FundTokenSaleModal";
 import SingleSaleDescription from "@/screens/launchpad/SingleSaleDescription";
 import SingleSaleTeamInfo from "@/screens/launchpad/SingleSaleTeamInfo";
 import SingleSaleTokenomicsInfo from "@/screens/launchpad/SingleSaleTokenomics";
 import Head from "next/head";
 import SingleSaleRoadmap from "@/screens/launchpad/SingleSaleRoadmap";
-import CashModal from "@/ui/Modals/CashModal";
-import SetVestingModal from "@/ui/Modals/SetVestingModal";
+import CashModal from "@/ui/Modals/launchpad/CashModal";
+import SetVestingModal from "@/ui/Modals/launchpad/SetVestingModal";
 import SingleSaleVestingInfo from "@/screens/launchpad/SingleSaleVesting";
 
 const Checker = ({
