@@ -6,7 +6,7 @@ import { InputField } from "@/components/Input";
 import { useAtomicDate } from "@/hooks/app/shared";
 import { useAccountAllocationInfo, useAllTiers, useAllocatorInfo } from "@/hooks/app/staking";
 import { useAccountReward, useAccountTier, useAllocatorStaking, useAllocatorUnstaking } from "@/hooks/app/web3/staking";
-import { useMyTokenBalance } from "@/hooks/wallet";
+import { useERC20Balance } from "@/hooks/wallet";
 import { add, floor, isNil, map, multiply, sortBy, subtract, toLower } from "lodash";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -113,7 +113,7 @@ export default function Staking() {
   const { isLoading: unstakingLoading, unstake } = useAllocatorUnstaking();
   const myTier = useAccountTier();
   const myReward = useAccountReward();
-  const tokenBalance = useMyTokenBalance(sparkFiTokenContracts);
+  const tokenBalance = useERC20Balance(sparkFiTokenContracts);
 
   const atomicDate = useAtomicDate();
 

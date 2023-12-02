@@ -1,7 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import { FaWallet } from "react-icons/fa";
 import { CTAPurple } from "@/components/Button";
-import { useMyEtherBalance, useMyTokenBalance } from "@/hooks/wallet";
+import { useETHBalance, useERC20Balance } from "@/hooks/wallet";
 import { sparkFiTokenContracts } from "@/assets/contracts";
 import { useAllocatorInfo, useAccountAllocationInfo } from "@/hooks/app/staking";
 import Card from "@/components/Card";
@@ -22,8 +22,8 @@ import { useState } from "react";
 
 export default function Profile() {
   const { isActive, account } = useWeb3React();
-  const tokenBalance = useMyTokenBalance(sparkFiTokenContracts);
-  const etherBalance = useMyEtherBalance();
+  const tokenBalance = useERC20Balance(sparkFiTokenContracts);
+  const etherBalance = useETHBalance();
   const { data: allocatorInfoData } = useAllocatorInfo();
   const { isLoading: accountAllocationInfoLoading, data: accountAllocationData } = useAccountAllocationInfo();
   const [searchValue, setSearchValue] = useState("");

@@ -2,7 +2,7 @@
 import type { TokenSale } from "@/.graphclient";
 import { CTAPurple } from "@/components/Button";
 import { usePresaleContributor } from "@/hooks/app/web3/launchpad";
-import { useMyTokenBalance } from "@/hooks/wallet";
+import { useERC20Balance } from "@/hooks/wallet";
 import { multiply } from "lodash";
 import { useRouter } from "next/router";
 import { forwardRef, useCallback, useState } from "react";
@@ -17,7 +17,7 @@ interface ModalProps {
 const ContributeTokenModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, close }, ref) => {
   const [amount, setAmount] = useState<number | undefined>(0);
 
-  const tokenBalance = useMyTokenBalance(sale.paymentToken.id);
+  const tokenBalance = useERC20Balance(sale.paymentToken.id);
   const { isLoading, contribute } = usePresaleContributor(sale.id);
 
   const { reload } = useRouter();
@@ -38,7 +38,7 @@ const ContributeTokenModal = forwardRef<HTMLInputElement, ModalProps>(({ sale, c
   return (
     <>
       <input type="checkbox" className="modal-toggle" id={`contribute-token-modal-${sale.id}`} ref={ref} />
-      <div className="modal">
+      <div className="modal" role="dialog">
         <div className="bg-[#101221] rounded-[5px] modal-box flex flex-col justify-start items-center gap-7 w-full">
           <div className="flex justify-between items-center px-3 py-1 w-full">
             <span className="capitalize text-[1em] leading-6 text-[#f5f5f5] font-[500]">enter amount</span>

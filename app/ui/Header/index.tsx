@@ -48,9 +48,9 @@ export default function Header() {
         <Link className="font-inter" href="/staking">
           staking
         </Link>
-        {/* <Link className="font-inter" href="/">
-          contact us
-        </Link> */}
+        <Link className="font-inter" href="/swap">
+          swap
+        </Link>
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0"
           target="_blank"
@@ -103,17 +103,17 @@ export default function Header() {
               staking
             </Link>
           </li>
-          {/* <li>
+          <li>
             <Link
               className="font-inter"
               onClick={() => {
                 if (sidebarRef.current) sidebarRef.current.checked = false;
               }}
-              href="/"
+              href="/swap"
             >
-              contact us
+              swap
             </Link>
-          </li> */}
+          </li>
           <li>
             <a
               className="font-inter"

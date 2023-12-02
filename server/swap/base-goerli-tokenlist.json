@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "address": "0x4200000000000000000000000000000000000006",
+    "chainId": 84531,
+    "decimals": 18,
+    "logoURI": "https://tokens.pancakeswap.finance/images/symbol/weth.png"
+  },
+  {
+    "name": "USDC Base Goerli",
+    "symbol": "USDC",
+    "address": "0x2e9F75DF8839ff192Da27e977CD154FD1EAE03cf",
+    "chainId": 84531,
+    "decimals": 18,
+    "logoURI": "https://tokens.pancakeswap.finance/images/symbol/usdc.png"
+  },
+  {
+    "name": "ChainLink Token",
+    "symbol": "LINK",
+    "address": "0x6D0F8D488B669aa9BA2D0f0b7B75a88bf5051CD3",
+    "chainId": 84531,
+    "decimals": 18,
+    "logoURI": "https://tokens.pancakeswap.finance/images/eth/0x514910771AF9Ca656af840dff83E8264EcF986CA.png"
+  }
+]

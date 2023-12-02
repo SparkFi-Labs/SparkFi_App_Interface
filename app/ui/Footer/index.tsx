@@ -18,8 +18,8 @@ export default function Footer() {
             exceptional ideas, the catalyst for transformative projects, and the bridge between vision and reality.
           </span>
           <div className="flex flex-col justify-start lg:justify-center items-start w-full lg:w-1/4 gap-7">
-            <span className="uppercase text-lg lg:text-xl font-[400]">information</span>
-            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-sm lg:text-lg capitalize">
+            <span className="uppercase text-lg md:text-2xl font-[400]">information</span>
+            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-sm md:text-lg capitalize">
               <Link className="font-inter font-[400]" href="/#faq">
                 FAQ
               </Link>
@@ -35,8 +35,8 @@ export default function Footer() {
             </div>
           </div>
           <div className="flex flex-col justify-start lg:justify-center items-start w-full lg:w-1/4 gap-7">
-            <span className="uppercase text-lg lg:text-xl font-[400]">explore</span>
-            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-sm lg:text-lg capitalize">
+            <span className="uppercase text-lg md:text-2xl font-[400]">explore</span>
+            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-sm md:text-lg capitalize">
               <Link className="font-inter" href="/launchpad">
                 pools
               </Link>
@@ -49,8 +49,8 @@ export default function Footer() {
             </div>
           </div>
           <div className="flex flex-col justify-start lg:justify-center items-start w-full lg:w-1/4 gap-7">
-            <span className="uppercase text-lg lg:text-xl font-[400]">connect</span>
-            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-sm lg:text-lg capitalize">
+            <span className="uppercase text-lg md:text-2xl font-[400]">connect</span>
+            <div className="flex flex-col justify-start items-start w-full font-inter font-[400] gap-5 text-sm md:text-lg capitalize">
               <a className="font-inter" href="https://t.me/Official_SparkFi" target="_blank">
                 telegram
               </a>
