@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FiChevronDown, FiRefreshCw, FiSliders } from "react-icons/fi";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import SelectTokenModal from "@/ui/Modals/swap/SelectTokenModal";
+import SlippageSettingsModal from "@/ui/Modals/swap/SlippageSettingsModal";
 
 export default function Swap() {
   const tokenList = useTokenList();
@@ -29,6 +30,7 @@ export default function Swap() {
 
   const firstTokenModalRef = useRef<HTMLInputElement>(null);
   const secondTokenModalRef = useRef<HTMLInputElement>(null);
+  const slippageSettingsModalRef = useRef<HTMLInputElement>(null);
 
   const switchTokens = useCallback(() => {
     const first = firstTokenAddress;
@@ -57,7 +59,12 @@ export default function Swap() {
               <button className="btn btn-square btn-ghost btn-xs md:btn-sm bg-[#fff] flex justify-center items-center px-1 py-1 text-[#000] text-xs md:text-sm">
                 <FiRefreshCw />
               </button>
-              <button className="btn btn-square btn-ghost btn-xs md:btn-sm bg-[#fff] flex justify-center items-center px-1 py-1 text-[#000] text-xs md:text-sm">
+              <button
+                onClick={() => {
+                  if (slippageSettingsModalRef.current) slippageSettingsModalRef.current.checked = true;
+                }}
+                className="btn btn-square btn-ghost btn-xs md:btn-sm bg-[#fff] flex justify-center items-center px-1 py-1 text-[#000] text-xs md:text-sm"
+              >
                 <FiSliders />
               </button>
             </div>
@@ -161,6 +168,8 @@ export default function Swap() {
           if (secondTokenModalRef.current) secondTokenModalRef.current.checked = false;
         }}
       />
+
+      <SlippageSettingsModal ref={slippageSettingsModalRef} />
     </>
   );
 }

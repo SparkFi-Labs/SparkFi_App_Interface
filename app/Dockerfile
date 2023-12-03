@@ -9,6 +9,7 @@ COPY queries /queries/
 COPY schemas /schemas/
 COPY screens /screens/
 COPY styles /styles/
+COPY store /store/
 COPY ui /ui/
 COPY utils /utils/
 COPY web3 /web3/

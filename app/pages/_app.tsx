@@ -19,6 +19,9 @@ import type { CoinbaseWallet } from "@web3-react/coinbase-wallet";
 import type { TrustWallet } from "@trustwallet/web3-react-trust-wallet";
 import { Web3ReactProvider, type Web3ReactHooks } from "@web3-react/core";
 import { useEffect } from "react";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "@/store";
 
 const connectors: [MetaMask | WalletConnect | CoinbaseWallet | TrustWallet, Web3ReactHooks][] = [
   [metamask, metamaskHooks],
@@ -51,9 +54,13 @@ const AppContent = ({ children }: any) => {
 function App({ Component, pageProps }: AppProps) {
   return (
     <Web3ReactProvider connectors={connectors}>
-      <AppContent>
-        <Component {...pageProps} />
-      </AppContent>
+      <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
+          <AppContent>
+            <Component {...pageProps} />
+          </AppContent>
+        </PersistGate>
+      </Provider>
     </Web3ReactProvider>
   );
 }

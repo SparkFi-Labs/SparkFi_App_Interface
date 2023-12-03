@@ -39,7 +39,7 @@ const SelectTokenModal = forwardRef<HTMLInputElement, SelectTokenModalProps>(
             </div>
 
             <div className="flex flex-col gap-3 justify-start items-center w-full px-1">
-              <div className="w-full border bg-transparent border-[#292d32] flex justify-start items-center gap-1 rounded-[3.679px] py-2 px-2">
+              <div className="w-full border bg-transparent border-[#292d32] flex justify-start items-center gap-1 rounded-[3.679px] py-3 px-2">
                 <FiSearch className="text-sm md:text-lg text-[#fff]" />
                 <input
                   className="w-full bg-transparent outline-0 text-[#6e7276] font-inter"
@@ -48,7 +48,7 @@ const SelectTokenModal = forwardRef<HTMLInputElement, SelectTokenModalProps>(
                 />
               </div>
 
-              <div className="w-full bg-transparent overflow-auto self-stretch flex flex-col justify-start items-center gap-2 py-3 h-[26rem]">
+              <div className="w-full bg-transparent overflow-auto self-stretch flex flex-col justify-start items-center gap-2 py-3 max-h-[26rem]">
                 {map(filteredTokenList, (token, index) => (
                   <button
                     disabled={selectedTokens.map(t => toLower(t)).includes(toLower(token.address))}
