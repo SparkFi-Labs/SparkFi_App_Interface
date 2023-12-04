@@ -89,7 +89,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>SparkFi | Incubation Hub</title>
+        <title>SparkFi | A wholesome DeFi experience.</title>
       </Head>
       <div className="flex flex-col w-screen gap-12 justify-start items-start relative">
         <div className="absolute -left-64 lg:-left-44 -top-10">

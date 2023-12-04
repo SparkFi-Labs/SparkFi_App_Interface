@@ -1,0 +1,6 @@
+query IndexAllTokens {
+  tokens {
+    id
+    symbol
+  }
+}

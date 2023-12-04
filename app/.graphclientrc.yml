@@ -7,7 +7,12 @@ sources:
     handler:
       graphql:
         endpoint: ${NEXT_PUBLIC_ALLOCATOR_GRAPH_ENDPOINT}
+  - name: SparkfiRouter
+    handler:
+      graphql:
+        endpoint: ${NEXT_PUBLIC_ROUTER_GRAPH_ENDPOINT}
 
 documents:
   - queries/presales/*.graphql
   - queries/allocator/*.graphql
+  - queries/aggregator/*.graphql

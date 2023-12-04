@@ -12,7 +12,6 @@ export const useERC20Balance = (tokenAddress: string | { [chainId: number]: stri
   useEffect(() => {
     if (provider && erc20Contract && account) {
       provider.on("block", () => {
-        console.log("blockChanged");
         erc20Contract
           .decimals()
           .then((dec: any) => {
