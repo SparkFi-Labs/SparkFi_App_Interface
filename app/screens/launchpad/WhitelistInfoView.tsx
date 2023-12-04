@@ -5,10 +5,10 @@ import { floor, isEqual, isNil, multiply, toLower } from "lodash";
 import { useWeb3React } from "@web3-react/core";
 import { CTAPurple, CTAPurpleOutline } from "@/components/Button";
 import { useRef } from "react";
-import StartWhitelistCountdownModal from "@/ui/Modals/StartWhitelistCountdownModal";
+import StartWhitelistCountdownModal from "@/ui/Modals/launchpad/StartWhitelistCountdownModal";
 import { useAtomicDate } from "@/hooks/app/shared";
 import Countdown from "react-countdown";
-import SetWhitelistModal from "@/ui/Modals/SetWhitelistModal";
+import SetWhitelistModal from "@/ui/Modals/launchpad/SetWhitelistModal";
 
 interface WhitelistInfoViewProps {
   data: TokenSale;

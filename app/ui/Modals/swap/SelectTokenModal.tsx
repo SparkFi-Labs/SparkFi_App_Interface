@@ -31,7 +31,7 @@ const SelectTokenModal = forwardRef<HTMLInputElement, SelectTokenModalProps>(
       <>
         <input type="checkbox" className="modal-toggle" id={modalId} ref={ref} />
         <div className="modal" role="dialog">
-          <div className="bg-[#0c0e1c] rounded-[3.679px] modal-box flex flex-col justify-start items-center gap-7 z-20 border border-[#292d32]">
+          <div className="bg-[#0c0e1c] rounded-[3.679px] modal-box flex flex-col justify-start items-center gap-7 z-20 border border-[#292d32] overflow-hidden">
             <div className="flex justify-end items-center w-full px-1">
               <label htmlFor={modalId} className="btn btn-circle btn-ghost btn-sm text-[#fff] p-1 text-[0.95em]">
                 <FiX />
@@ -39,7 +39,7 @@ const SelectTokenModal = forwardRef<HTMLInputElement, SelectTokenModalProps>(
             </div>
 
             <div className="flex flex-col gap-3 justify-start items-center w-full px-1">
-              <div className="w-full border bg-transparent border-[#292d32] flex justify-start items-center gap-1 rounded-[3.679px] py-2 px-2">
+              <div className="w-full border bg-transparent border-[#292d32] flex justify-start items-center gap-1 rounded-[3.679px] py-3 px-2">
                 <FiSearch className="text-sm md:text-lg text-[#fff]" />
                 <input
                   className="w-full bg-transparent outline-0 text-[#6e7276] font-inter"
@@ -48,7 +48,7 @@ const SelectTokenModal = forwardRef<HTMLInputElement, SelectTokenModalProps>(
                 />
               </div>
 
-              <div className="w-full bg-transparent overflow-auto self-stretch flex flex-col justify-start items-center gap-2 py-3 h-[26rem]">
+              <div className="w-full bg-transparent overflow-auto self-stretch flex flex-col justify-start items-center gap-2 py-3 max-h-[26rem]">
                 {map(filteredTokenList, (token, index) => (
                   <button
                     disabled={selectedTokens.map(t => toLower(t)).includes(toLower(token.address))}

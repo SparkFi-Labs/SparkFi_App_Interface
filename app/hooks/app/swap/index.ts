@@ -12,6 +12,10 @@ export const useTokenList = () => {
       getTokenList(chainId)
         .then(list => setData(list.result))
         .catch(console.error);
+    else
+      getTokenList(84531)
+        .then(list => setData(list.result))
+        .catch(console.error);
   }, [chainId]);
 
   return data;

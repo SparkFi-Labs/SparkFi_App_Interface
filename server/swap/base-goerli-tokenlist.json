@@ -1,5 +1,13 @@
 [
   {
+    "name": "Ethereum",
+    "symbol": "ETH",
+    "address": "0x0000000000000000000000000000000000000000",
+    "chainId": 84531,
+    "decimals": 18,
+    "logoURI": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
+  },
+  {
     "name": "Wrapped Ether",
     "symbol": "WETH",
     "address": "0x4200000000000000000000000000000000000006",

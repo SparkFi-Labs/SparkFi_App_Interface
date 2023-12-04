@@ -7,7 +7,17 @@ import Head from "next/head";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FiChevronDown, FiRefreshCw, FiSliders } from "react-icons/fi";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
+import { AiOutlineSwap } from "react-icons/ai";
 import SelectTokenModal from "@/ui/Modals/swap/SelectTokenModal";
+import SlippageSettingsModal from "@/ui/Modals/swap/SlippageSettingsModal";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { useRouterBestOffer, useRouterBestQuery, useSwapInitializer } from "@/hooks/app/web3/swap";
+import { formatUnits } from "@ethersproject/units";
+import { WETH } from "@/assets/contracts";
+import { useWeb3React } from "@web3-react/core";
+import RoutingModal from "@/ui/Modals/swap/RoutingModal";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Swap() {
   const tokenList = useTokenList();
@@ -27,8 +37,38 @@ export default function Swap() {
   const firstTokenBalance = useERC20Balance(firstTokenAddress);
   const secondTokenBalance = useERC20Balance(secondTokenAddress);
 
+  const { isActive } = useWeb3React();
+
   const firstTokenModalRef = useRef<HTMLInputElement>(null);
   const secondTokenModalRef = useRef<HTMLInputElement>(null);
+  const slippageSettingsModalRef = useRef<HTMLInputElement>(null);
+  const routingModalRef = useRef<HTMLInputElement>(null);
+
+  const { slippage } = useSelector((state: RootState) => state.swap);
+  const { chainId } = useWeb3React();
+
+  const [amount, setAmount] = useState(0);
+  const bestQuery = useRouterBestQuery(
+    firstTokenAddress === AddressZero ? WETH[chainId ?? 84531] : firstTokenAddress,
+    secondTokenAddress === AddressZero ? WETH[chainId ?? 84531] : secondTokenAddress,
+    1
+  );
+  const priceInTokenOut = useMemo(
+    () => parseFloat(formatUnits(bestQuery?.[3] ?? 0, secondToken?.decimals ?? 18)),
+    [bestQuery, secondToken?.decimals]
+  );
+  const bestOffer = useRouterBestOffer(
+    firstTokenAddress === AddressZero ? WETH[chainId ?? 84531] : firstTokenAddress,
+    secondTokenAddress === AddressZero ? WETH[chainId ?? 84531] : secondTokenAddress,
+    amount
+  );
+
+  const { swap, isLoading: swapLoading } = useSwapInitializer(
+    firstTokenAddress === AddressZero ? WETH[chainId ?? 84531] : firstTokenAddress,
+    secondTokenAddress === AddressZero ? WETH[chainId ?? 84531] : secondTokenAddress,
+    amount,
+    amount * priceInTokenOut - slippage * (amount * priceInTokenOut)
+  );
 
   const switchTokens = useCallback(() => {
     const first = firstTokenAddress;
@@ -37,6 +77,20 @@ export default function Swap() {
     setFirstTokenAddress(second);
     setSecondTokenAddress(first);
   }, [firstTokenAddress, secondTokenAddress]);
+
+  const swapTokens = useCallback(async () => {
+    const toastId = toast("Now swapping. Please wait", { type: "info", autoClose: 15000 });
+
+    try {
+      await swap();
+
+      toast.update(toastId, { render: "Successfully swapped tokens", type: "success", autoClose: 5000 });
+
+      setAmount(0);
+    } catch (error: any) {
+      toast.update(toastId, { render: error.reason || error.message, type: "error", autoClose: 5000 });
+    }
+  }, [swap]);
 
   useEffect(() => {
     if (tokenList.length > 0) {
@@ -57,7 +111,12 @@ export default function Swap() {
               <button className="btn btn-square btn-ghost btn-xs md:btn-sm bg-[#fff] flex justify-center items-center px-1 py-1 text-[#000] text-xs md:text-sm">
                 <FiRefreshCw />
               </button>
-              <button className="btn btn-square btn-ghost btn-xs md:btn-sm bg-[#fff] flex justify-center items-center px-1 py-1 text-[#000] text-xs md:text-sm">
+              <button
+                onClick={() => {
+                  if (slippageSettingsModalRef.current) slippageSettingsModalRef.current.checked = true;
+                }}
+                className="btn btn-square btn-ghost btn-xs md:btn-sm bg-[#fff] flex justify-center items-center px-1 py-1 text-[#000] text-xs md:text-sm"
+              >
                 <FiSliders />
               </button>
             </div>
@@ -94,7 +153,12 @@ export default function Swap() {
                   <FiChevronDown className="text-xs md:text-sm" />
                 </button>
 
-                <input className="text-right bg-transparent outline-0 w-full md:w-1/3 h-full px-1 py-1" />
+                <input
+                  type="number"
+                  onChange={e => setAmount(e.target.valueAsNumber || 0)}
+                  value={amount}
+                  className="text-right bg-transparent outline-0 w-full md:w-1/3 h-full px-1 py-1 font-inter"
+                />
               </div>
             </div>
 
@@ -110,7 +174,7 @@ export default function Swap() {
 
             <div className="flex flex-col w-full gap-3 justify-start items-center">
               <div className="flex w-full justify-between items-center gap-2">
-                <span className="font-inter text-xs md:text-sm font-[400] capitalize">to</span>
+                <span className="font-inter text-xs md:text-sm font-[400] capitalize">to(estimated)</span>
                 <span className="font-inter text-xs md:text-sm font-[400] capitalize">
                   balance:{" "}
                   {(secondTokenAddress === AddressZero ? ethBalance : secondTokenBalance).toLocaleString("en-US", {
@@ -135,12 +199,52 @@ export default function Swap() {
                   <FiChevronDown className="text-xs md:text-sm" />
                 </button>
 
-                <input disabled className="text-right bg-transparent outline-0 w-full md:w-1/3 h-full px-1 py-1" />
+                <input
+                  disabled
+                  value={amount * priceInTokenOut}
+                  className="text-right bg-transparent outline-0 w-full md:w-1/3 h-full px-1 py-1 font-inter"
+                />
               </div>
             </div>
           </div>
 
-          <CTAPurple label="Swap" width="100%" height={55} />
+          <div className="flex justify-between items-center gap-2 w-full">
+            <span className="font-inter font-[400] capitalize text-xs md:text-sm text-[#fff]">slippage tolerance</span>
+            <span className="font-inter font-[400] capitalize text-xs md:text-sm text-[#fff]">{slippage}%</span>
+          </div>
+
+          <div className="flex justify-between items-center gap-2 w-full">
+            <span className="font-inter font-[400] capitalize text-xs md:text-sm text-[#fff]">
+              1 {firstToken?.symbol} &asymp;{" "}
+              {priceInTokenOut.toLocaleString("en-US", {
+                maximumFractionDigits: 3
+              })}{" "}
+              {secondToken?.symbol}
+            </span>
+            <button
+              onClick={() => {
+                if (routingModalRef.current) routingModalRef.current.checked = true;
+              }}
+              className="btn btn-ghost btn-xs md:btn-sm btn-square text-[#292d32]"
+            >
+              <AiOutlineSwap />
+            </button>
+          </div>
+
+          <CTAPurple
+            onPress={swapTokens}
+            disabled={swapLoading || amount <= 0 || !isActive}
+            label={
+              <div className="flex justify-center items-center text-[#fff] w-full gap-2">
+                <span className="capitalize font-[500] font-inter text-lg md:text-xl">
+                  {isActive ? "swap" : "please connect wallet"}
+                </span>
+                {swapLoading && <span className="loading loading-infinity loading-md text-accent"></span>}
+              </div>
+            }
+            width="100%"
+            height={55}
+          />
         </div>
       </div>
 
@@ -161,6 +265,18 @@ export default function Swap() {
           if (secondTokenModalRef.current) secondTokenModalRef.current.checked = false;
         }}
       />
+
+      <SlippageSettingsModal ref={slippageSettingsModalRef} />
+
+      <RoutingModal
+        ref={routingModalRef}
+        adapters={bestOffer?.[1] || []}
+        path={bestOffer?.[2] || []}
+        firstToken={firstTokenAddress}
+        secondToken={secondTokenAddress}
+      />
+
+      <ToastContainer position="top-right" autoClose={5000} theme="dark" pauseOnFocusLoss />
     </>
   );
 }
