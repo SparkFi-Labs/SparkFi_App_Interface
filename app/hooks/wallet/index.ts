@@ -12,24 +12,43 @@ export const useERC20Balance = (tokenAddress: string | { [chainId: number]: stri
   useEffect(() => {
     if (provider && erc20Contract && account) {
       provider.on("block", () => {
-        erc20Contract.decimals().then((dec: any) => {
-          erc20Contract.balanceOf(account).then((bal: any) => {
-            const formatted = formatUnits(bal, dec);
-            setBalance(parseFloat(formatted));
-          });
-        });
+        console.log("blockChanged");
+        erc20Contract
+          .decimals()
+          .then((dec: any) => {
+            erc20Contract
+              .balanceOf(account)
+              .then((bal: any) => {
+                const formatted = formatUnits(bal, dec);
+                setBalance(parseFloat(formatted));
+              })
+              .catch(console.debug);
+          })
+          .catch(console.debug);
       });
     }
+
+    return () => {
+      if (provider) {
+        provider.removeAllListeners("block");
+      }
+    };
   }, [account, erc20Contract, provider]);
 
   useEffect(() => {
     if (erc20Contract && account) {
-      erc20Contract.decimals().then((dec: any) => {
-        erc20Contract.balanceOf(account).then((bal: any) => {
-          const formatted = formatUnits(bal, dec);
-          setBalance(parseFloat(formatted));
-        });
-      });
+      erc20Contract
+        .decimals()
+        .then((dec: any) => {
+          erc20Contract
+            .balanceOf(account)
+            .then((bal: any) => {
+              const formatted = formatUnits(bal, dec);
+              setBalance(parseFloat(formatted));
+            })
+            .catch(console.debug);
+        })
+        .catch(console.debug);
     } else setBalance(0);
   }, [account, erc20Contract]);
 
@@ -49,6 +68,12 @@ export const useETHBalance = () => {
         });
       });
     }
+
+    return () => {
+      if (provider) {
+        provider.removeAllListeners("block");
+      }
+    };
   }, [account, provider]);
 
   useEffect(() => {

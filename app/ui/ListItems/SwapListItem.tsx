@@ -1,5 +1,6 @@
 import { useTokenDetails } from "@/hooks/contracts";
-import { useERC20Balance } from "@/hooks/wallet";
+import { useERC20Balance, useETHBalance } from "@/hooks/wallet";
+import { AddressZero } from "@ethersproject/constants";
 
 interface SwapListItemProps {
   imgURI: string;
@@ -8,6 +9,7 @@ interface SwapListItemProps {
 
 export default function SwapListItem({ imgURI, tokenAddress }: SwapListItemProps) {
   const tokenDetails = useTokenDetails(tokenAddress);
+  const ethBalance = useETHBalance();
   const balance = useERC20Balance(tokenAddress);
   return (
     <div className="w-full flex justify-between items-center px-2 py-2 h-full">
@@ -18,14 +20,18 @@ export default function SwapListItem({ imgURI, tokenAddress }: SwapListItemProps
           </div>
         </div>
         <div className="flex flex-col justify-start items-start self-stretch gap-1">
-          <h3 className="text-sm md:text-lg font-inter font-[500] uppercase text-[#fff]">{tokenDetails?.symbol}</h3>
+          <h3 className="text-sm md:text-lg font-inter font-[500] uppercase text-[#fff]">
+            {tokenAddress === AddressZero ? "eth" : tokenDetails?.symbol}
+          </h3>
           <span className="text-[#6e7276] font-inter text-xs md:text-sm capitalize font-[400]">
-            {tokenDetails?.name}
+            {tokenAddress === AddressZero ? "ethereum" : tokenDetails?.name}
           </span>
         </div>
       </div>
       <span className="text-[#fff] font-inter font-[500] text-xs">
-        {balance.toLocaleString("en-US", { maximumFractionDigits: 3 })}
+        {tokenAddress === AddressZero
+          ? ethBalance.toLocaleString("en-US", { maximumFractionDigits: 3 })
+          : balance.toLocaleString("en-US", { maximumFractionDigits: 3 })}
       </span>
     </div>
   );

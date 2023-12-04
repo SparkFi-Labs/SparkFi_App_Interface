@@ -31,7 +31,7 @@ const SelectTokenModal = forwardRef<HTMLInputElement, SelectTokenModalProps>(
       <>
         <input type="checkbox" className="modal-toggle" id={modalId} ref={ref} />
         <div className="modal" role="dialog">
-          <div className="bg-[#0c0e1c] rounded-[3.679px] modal-box flex flex-col justify-start items-center gap-7 z-20 border border-[#292d32]">
+          <div className="bg-[#0c0e1c] rounded-[3.679px] modal-box flex flex-col justify-start items-center gap-7 z-20 border border-[#292d32] overflow-hidden">
             <div className="flex justify-end items-center w-full px-1">
               <label htmlFor={modalId} className="btn btn-circle btn-ghost btn-sm text-[#fff] p-1 text-[0.95em]">
                 <FiX />
