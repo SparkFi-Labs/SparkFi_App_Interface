@@ -13,7 +13,7 @@ import Moment from "react-moment";
 
 export default function TradesInfoView() {
   const { data: routerInfo, isLoading: routerInfoLoading } = useRouterInfo();
-  const { data: routerDayData, isLoading: routerDayDataLoading } = useRouterDayData();
+  const { data: routerDayData } = useRouterDayData();
   const dayData = useMemo(
     () =>
       routerDayData.map(data => ({

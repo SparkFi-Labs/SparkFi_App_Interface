@@ -6,7 +6,10 @@ import {
   type Router,
   IndexRouterInfoDocument,
   type RouterDayData,
-  IndexRouterDayDataDocument
+  IndexRouterDayDataDocument,
+  type Adapter,
+  IndexAdaptersDocument,
+  IndexSingleAdapterDocument
 } from "@/.graphclient";
 import { useWeb3React } from "@web3-react/core";
 import { useState, useEffect, useMemo } from "react";
@@ -101,6 +104,52 @@ export const useRouterDayData = () => {
         setIsLoading(false);
       });
   }, [chain]);
+
+  return { data, isLoading };
+};
+
+export const useAdaptersList = () => {
+  const { chainId } = useWeb3React();
+  const chain = useMemo(() => subgraphChainIDToName(chainId ?? 84531), [chainId]);
+  const [data, setData] = useState<Adapter[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    execute(IndexAdaptersDocument, {}, { chain })
+      .then(val => {
+        setData(val.data.adapters);
+        setIsLoading(false);
+      })
+      .catch((err: any) => {
+        console.debug(err);
+        setIsLoading(false);
+      });
+  }, [chain]);
+
+  return { data, isLoading };
+};
+
+export const useAdapter = (id: string) => {
+  const { chainId } = useWeb3React();
+  const chain = useMemo(() => subgraphChainIDToName(chainId ?? 84531), [chainId]);
+  const [data, setData] = useState<Adapter>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!isNil(id)) {
+      setIsLoading(true);
+      execute(IndexSingleAdapterDocument, { id }, { chain })
+        .then(val => {
+          setData(val.data.adapter);
+          setIsLoading(false);
+        })
+        .catch((err: any) => {
+          console.debug(err);
+          setIsLoading(false);
+        });
+    }
+  }, [chain, id]);
 
   return { data, isLoading };
 };
