@@ -2,7 +2,7 @@ import { CTAPurple } from "@/components/Button";
 import { useTokenList } from "@/hooks/app/swap";
 import { useERC20Balance, useETHBalance } from "@/hooks/wallet";
 import { AddressZero } from "@ethersproject/constants";
-import { toLower } from "lodash";
+import { isNil, toLower } from "lodash";
 import Head from "next/head";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FiChevronDown, FiRefreshCw, FiSliders } from "react-icons/fi";
@@ -18,6 +18,7 @@ import { WETH } from "@/assets/contracts";
 import { useWeb3React } from "@web3-react/core";
 import RoutingModal from "@/ui/Modals/swap/RoutingModal";
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 export default function Swap() {
   const tokenList = useTokenList();
@@ -70,6 +71,10 @@ export default function Swap() {
     amount * priceInTokenOut - slippage * (amount * priceInTokenOut)
   );
 
+  const { query, reload } = useRouter();
+  const inputCurrency = useMemo(() => query.inputCurrency as string, [query.inputCurrency]);
+  const outputCurrency = useMemo(() => query.outputCurrency as string, [query.outputCurrency]);
+
   const switchTokens = useCallback(() => {
     const first = firstTokenAddress;
     const second = secondTokenAddress;
@@ -93,11 +98,12 @@ export default function Swap() {
   }, [swap]);
 
   useEffect(() => {
-    if (tokenList.length > 0) {
-      setFirstTokenAddress(tokenList[0].address);
-      setSecondTokenAddress(tokenList[1].address);
-    }
-  }, [tokenList]);
+    if (!isNil(inputCurrency)) setFirstTokenAddress(inputCurrency);
+    else if (tokenList.length > 0) setFirstTokenAddress(tokenList[0].address);
+
+    if (!isNil(outputCurrency)) setSecondTokenAddress(outputCurrency);
+    else if (tokenList.length > 0) setSecondTokenAddress(tokenList[1].address);
+  }, [inputCurrency, outputCurrency, tokenList]);
   return (
     <>
       <Head>
@@ -108,7 +114,10 @@ export default function Swap() {
           <div className="flex justify-between w-full items-center gap-3">
             <h4 className="font-inter font-[700] capitalize text-sm md:text-lg">trade</h4>
             <div className="flex justify-start items-center gap-2">
-              <button className="btn btn-square btn-ghost btn-xs md:btn-sm bg-[#fff] flex justify-center items-center px-1 py-1 text-[#000] text-xs md:text-sm">
+              <button
+                onClick={reload}
+                className="btn btn-square btn-ghost btn-xs md:btn-sm bg-[#fff] flex justify-center items-center px-1 py-1 text-[#000] text-xs md:text-sm"
+              >
                 <FiRefreshCw />
               </button>
               <button
@@ -133,7 +142,12 @@ export default function Swap() {
                       maximumFractionDigits: 3
                     })}
                   </span>
-                  <CTAPurple label="MAX" width="40%" height={35} />
+                  <CTAPurple
+                    onPress={() => setAmount(firstTokenAddress === AddressZero ? ethBalance : firstTokenBalance)}
+                    label="MAX"
+                    width="40%"
+                    height={35}
+                  />
                 </div>
               </div>
 

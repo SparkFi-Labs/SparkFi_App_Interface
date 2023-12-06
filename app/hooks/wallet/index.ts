@@ -1,18 +1,22 @@
 import { formatEther, formatUnits } from "@ethersproject/units";
 import { useContract } from "../global";
 import erc20Abi from "@/assets/abis/ERC20.json";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
+import { CHAINS } from "@/web3/chains";
+import { JsonRpcProvider } from "@ethersproject/providers";
 
 export const useERC20Balance = (tokenAddress: string | { [chainId: number]: string }) => {
   const erc20Contract = useContract(tokenAddress, erc20Abi);
   const [balance, setBalance] = useState(0);
-  const { account, provider } = useWeb3React();
+  const { account, chainId } = useWeb3React();
+  const provider = useMemo(() => new JsonRpcProvider(CHAINS[chainId ?? 84531].urls[0]), [chainId]);
 
   useEffect(() => {
     if (provider && erc20Contract && account) {
+      provider.removeAllListeners("block");
+
       provider.on("block", () => {
-        console.log("blockChanged");
         erc20Contract
           .decimals()
           .then((dec: any) => {
@@ -29,9 +33,7 @@ export const useERC20Balance = (tokenAddress: string | { [chainId: number]: stri
     }
 
     return () => {
-      if (provider) {
-        provider.removeAllListeners("block");
-      }
+      provider.removeAllListeners("block");
     };
   }, [account, erc20Contract, provider]);
 
@@ -57,10 +59,13 @@ export const useERC20Balance = (tokenAddress: string | { [chainId: number]: stri
 
 export const useETHBalance = () => {
   const [balance, setBalance] = useState(0);
-  const { account, provider } = useWeb3React();
+  const { account, chainId } = useWeb3React();
+  const provider = useMemo(() => new JsonRpcProvider(CHAINS[chainId ?? 84531].urls[0]), [chainId]);
 
   useEffect(() => {
     if (provider && account) {
+      provider.removeAllListeners("block");
+
       provider.on("block", () => {
         provider.getBalance(account).then(val => {
           const formatted = formatEther(val);
@@ -70,9 +75,7 @@ export const useETHBalance = () => {
     }
 
     return () => {
-      if (provider) {
-        provider.removeAllListeners("block");
-      }
+      provider.removeAllListeners("block");
     };
   }, [account, provider]);
 

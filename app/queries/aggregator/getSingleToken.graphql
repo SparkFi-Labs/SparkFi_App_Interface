@@ -1,0 +1,11 @@
+query IndexSingleToken($id: ID!) {
+  token(id: $id) {
+    id
+    symbol
+    priceUSD
+    tokenDayData {
+      date
+      priceUSD
+    }
+  }
+}

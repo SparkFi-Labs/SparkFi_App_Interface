@@ -1,0 +1,6 @@
+query IndexAdapters {
+  adapters {
+    id
+    name
+  }
+}

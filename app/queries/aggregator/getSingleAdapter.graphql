@@ -1,0 +1,29 @@
+query IndexSingleAdapter($id: ID!) {
+  adapter(id: $id) {
+    id
+    name
+    txCount
+    tradeVolumeUSD
+    swaps {
+      id
+      to
+      transactionHash
+      amountIn
+      amountOut
+      blockTimestamp
+      tokenIn {
+        id
+        symbol
+      }
+      tokenOut {
+        id
+        symbol
+      }
+    }
+    adapterDayData {
+      id
+      date
+      dailyVolumeUSD
+    }
+  }
+}

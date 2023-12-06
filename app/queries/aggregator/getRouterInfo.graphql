@@ -1,0 +1,23 @@
+query IndexRouterInfo($id: ID!) {
+  router(id: $id) {
+    id
+    totalTradeVolumeUSD
+    swapCount
+    swaps {
+      id
+      amountIn
+      amountOut
+      transactionHash
+      blockTimestamp
+      to
+      tokenIn {
+        id
+        symbol
+      }
+      tokenOut {
+        id
+        symbol
+      }
+    }
+  }
+}

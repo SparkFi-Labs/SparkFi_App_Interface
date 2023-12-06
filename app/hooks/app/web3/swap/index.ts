@@ -7,8 +7,10 @@ import { useContract } from "@/hooks/global";
 import { parseUnits } from "@ethersproject/units";
 import { useWeb3React } from "@web3-react/core";
 import { isNil } from "lodash";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { hexValue } from "@ethersproject/bytes";
+import { JsonRpcProvider } from "@ethersproject/providers";
+import { CHAINS } from "@/web3/chains";
 
 const SWAP_FEE = 999;
 
@@ -17,8 +19,9 @@ export const useRouterBestQuery = (tokenIn: string, tokenOut: string, amountIn: 
   const tokenInDetails = useTokenDetails(tokenIn);
   const tokenOutDetails = useTokenDetails(tokenOut);
 
-  const { provider } = useWeb3React();
+  const { chainId } = useWeb3React();
   const contract = useContract(exchangeRouterContracts, routerABI);
+  const provider = useMemo(() => new JsonRpcProvider(CHAINS[chainId ?? 84531].urls[0]), [chainId]);
 
   useEffect(() => {
     if (!isNil(tokenInDetails) && !isNil(tokenOutDetails) && !isNil(contract)) {
@@ -30,6 +33,8 @@ export const useRouterBestQuery = (tokenIn: string, tokenOut: string, amountIn: 
 
   useEffect(() => {
     if (!isNil(tokenInDetails) && !isNil(tokenOutDetails) && !isNil(contract) && !isNil(provider)) {
+      provider.removeAllListeners("block");
+
       provider.on("block", () => {
         const amountInFormatted = parseUnits(amountIn.toString(), tokenInDetails.decimals);
 
@@ -38,9 +43,7 @@ export const useRouterBestQuery = (tokenIn: string, tokenOut: string, amountIn: 
     }
 
     return () => {
-      if (!isNil(provider)) {
-        provider.removeAllListeners("block");
-      }
+      provider.removeAllListeners("block");
     };
   }, [amountIn, contract, provider, tokenIn, tokenInDetails, tokenOut, tokenOutDetails]);
 
@@ -52,8 +55,9 @@ export const useRouterBestOffer = (tokenIn: string, tokenOut: string, amountIn: 
   const tokenInDetails = useTokenDetails(tokenIn);
   const tokenOutDetails = useTokenDetails(tokenOut);
 
-  const { provider } = useWeb3React();
+  const { chainId } = useWeb3React();
   const contract = useContract(exchangeRouterContracts, routerABI);
+  const provider = useMemo(() => new JsonRpcProvider(CHAINS[chainId ?? 84531].urls[0]), [chainId]);
 
   useEffect(() => {
     if (!isNil(tokenInDetails) && !isNil(tokenOutDetails) && !isNil(contract)) {
@@ -64,7 +68,9 @@ export const useRouterBestOffer = (tokenIn: string, tokenOut: string, amountIn: 
   }, [amountIn, contract, maxSteps, tokenIn, tokenInDetails, tokenOut, tokenOutDetails]);
 
   useEffect(() => {
-    if (!isNil(tokenInDetails) && !isNil(tokenOutDetails) && !isNil(contract) && !isNil(provider)) {
+    if (!isNil(tokenInDetails) && !isNil(tokenOutDetails) && !isNil(contract)) {
+      provider.removeAllListeners("block");
+
       provider.on("block", () => {
         const amountInFormatted = parseUnits(amountIn.toString(), tokenInDetails.decimals);
 
@@ -73,9 +79,7 @@ export const useRouterBestOffer = (tokenIn: string, tokenOut: string, amountIn: 
     }
 
     return () => {
-      if (!isNil(provider)) {
-        provider.removeAllListeners("block");
-      }
+      provider.removeAllListeners("block");
     };
   }, [amountIn, contract, maxSteps, provider, tokenIn, tokenInDetails, tokenOut, tokenOutDetails]);
 

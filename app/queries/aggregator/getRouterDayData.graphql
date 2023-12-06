@@ -1,0 +1,8 @@
+query IndexRouterDayData {
+  routerDayDatas {
+    id
+    dailyVolumeUSD
+    date
+    totalTransactions
+  }
+}

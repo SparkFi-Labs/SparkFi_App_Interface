@@ -51,19 +51,22 @@ export default function Header() {
         <Link className="font-inter" href="/swap">
           swap
         </Link>
+        <Link className="font-inter" href="/analytics">
+          analytics
+        </Link>
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSfydXr1FpS954vGzRTiOhy-U_B5SNYYjMgSHL5Ndz7hl3zd7A/viewform?vc=0&c=0&w=1&flr=0"
           target="_blank"
           rel="noreferrer"
           className="font-inter"
         >
-          apply
+          apply for launchpad
         </a>
       </div>
       <input ref={sidebarRef} id="sidebar" type="checkbox" className="drawer-toggle" />
       <div className="drawer-side lg:hidden z-20 min-h-screen">
         <label htmlFor="sidebar" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-60 min-h-screen bg-[#0c0e1e] text-base-content capitalize font-[500] text-sm">
+        <ul className="menu p-4 w-60 min-h-screen bg-[#0c0e1e] text-base-content capitalize font-[500] text-sm z-40">
           <label
             htmlFor="sidebar"
             className="btn btn-square btn-sm btn-neutral px-1 py-1 flex justify-center items-center m-4"
@@ -115,6 +118,17 @@ export default function Header() {
             </Link>
           </li>
           <li>
+            <Link
+              className="font-inter"
+              onClick={() => {
+                if (sidebarRef.current) sidebarRef.current.checked = false;
+              }}
+              href="/analytics"
+            >
+              analytics
+            </Link>
+          </li>
+          <li>
             <a
               className="font-inter"
               onClick={() => {
@@ -124,12 +138,12 @@ export default function Header() {
               target="_blank"
               rel="noreferrer"
             >
-              apply
+              apply for launchpad
             </a>
           </li>
         </ul>
       </div>
-      <div className="flex justify-center items-start gap-5 z-20">
+      <div className="flex justify-center items-start gap-5 lg:z-20">
         {!isActive || isNil(account) ? (
           <CTAPurple
             label="Connect Wallet"
