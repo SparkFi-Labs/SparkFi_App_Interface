@@ -1,4 +1,5 @@
 import AssetsInfoView from "@/screens/analytics/AssetsInfoView";
+import TradesInfoView from "@/screens/analytics/TradesInfoView";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
@@ -16,7 +17,7 @@ export default function Analytics() {
     return composedUrl.toString();
   }, [asPath]);
   return (
-    <div className="w-screen flex flex-col lg:flex-row justify-start gap-3 lg:gap-7 items-center lg:items-start py-7 lg:py-12 px-2 lg:px-4">
+    <div className="w-screen flex flex-col lg:flex-row justify-start gap-3 lg:gap-5 items-center lg:items-start py-7 lg:py-12 px-2 lg:px-4">
       <ul className="menu menu-horizontal lg:menu-vertical w-full lg:w-1/4">
         <li>
           <Link
@@ -46,7 +47,9 @@ export default function Analytics() {
           </Link>
         </li>
       </ul>
-      <div className="w-full lg:w-[74%]">{vw === "assets" ? <AssetsInfoView /> : <AssetsInfoView />}</div>
+      <div className="w-full lg:w-[74%]">
+        {vw === "assets" ? <AssetsInfoView /> : vw === "trades" ? <TradesInfoView /> : <AssetsInfoView />}
+      </div>
     </div>
   );
 }

@@ -10,7 +10,9 @@ export default function AssetsInfoView() {
   const tokenList = useTokenList();
   const { data: assetList, isLoading: assetListLoading } = useAssetList();
   const [selectedAsset, setSelectedAsset] = useState("");
-  const { data: singleTokenData, isLoading: singleTokenDataLoading } = useSingleTokenData(selectedAsset);
+  const { data: singleTokenData, isLoading: singleTokenDataLoading } = useSingleTokenData(
+    selectedAsset.trim().length > 0 ? selectedAsset : assetList[0] ? assetList[0]?.id : ""
+  );
   const tokenDayData = useMemo(
     () =>
       singleTokenData?.tokenDayData.map(dayData => ({
@@ -70,7 +72,7 @@ export default function AssetsInfoView() {
                   <span className="font-inter text-xs lg:text-lg text-[#fff] font-[500]">{singleTokenData.symbol}</span>
                   <div className="border border-[#292d32] px-1 py-1 flex justify-center items-center gap-3 rounded-md">
                     <span className="font-inter text-xs text-[#0061f3]">
-                      &#36; {parseFloat(singleTokenData.priceUSD).toLocaleString("en-US", { maximumFractionDigits: 3 })}
+                      &#36;{parseFloat(singleTokenData.priceUSD).toLocaleString("en-US", { maximumFractionDigits: 3 })}
                     </span>
                   </div>
                 </div>

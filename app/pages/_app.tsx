@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import "moment";
 import type { AppProps } from "next/app";
 import Header from "@/ui/Header";
 import Footer from "@/ui/Footer";

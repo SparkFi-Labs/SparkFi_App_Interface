@@ -11,11 +11,11 @@ interface LineChartProps {
 
 export default function LineChart({ chartType, width, height, data, xKey, yKey }: LineChartProps) {
   return (
-    <ResponsiveContainer width={width} height={height}>
+    <ResponsiveContainer width={width} height={height} className="font-inter text-[#fff]">
       <Chart data={data}>
         <CartesianGrid strokeDasharray="0" />
-        <XAxis dataKey={xKey} style={{ fontSize: 12, fontFamily: "Inter" }} />
-        <YAxis style={{ fontSize: 12 }} />
+        <XAxis tick={{ fill: "#fff", fontSize: 10 }} dataKey={xKey} />
+        <YAxis tick={{ fill: "#fff", fontSize: 10 }} />
         <Line type={chartType} stroke="#18a0fb" dataKey={yKey} strokeWidth={2} />
       </Chart>
     </ResponsiveContainer>

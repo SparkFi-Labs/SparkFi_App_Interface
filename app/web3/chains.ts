@@ -1,12 +1,12 @@
 import { isEqual, isNull, keys } from "lodash";
 import type { AddEthereumChainParameter } from "@web3-react/types";
 
-interface BasicChainInformation {
+export interface BasicChainInformation {
   urls: string[];
   name: string;
 }
 
-interface ExtendedChainInformation extends BasicChainInformation {
+export interface ExtendedChainInformation extends BasicChainInformation {
   nativeCurrency: AddEthereumChainParameter["nativeCurrency"];
   blockExplorerUrls: AddEthereumChainParameter["blockExplorerUrls"];
 }
