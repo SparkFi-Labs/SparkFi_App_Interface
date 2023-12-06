@@ -133,7 +133,12 @@ export default function Swap() {
                       maximumFractionDigits: 3
                     })}
                   </span>
-                  <CTAPurple label="MAX" width="40%" height={35} />
+                  <CTAPurple
+                    onPress={() => setAmount(firstTokenAddress === AddressZero ? ethBalance : firstTokenBalance)}
+                    label="MAX"
+                    width="40%"
+                    height={35}
+                  />
                 </div>
               </div>
 

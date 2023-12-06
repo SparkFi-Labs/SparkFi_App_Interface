@@ -20,8 +20,3 @@ export const useTokenList = () => {
 
   return data;
 };
-
-export const useAssetList = () => {
-  const { chainId } = useWeb3React();
-
-};
