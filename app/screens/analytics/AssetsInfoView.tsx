@@ -3,7 +3,9 @@ import { useAssetList, useSingleTokenData } from "@/hooks/app/analytics";
 import { useTokenList } from "@/hooks/app/swap";
 import LineChart from "@/ui/Charts/LineChart";
 import NoDataOrError from "@/ui/NoDataOrError";
+import { AddressZero } from "@ethersproject/constants";
 import { isNil, map, toLower } from "lodash";
+import { useRouter } from "next/router";
 import { useCallback, useMemo, useState } from "react";
 
 export default function AssetsInfoView() {
@@ -28,6 +30,8 @@ export default function AssetsInfoView() {
     },
     [tokenList]
   );
+
+  const { push } = useRouter();
 
   return (
     <div className="flex flex-col lg:flex-row justify-start items-center lg:items-start w-full gap-3 lg:gap-7">
@@ -78,7 +82,14 @@ export default function AssetsInfoView() {
                 </div>
 
                 <div className="w-1/4 lg:w-1/5 h-10 lg:h-[55px]">
-                  <CTAPurple width="100%" height="100%" label="Swap" />
+                  <CTAPurple
+                    width="100%"
+                    height="100%"
+                    onPress={() => push(`/swap?inputCurrency=${singleTokenData.id}&outputCurrency=${AddressZero}`)}
+                    label={
+                      <span className="font-inter text-xs lg:text-lg text-[#fff] font-[500] capitalize">swap</span>
+                    }
+                  />
                 </div>
               </div>
 
