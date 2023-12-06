@@ -1,7 +1,7 @@
 import AssetsInfoView from "@/screens/analytics/AssetsInfoView";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { AiOutlineDollarCircle } from "react-icons/ai";
 import { FiTrendingUp } from "react-icons/fi";
 import { MdOutlineSwapCalls } from "react-icons/md";
