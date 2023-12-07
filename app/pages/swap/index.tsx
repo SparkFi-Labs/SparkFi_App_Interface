@@ -84,7 +84,7 @@ export default function Swap() {
   }, [firstTokenAddress, secondTokenAddress]);
 
   const swapTokens = useCallback(async () => {
-    const toastId = toast("Now swapping. Please wait", { type: "info", autoClose: 15000 });
+    const toastId = toast("Now swapping. Please wait", { type: "info", autoClose: 90000 });
 
     try {
       await swap();
