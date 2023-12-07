@@ -12,7 +12,7 @@ import { hexValue } from "@ethersproject/bytes";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { CHAINS } from "@/web3/chains";
 
-const SWAP_FEE = 999;
+const SWAP_FEE = 99;
 
 export const useRouterBestQuery = (tokenIn: string, tokenOut: string, amountIn: number) => {
   const [query, setQuery] = useState<any>(null);
