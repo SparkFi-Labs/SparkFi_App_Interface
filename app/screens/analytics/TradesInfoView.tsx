@@ -93,8 +93,12 @@ export default function TradesInfoView() {
                 <tr key={index} className="text-[#a3a4a5]">
                   <td className="font-inter">{swap.tokenIn.symbol}</td>
                   <td className="font-inter">{swap.tokenOut.symbol}</td>
-                  <td className="font-inter">{millify(parseFloat(swap.amountIn), { precision: 4 })}</td>
-                  <td className="font-inter">{millify(parseFloat(swap.amountOut), { precision: 4 })}</td>
+                  <td className="font-inter">
+                    {millify(parseFloat(swap.amountIn), { precision: 4 })} {swap.tokenIn.symbol}
+                  </td>
+                  <td className="font-inter">
+                    {millify(parseFloat(swap.amountOut), { precision: 4 })} {swap.tokenOut.symbol}
+                  </td>
                   <td>
                     <a
                       href={`${explorerUrl}/address/${swap.to}`}
