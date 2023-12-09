@@ -70,7 +70,7 @@ app.get("/tokenlist/:chainId", (req, res) => {
   try {
     const { chainId } = req.params;
     const parsedChainId = chainId.startsWith("0x") ? parseInt(chainId, 16) : parseInt(chainId);
-    const result = tokenList[parsedChainId];
+    const result = tokenList[parsedChainId].sort((a, b) => (a.symbol < b.symbol ? -1 : a.symbol > b.symbol ? 1 : 0));
     return res.status(200).json({ result });
   } catch (error) {
     return res.status(500).json({
