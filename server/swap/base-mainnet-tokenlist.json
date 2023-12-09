@@ -16,6 +16,22 @@
     "logoURI": "https://tokens.pancakeswap.finance/images/symbol/weth.png"
   },
   {
+    "address": "0x5C7e299CF531eb66f2A1dF637d37AbB78e6200C7",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/network/base/0x5C7e299CF531eb66f2A1dF637d37AbB78e6200C7.jpg",
+    "name": "Axelar Wrapped DAI",
+    "symbol": "axlDAI"
+  },
+  {
+    "address": "0x23ee2343B892b1BB63503a4FAbc840E0e2C6810f",
+    "chainId": 8453,
+    "decimals": 6,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/token-logos/network/base/0x23ee2343B892b1BB63503a4FAbc840E0e2C6810f.jpg",
+    "name": "Axelar",
+    "symbol": "AXL"
+  },
+  {
     "name": "Base tBTC v2",
     "symbol": "tbtc",
     "address": "0x236aa50979D5f3De3Bd1Eeb40E81137F22ab794b",
@@ -70,5 +86,133 @@
     "chainId": 8453,
     "decimals": 18,
     "logoURI": "https://tokens.pancakeswap.finance/images/base/0xE5393cdBC4Fe7B62F1d76A990Ca7Da17ad718313.png"
+  },
+  {
+    "address": "0x7c6b91D9Be155A6Db01f749217d76fF02A7227F2",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/network/base/0x7c6b91D9Be155A6Db01f749217d76fF02A7227F2.jpg",
+    "name": "Balancer",
+    "symbol": "BAL"
+  },
+  {
+    "address": "0x27D2DECb4bFC9C76F0309b8E88dec3a601Fe25a8",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/network/base/0x27D2DECb4bFC9C76F0309b8E88dec3a601Fe25a8.jpg",
+    "name": "Bald",
+    "symbol": "BALD"
+  },
+  {
+    "address": "0x09DeB3CF353186E7A84aBfD7434BF643f77eB686",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/network/base/0x09DeB3CF353186E7A84aBfD7434BF643f77eB686.jpg",
+    "name": "BASE BOT",
+    "symbol": "BOT"
+  },
+  {
+    "address": "0x9e1028F5F1D5eDE59748FFceE5532509976840E0",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/token-logos/network/base/0x9e1028F5F1D5eDE59748FFceE5532509976840E0.jpg",
+    "name": "Compound",
+    "symbol": "COMP"
+  },
+  {
+    "address": "0x2228363213E6E16e8ccC556Aa270a05f1F1A4E02",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/token-logos/network/base/0x2228363213E6E16e8ccC556Aa270a05f1F1A4E02.jpg",
+    "name": "Mochi and Toshi",
+    "symbol": "MOCHITOSHI"
+  },
+  {
+    "address": "0x22DC834C3Ff3e45f484bF24B9B07b851B981900f",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/token-logos/network/base/0x22DC834C3Ff3e45f484bF24B9B07b851B981900f.jpg",
+    "name": "Smudge Cat",
+    "symbol": "SMUDCAT"
+  },
+  {
+    "address": "0x7D49a065D17d6d4a55dc13649901fdBB98B2AFBA",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/token-logos/network/base/0x7D49a065D17d6d4a55dc13649901fdBB98B2AFBA.jpg",
+    "name": "SushiToken",
+    "symbol": "SUSHI"
+  },
+  {
+    "address": "0xAC1Bd2486aAf3B5C0fc3Fd868558b082a531B2B4",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/token-logos/network/base/0xAC1Bd2486aAf3B5C0fc3Fd868558b082a531B2B4.jpg",
+    "name": "Toshi",
+    "symbol": "TOSHI"
+  },
+  {
+    "address": "0x5A76A56ad937335168b30dF3AA1327277421C6Ae",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/token-logos/network/base/0x5A76A56ad937335168b30dF3AA1327277421C6Ae.jpg",
+    "name": "Vela Token",
+    "symbol": "VELA"
+  },
+  {
+    "address": "0x981D41C115a2d48Cb1215D13Bda8f989d407c9c5",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/token-logos/network/base/0x981D41C115a2d48Cb1215D13Bda8f989d407c9c5.jpg",
+    "name": "Xena",
+    "symbol": "XEN"
+  },
+  {
+    "address": "0x0FA70E156Cd3B03aC4080bfe55BD8AB50f5Bcb98",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/token-logos/network/base/0x0FA70E156Cd3B03aC4080bfe55BD8AB50f5Bcb98.jpg",
+    "name": "Youcoin",
+    "symbol": "YOU"
+  },
+  {
+    "address": "0x3bB4445D30AC020a84c1b5A8A2C6248ebC9779D0",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/list/master/logos/network/base/0x3bB4445D30AC020a84c1b5A8A2C6248ebC9779D0.jpg",
+    "name": "0x Protocol Token",
+    "symbol": "ZRX"
+  },
+  {
+    "logoURI": "https://assets.smold.app/api/token/8453/0x940181a94A35A4569E4529A3CDfB74e38FD98631/logo.svg",
+    "chainId": 8453,
+    "decimals": 18,
+    "name": "Aerodrome",
+    "symbol": "AERO",
+    "address": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+  },
+  {
+    "address": "0xB79DD08EA68A908A97220C76d19A6aA9cBDE4376",
+    "chainId": 8453,
+    "decimals": 6,
+    "name": "USD+",
+    "symbol": "USD+",
+    "logoURI": "https://assets.smold.app/api/token/8453/0xB79DD08EA68A908A97220C76d19A6aA9cBDE4376/logo.svg"
+  },
+  {
+    "logoURI": "https://assets.smold.app/api/token/8453/0xf34e0cff046e154CAfCae502C7541b9E5FD8C249/logo.svg",
+    "address": "0xf34e0cff046e154CAfCae502C7541b9E5FD8C249",
+    "chainId": 8453,
+    "name": "Thales DAO Token",
+    "symbol": "THALES",
+    "decimals": 18
+  },
+  {
+    "logoURI": "https://assets.smold.app/api/token/8453/0x368181499736d0c0CC614DBB145E2EC1AC86b8c6/logo.svg",
+    "address": "0x368181499736d0c0CC614DBB145E2EC1AC86b8c6",
+    "chainId": 8453,
+    "name": "LUSD Stablecoin",
+    "symbol": "LUSD",
+    "decimals": 18
   }
 ]

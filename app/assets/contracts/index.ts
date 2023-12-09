@@ -36,7 +36,7 @@ export const launchpadPaymentTokens: PaymentTokens = {
 };
 export const exchangeRouterContracts: ChainContracts = {
   84531: "0xd6351CC74A04F9472dFBA0b5601d5Bb0d93F4E22",
-  8453: ""
+  8453: "0x8160C59218be97F301a857cD8E72e5d3446621df"
 };
 export const WETH: ChainContracts = {
   84531: "0x4200000000000000000000000000000000000006",
