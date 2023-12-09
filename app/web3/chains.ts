@@ -28,7 +28,7 @@ export const TESTNET_CHAINS: ChainConfig = {
 
 export const MAINNET_CHAINS: ChainConfig = {
   8453: {
-    urls: ["https://base.publicnode.com"],
+    urls: ["https://base.llamarpc.com"],
     name: "Base",
     blockExplorerUrls: ["https://basescan.org"],
     nativeCurrency: {

@@ -15,7 +15,7 @@ export default function SwapListItem({ imgURI, tokenAddress }: SwapListItemProps
     <div className="w-full flex justify-between items-center px-2 py-2 h-full">
       <div className="flex justify-start items-center gap-2">
         <div className="avatar">
-          <div className="w-6 md:w-8">
+          <div className="w-6 md:w-8 rounded-full">
             <img src={imgURI} alt={tokenDetails?.symbol} />
           </div>
         </div>
