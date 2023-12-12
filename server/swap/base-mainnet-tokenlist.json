@@ -214,5 +214,13 @@
     "name": "LUSD Stablecoin",
     "symbol": "LUSD",
     "decimals": 18
+  },
+  {
+    "name": "PancakeSwap Token",
+    "symbol": "CAKE",
+    "address": "0x3055913c90Fcc1A6CE9a358911721eEb942013A1",
+    "chainId": 8453,
+    "decimals": 18,
+    "logoURI": "https://tokens.pancakeswap.finance/images/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png"
   }
 ]
