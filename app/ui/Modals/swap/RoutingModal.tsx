@@ -59,7 +59,7 @@ const RoutingModal = forwardRef<HTMLInputElement, RoutingModalProps>(
             </div>
             <div className="flex justify-between items-center gap-2 px-2 py-2 rounded-md w-full overflow-auto">
               <div className="avatar">
-                <div className="w-6 md:w-9">
+                <div className="w-6 md:w-9 rounded-full">
                   <img src={fToken?.logoURI} alt={fToken?.symbol} />
                 </div>
               </div>
@@ -82,7 +82,7 @@ const RoutingModal = forwardRef<HTMLInputElement, RoutingModalProps>(
                 </div>
               ))}
               <div className="avatar">
-                <div className="w-6 md:w-9">
+                <div className="w-6 md:w-9 rounded-full">
                   <img src={sToken?.logoURI} alt={sToken?.symbol} />
                 </div>
               </div>
